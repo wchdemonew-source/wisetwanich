@@ -1,0 +1,1319 @@
+<!DOCTYPE html>
+<html lang="th" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>บริษัท วิเศษวานิช คอนสตรัคชั่น จำกัด</title>
+    <meta name="description" content="บริษัท วิเศษวานิช คอนสตรัคชั่น จำกัด รับเหมารื้อถอนอาคาร บ้าน โรงงาน โกดัง และโครงสร้างเหล็กทุกชนิด บริการทั่วประเทศไทย ทีมวิศวกรและช่างผู้ชำนาญการ มาตรฐานความปลอดภัยสูง ประเมินราคาฟรี">
+    <link rel="icon" type="image/png" href="./img/favicon.png">
+    <link rel="apple-touch-icon" href="./img/favicon.png">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Kanit', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            200: '#bbf7d0',
+                            300: '#86efac',
+                            400: '#4ade80',
+                            500: '#22c55e',
+                            600: '#16a34a',
+                            700: '#15803d',
+                            800: '#166534',
+                            900: '#14532d', // Dark Forest Green
+                            950: '#052e16',
+                        },
+                        accent: {
+                            100: '#d1fae5',
+                            300: '#6ee7b7',
+                            500: '#10b981', // Emerald Green for CTAs
+                            600: '#059669',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .hero-pattern {
+            background-color: #14532d;
+            /* Green overlay on the construction image */
+            background-image: linear-gradient(rgba(20, 83, 45, 0.75), rgba(5, 46, 22, 0.9)), url('https://images.unsplash.com/photo-1503387762-592deb58ef4e?q=80&w=2831&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+        .fade-in {
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-6px); }
+            40%, 80% { transform: translateX(6px); }
+        }
+        .animate-shake {
+            animation: shake 0.4s ease-in-out;
+        }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f0fdf4; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #86efac; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #16a34a; 
+        }
+    </style>
+</head>
+<body class="font-sans text-gray-800 antialiased bg-white">
+
+    <nav class="fixed w-full z-50 bg-white/95 backdrop-blur-sm shadow-md transition-all duration-300 border-b border-brand-50" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-24">
+                <!-- Logo -->
+                <div class="flex items-center min-w-0 mr-2 cursor-pointer" onclick="window.scrollTo(0,0)">
+                    <img src="img/favicon.png" alt="โลโก้ วิเศษวานิช คอนสตรัคชั่น" class="w-9 h-9 sm:w-12 sm:h-12 md:w-14 md:h-14 mr-2 sm:mr-3 flex-shrink-0 object-contain">
+                    <div class="flex flex-col justify-center pt-1 min-w-0">
+                        <h1 class="font-bold text-xs sm:text-lg md:text-2xl text-brand-800 tracking-tight leading-tight sm:leading-none mb-0.5 sm:mb-1.5 truncate">บริษัท วิเศษวานิช คอนสตรัคชั่น จำกัด</h1>
+                        <p class="hidden sm:block text-[9px] md:text-[11px] text-brand-700 font-bold tracking-[0.15em] leading-none truncate">WISETWANICH CONSTRUCTION CO., LTD.</p>
+                    </div>
+                </div>
+
+                <!-- Desktop Menu -->
+                <div class="hidden lg:flex space-x-8 items-center">
+                    <a href="#history" data-i18n="nav_history" class="text-gray-600 hover:text-brand-600 font-medium transition-colors">ความเป็นมา</a>
+                    <a href="#about" data-i18n="nav_about" class="text-gray-600 hover:text-brand-600 font-medium transition-colors">เกี่ยวกับเรา</a>
+                    <a href="#portfolio" data-i18n="nav_portfolio" class="text-gray-600 hover:text-brand-600 font-medium transition-colors">ผลงาน</a>
+                    <!-- ปิด "รีวิว" ไว้ก่อนชั่วคราว (เปิดใช้เมื่อพร้อมเปิด section รีวิวอีกครั้ง) -->
+                    <button type="button" class="lang-toggle-btn flex items-center gap-1 text-xs font-bold text-white bg-brand-600 hover:bg-brand-700 rounded-full px-3 py-1.5 transition-colors" title="เปลี่ยนภาษา / Switch language">
+                        <i class="fas fa-globe text-[10px]"></i> <span class="lang-toggle-label">EN</span>
+                    </button>
+                    <a href="#contact" class="bg-brand-600 hover:bg-brand-700 text-white px-6 py-2.5 rounded-full font-medium transition-all transform hover:-translate-y-0.5 shadow-md flex items-center gap-2">
+                        <i class="fas fa-comment-dots"></i> <span data-i18n="nav_cta">ประเมินราคาฟรี</span>
+                    </a>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="lg:hidden flex items-center gap-2 flex-shrink-0">
+                    <button type="button" class="lang-toggle-btn flex items-center gap-1 text-xs font-bold text-white bg-brand-600 hover:bg-brand-700 rounded-full px-2.5 py-1.5 transition-colors" title="เปลี่ยนภาษา / Switch language">
+                        <i class="fas fa-globe text-[10px]"></i> <span class="lang-toggle-label">EN</span>
+                    </button>
+                    <button id="mobile-menu-btn" class="text-gray-600 hover:text-brand-600 focus:outline-none p-2">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Panel -->
+        <div id="mobile-menu" class="hidden lg:hidden bg-white border-t border-brand-100 shadow-xl absolute w-full">
+            <div class="px-4 pt-2 pb-6 space-y-2">
+                <a href="#history" data-i18n="nav_history" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:text-brand-600 hover:bg-brand-50">ความเป็นมา</a>
+                <a href="#about" data-i18n="nav_about" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:text-brand-600 hover:bg-brand-50">เกี่ยวกับเรา</a>
+                <a href="#portfolio" data-i18n="nav_portfolio" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:text-brand-600 hover:bg-brand-50">ผลงาน</a>
+                <!-- ปิด "รีวิว" ไว้ก่อนชั่วคราว (เปิดใช้เมื่อพร้อมเปิด section รีวิวอีกครั้ง) -->
+                <a href="#contact" data-i18n="nav_cta" class="block px-3 py-3 mt-4 text-center rounded-md text-base font-medium bg-brand-600 text-white hover:bg-brand-700">ประเมินราคาฟรี</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero-pattern min-h-[90vh] flex items-center relative pt-20">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full pt-10 pb-20 text-center">
+
+            <div class="flex justify-center fade-in">
+                <span class="inline-block py-1 px-3 rounded-full bg-brand-500/20 border border-brand-400/50 text-brand-200 font-medium text-sm mb-8 backdrop-blur-sm">
+                    <i class="fas fa-check-circle mr-1"></i> บริการทั่วประเทศไทย 77 จังหวัด
+                </span>
+            </div>
+
+            <!-- Logo Mark -->
+            <div class="flex justify-center mb-6 fade-in">
+                <div class="w-24 h-24 rounded-full bg-white/95 shadow-[0_2px_20px_rgba(0,0,0,0.25)] flex items-center justify-center p-3">
+                    <img src="img/favicon.png" alt="โลโก้ วิเศษวานิช คอนสตรัคชั่น" class="w-full h-full object-contain">
+                </div>
+            </div>
+
+            <p class="text-brand-300 font-semibold tracking-[0.2em] text-xs sm:text-sm uppercase mb-3 fade-in">
+                Wisetwanich Construction Co., Ltd.
+            </p>
+            <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold text-white leading-tight mb-8 fade-in">
+                บริษัท วิเศษวานิช คอนสตรัคชั่น จำกัด
+            </h2>
+
+            <p class="text-lg md:text-xl text-brand-50 mb-10 leading-relaxed max-w-2xl mx-auto fade-in">
+                 บริษัทดำเนินธุรกิจ รับเหมา รื้อถอน บ้าน อาคาร โรงงาน โกดัง และโครงสร้างเหล็กทุกชนิด มีจุดมุ่งมั่นและตั้งใจในการดำเนินธุรกิจในด้านการรื้อถอน พร้อมทั้งผลักดันให้พนักงานเข้ารับการฝึกอบรมหลักสูตรต่าง ๆ ที่เกี่ยวข้องกับการทำงาน
+            </p>
+
+            <div class="flex flex-col sm:flex-row gap-4 justify-center fade-in">
+                <a href="#contact" class="bg-brand-600 hover:bg-brand-500 text-white text-center px-8 py-4 rounded-full font-semibold text-lg transition-all shadow-lg shadow-brand-900/30 flex justify-center items-center gap-2">
+                    <i class="fas fa-clipboard-list"></i> ปรึกษาฟรี ไม่มีค่าใช้จ่าย
+                </a>
+                <a href="#history" class="bg-transparent hover:bg-white text-white hover:text-brand-900 border-2 border-white text-center px-8 py-4 rounded-full font-semibold text-lg transition-all backdrop-blur-sm flex justify-center items-center gap-2">
+                    ความเป็นมาของเรา <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Section: ความเป็นมาของบริษัท (History) -->
+    <section id="history" class="py-20 relative overflow-hidden" style="background-color: #f0f4f0;">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-12 lg:gap-20">
+                
+                <!-- ฝั่งซ้าย: ข้อความ -->
+                <div class="w-full md:w-1/2">
+                    <h2 class="text-2xl md:text-3xl font-extrabold text-brand-900 mb-2">บริษัท วิเศษวานิช คอนสตรัคชั่น จำกัด</h2>
+                    <h3 data-i18n="heading_history" class="text-xl md:text-2xl font-bold text-brand-600 mb-4">ความเป็นมาของบริษัท</h3>
+                    <div class="w-16 h-1.5 bg-brand-400 mb-8 rounded-full"></div>
+                    
+                    <div class="space-y-6 text-brand-950 font-medium leading-relaxed">
+                        <p>
+                            ปัจจุบันธุรกิจรื้อถอน มีการแข่งขันเป็นจำนวนมาก ทั้งนี้บริษัทมีความพร้อมทั้งในด้านบุคลากรที่มีประสบการณ์ทำงานสูง ทีมวิศวกร เจ้าหน้าที่รักษาความปลอดภัย (จป.) และระบบการบริหารจัดการหน้างาน เราจึงมั่นใจถึงศักยภาพและคุณภาพของผลงานที่จะมอบให้กับลูกค้าของเราต่อไป
+                        </p>
+                    </div>
+
+                    <a href="about.html" class="inline-flex items-center gap-1.5 mt-6 text-brand-600 hover:text-brand-800 font-semibold transition-colors group">
+                        <span data-i18n="read_more">อ่านเพิ่มเติม</span> <i class="fas fa-arrow-right text-sm transition-transform group-hover:translate-x-1"></i>
+                    </a>
+                </div>
+
+                <!-- ฝั่งขวา: รูปภาพวงกลมและแถบสี -->
+                <div class="w-full md:w-1/2 relative mt-10 md:mt-0 flex justify-center md:justify-end">
+                    <!-- แถบสีเขียวอ่อนด้านหลัง -->
+                    <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[120%] h-16 sm:h-20 bg-brand-400 rounded-full z-0 opacity-90 blur-[1px]"></div>
+                    
+                    <!-- รูปภาพวงกลม -->
+                    <div class="relative z-10 w-72 h-72 sm:w-80 sm:h-80 lg:w-[400px] lg:h-[400px] rounded-full p-2 bg-brand-600 shadow-xl">
+                        <div class="w-full h-full rounded-full overflow-hidden border-4 border-brand-600 relative">
+                            <img src="img/banner-w.png" 
+                                 alt="การดำเนินงานก่อสร้างและรื้อถอน" 
+                                 class="w-full h-full object-cover">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Section: เกี่ยวกับเรา (About Us) -->
+    <section id="about" class="py-20 relative bg-white overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h3 class="text-brand-600 font-semibold tracking-wide uppercase mb-2">About Us</h3>
+                <h2 data-i18n="nav_about" class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">เกี่ยวกับเรา</h2>
+                <div class="w-20 h-1 bg-brand-500 mx-auto rounded-full mb-6"></div>
+                <p class="text-gray-600 text-lg leading-relaxed">
+                    บริษัท วิเศษวานิช คอนสตรัคชั่น จำกัด ให้บริการรับสร้างบ้านและรื้อถอนอาคารครบวงจร
+                    ด้วยทีมวิศวกรและช่างผู้ชำนาญการ ยึดมั่นในมาตรฐานความปลอดภัยและคุณภาพงานเป็นสำคัญ
+                    พร้อมดูแลลูกค้าตั้งแต่ต้นจนจบโครงการอย่างใกล้ชิด
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="bg-white rounded-2xl shadow-md border border-gray-100 p-6 text-center hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                    <div class="w-14 h-14 rounded-full bg-brand-50 text-brand-600 flex items-center justify-center mx-auto mb-4 text-2xl">
+                        <i class="fas fa-medal"></i>
+                    </div>
+                    <h4 class="font-bold text-gray-900 mb-2">มาตรฐานงานก่อสร้าง</h4>
+                    <p class="text-gray-500 text-sm leading-relaxed">ควบคุมงานโดยวิศวกรผู้เชี่ยวชาญทุกขั้นตอน ตามหลักวิศวกรรมและกฎหมายควบคุมอาคาร</p>
+                </div>
+                <div class="bg-white rounded-2xl shadow-md border border-gray-100 p-6 text-center hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                    <div class="w-14 h-14 rounded-full bg-brand-50 text-brand-600 flex items-center justify-center mx-auto mb-4 text-2xl">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h4 class="font-bold text-gray-900 mb-2">ทีมงานมืออาชีพ</h4>
+                    <p class="text-gray-500 text-sm leading-relaxed">ทีมช่างและแรงงานผ่านการฝึกอบรมอย่างสม่ำเสมอ เน้นความปลอดภัยในการทำงานเป็นอันดับหนึ่ง</p>
+                </div>
+                <div class="bg-white rounded-2xl shadow-md border border-gray-100 p-6 text-center hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                    <div class="w-14 h-14 rounded-full bg-brand-50 text-brand-600 flex items-center justify-center mx-auto mb-4 text-2xl">
+                        <i class="fas fa-hand-holding-usd"></i>
+                    </div>
+                    <h4 class="font-bold text-gray-900 mb-2">ราคายุติธรรม</h4>
+                    <p class="text-gray-500 text-sm leading-relaxed">ประเมินราคาโปร่งใส ไม่มีค่าใช้จ่ายแอบแฝง พร้อมสัญญาว่าจ้างที่ชัดเจนเป็นธรรม</p>
+                </div>
+                <div class="bg-white rounded-2xl shadow-md border border-gray-100 p-6 text-center hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                    <div class="w-14 h-14 rounded-full bg-brand-50 text-brand-600 flex items-center justify-center mx-auto mb-4 text-2xl">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <h4 class="font-bold text-gray-900 mb-2">บริการหลังการขาย</h4>
+                    <p class="text-gray-500 text-sm leading-relaxed">รับประกันโครงสร้างและงานก่อสร้าง พร้อมทีมงานดูแลหลังส่งมอบงานอย่างต่อเนื่อง</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section: ขั้นตอนการทำงาน (Process) -->
+    <section id="process" class="py-20 relative overflow-hidden" style="background-color: #f0f4f0;">
+        <!-- เอฟเฟกต์วงกลมพื้นหลังจางๆ -->
+        <div class="absolute inset-0 overflow-hidden pointer-events-none z-0">
+            <div class="absolute top-[5%] -right-10 w-72 h-72 bg-brand-200/40 rounded-full mix-blend-multiply blur-3xl"></div>
+            <div class="absolute bottom-[5%] -left-10 w-72 h-72 bg-brand-300/30 rounded-full mix-blend-multiply blur-3xl"></div>
+        </div>
+
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h3 class="text-brand-600 font-semibold tracking-wide uppercase mb-2">Our Process</h3>
+                <h2 data-i18n="heading_process" class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">ขั้นตอนการทำงาน</h2>
+                <div class="w-20 h-1 bg-brand-500 mx-auto rounded-full mb-6"></div>
+                <p class="text-gray-600 text-lg">ทุกขั้นตอนดำเนินงานอย่างเป็นระบบ ปลอดภัย และโปร่งใส เพื่อความมั่นใจของลูกค้า</p>
+            </div>
+
+            <!-- Timeline -->
+            <div class="relative">
+                <!-- เส้นเชื่อมกลาง (desktop) -->
+                <div class="hidden md:block absolute left-1/2 top-4 bottom-4 w-1 bg-gradient-to-b from-brand-300 via-brand-500 to-brand-700 rounded-full -translate-x-1/2"></div>
+                <!-- เส้นเชื่อมซ้าย (mobile) -->
+                <div class="md:hidden absolute left-7 top-4 bottom-4 w-1 bg-gradient-to-b from-brand-300 via-brand-500 to-brand-700 rounded-full"></div>
+
+                <div class="space-y-10 md:space-y-0">
+
+                    <!-- Step 1 -->
+                    <div class="relative flex flex-col md:flex-row items-start md:items-center md:justify-between">
+                        <div class="md:w-[45%] md:text-right md:pr-10 pl-20 md:pl-0">
+                            <div class="bg-white rounded-2xl shadow-md border border-brand-100 p-6 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                                <h4 class="text-lg font-bold text-brand-800 mb-2">เข้าสำรวจอาคารและพื้นที่โดยรอบ</h4>
+                                <p class="text-gray-600 text-sm leading-relaxed">ทีมงานเข้าสำรวจพื้นที่รื้อถอน วางแผนและแจ้งงบประมาณต่อลูกค้า เพื่อประกอบการตัดสินใจและจัดเตรียมงบประมาณ</p>
+                            </div>
+                        </div>
+                        <div class="absolute left-0 md:left-1/2 top-0 md:top-1/2 md:-translate-x-1/2 md:-translate-y-1/2 w-14 h-14 rounded-full bg-brand-600 border-4 border-white shadow-lg flex items-center justify-center text-white font-bold text-xl z-10">1</div>
+                        <div class="hidden md:block md:w-[45%]"></div>
+                    </div>
+
+                    <!-- Step 2 -->
+                    <div class="relative flex flex-col md:flex-row items-start md:items-center md:justify-between mt-10 md:mt-0">
+                        <div class="hidden md:block md:w-[45%]"></div>
+                        <div class="absolute left-0 md:left-1/2 top-0 md:top-1/2 md:-translate-x-1/2 md:-translate-y-1/2 w-14 h-14 rounded-full bg-brand-600 border-4 border-white shadow-lg flex items-center justify-center text-white font-bold text-xl z-10">2</div>
+                        <div class="md:w-[45%] md:pl-10 pl-20">
+                            <div class="bg-white rounded-2xl shadow-md border border-brand-100 p-6 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                                <h4 class="text-lg font-bold text-brand-800 mb-2">การประสานงาน</h4>
+                                <p class="text-gray-600 text-sm leading-relaxed">ทีมงานประสานงานร่วมกับลูกค้า ในส่วนการขอใบอนุญาตรื้อถอน และการติดต่อกับหน่วยราชการต่างๆ เพื่อง่ายต่อการทำเอกสาร ช่วยลดความผิดพลาดและเพิ่มความรวดเร็วให้กับลูกค้า ทำให้ลูกค้ามั่นใจในระบบการทำงาน</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 3 -->
+                    <div class="relative flex flex-col md:flex-row items-start md:items-center md:justify-between mt-10 md:mt-0">
+                        <div class="md:w-[45%] md:text-right md:pr-10 pl-20 md:pl-0">
+                            <div class="bg-white rounded-2xl shadow-md border border-brand-100 p-6 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                                <h4 class="text-lg font-bold text-brand-800 mb-2">การวางแผนและการเตรียมพื้นที่</h4>
+                                <p class="text-gray-600 text-sm leading-relaxed">วางแนวรั้ว ตั้งร้าน เครื่องป้องกันอุบัติเหตุและฝุ่น ร่วมไปถึงแจ้งเพื่อนบ้าน หรือบริเวณชุมชนใกล้เคียง เนื่องจากอาจมีเสียงดังและฝุ่นรบกวนในบริเวณนั้น</p>
+                            </div>
+                        </div>
+                        <div class="absolute left-0 md:left-1/2 top-0 md:top-1/2 md:-translate-x-1/2 md:-translate-y-1/2 w-14 h-14 rounded-full bg-brand-600 border-4 border-white shadow-lg flex items-center justify-center text-white font-bold text-xl z-10">3</div>
+                        <div class="hidden md:block md:w-[45%]"></div>
+                    </div>
+
+                    <!-- Step 4 -->
+                    <div class="relative flex flex-col md:flex-row items-start md:items-center md:justify-between mt-10 md:mt-0">
+                        <div class="hidden md:block md:w-[45%]"></div>
+                        <div class="absolute left-0 md:left-1/2 top-0 md:top-1/2 md:-translate-x-1/2 md:-translate-y-1/2 w-14 h-14 rounded-full bg-brand-600 border-4 border-white shadow-lg flex items-center justify-center text-white font-bold text-xl z-10">4</div>
+                        <div class="md:w-[45%] md:pl-10 pl-20">
+                            <div class="bg-white rounded-2xl shadow-md border border-brand-100 p-6 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                                <h4 class="text-lg font-bold text-brand-800 mb-2">การรื้อถอน</h4>
+                                <p class="text-gray-600 text-sm leading-relaxed">ดำเนินการรื้อถอนตามแผนที่วางไว้ โดยรื้อชิ้นส่วนที่สามารถใช้ประโยชน์หรือขายได้ออกก่อน และรื้อชิ้นส่วนที่ไม่ใช่โครงสร้างหลักของอาคาร ทั้งนี้ในส่วนของโครงสร้างหลักที่ต้องใช้เครื่องจักรในการรื้อถอนให้อยู่ภายใต้การควบคุมของวิศวกรพร้อมเน้นย้ำความปลอดภัยในการทำงาน</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 5 -->
+                    <div class="relative flex flex-col md:flex-row items-start md:items-center md:justify-between mt-10 md:mt-0">
+                        <div class="md:w-[45%] md:text-right md:pr-10 pl-20 md:pl-0">
+                            <div class="bg-white rounded-2xl shadow-md border border-brand-100 p-6 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                                <h4 class="text-lg font-bold text-brand-800 mb-2">การส่งมอบงาน</h4>
+                                <p class="text-gray-600 text-sm leading-relaxed">ทำการขนย้ายเศษวัสดุปูน และเศษวัสดุอื่นๆ โดยเก็บขยะบรรจุภัณฑ์ที่มีการคลุมผ้าใบ และทำการปรับพื้นที่ให้พร้อมสำหรับการก่อสร้างต่อไป</p>
+                            </div>
+                        </div>
+                        <div class="absolute left-0 md:left-1/2 top-0 md:top-1/2 md:-translate-x-1/2 md:-translate-y-1/2 w-14 h-14 rounded-full bg-brand-600 border-4 border-white shadow-lg flex items-center justify-center text-white font-bold text-xl z-10">5</div>
+                        <div class="hidden md:block md:w-[45%]"></div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section: ใบรับรองและการฝึกอบรมพนักงาน -->
+    <section id="training" class="py-20 relative bg-white overflow-hidden">
+        <!-- เอฟเฟกต์สีเขียวจางๆ พื้นหลัง -->
+        <div class="absolute inset-0 overflow-hidden pointer-events-none z-0">
+            <div class="absolute top-[10%] left-[10%] w-64 h-64 bg-brand-300/30 rounded-full mix-blend-multiply blur-3xl"></div>
+            <div class="absolute top-[40%] right-[10%] w-80 h-80 bg-brand-200/40 rounded-full mix-blend-multiply blur-3xl"></div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+                
+                <!-- ฝั่งซ้าย: Carousel ใบประกาศนียบัตร (รองรับจำนวนใบไม่จำกัด แก้ได้ที่ array `certificates` ในสคริปต์ด้านล่าง) -->
+                <div class="relative px-2 sm:px-8 lg:px-4" id="cert-carousel">
+                    <div class="overflow-hidden rounded-3xl shadow-xl border border-gray-100 bg-white">
+                        <div id="cert-track" class="flex transition-transform duration-500 ease-out">
+                            <!-- สไลด์ใบประกาศนียบัตรถูกสร้างอัตโนมัติด้วย JavaScript -->
+                        </div>
+                    </div>
+
+                    <!-- ปุ่มเลื่อนซ้าย-ขวา -->
+                    <button id="cert-prev" aria-label="ใบก่อนหน้า" class="absolute top-[40%] -left-1 sm:left-1 -translate-y-1/2 w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-white hover:bg-brand-50 text-brand-700 shadow-md border border-brand-100 flex items-center justify-center transition-all z-10">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button id="cert-next" aria-label="ใบถัดไป" class="absolute top-[40%] -right-1 sm:right-1 -translate-y-1/2 w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-white hover:bg-brand-50 text-brand-700 shadow-md border border-brand-100 flex items-center justify-center transition-all z-10">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+
+                    <!-- จุดบอกตำแหน่ง -->
+                    <div id="cert-dots" class="flex justify-center items-center gap-2 mt-5"></div>
+                </div>
+
+                <!-- ฝั่งขวา: กล่องข้อความการฝึกอบรมพนักงาน -->
+                <div class="bg-[#eef8f0] border-2 border-[#c2e2c8] rounded-3xl p-6 sm:p-8 lg:p-10 shadow-lg w-full transform transition duration-300 hover:shadow-xl relative overflow-hidden">
+                    <!-- ตกแต่งมุมกล่อง -->
+                    <div class="absolute -top-10 -right-10 w-32 h-32 bg-brand-100 rounded-full opacity-50 blur-2xl"></div>
+                    
+                    <h3 class="text-2xl sm:text-3xl font-extrabold text-[#1a5b28] mb-6 flex items-center">
+                        <span data-i18n="heading_training">การฝึกอบรมพนักงาน</span> <span class="ml-3 text-3xl">🚜</span>
+                    </h3>
+                    
+                    <ul class="space-y-4 text-[#1a5b28] font-semibold text-base sm:text-lg">
+                        <li class="flex items-start">
+                            <span class="text-brand-600 mr-3 mt-1.5 flex-shrink-0"><i class="fas fa-circle text-[8px]"></i></span>
+                            <span class="flex-1 leading-relaxed text-gray-800">การฝึกอบรมการใช้และบำรุงรักษาเครื่องจักรกลแบคโฮ <i class="fas fa-tractor ml-1 text-brand-600"></i></span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-brand-600 mr-3 mt-1.5 flex-shrink-0"><i class="fas fa-circle text-[8px]"></i></span>
+                            <span class="flex-1 leading-relaxed text-gray-800">การทบทวนการทำงานเกี่ยวกับปั้นจั่น ชนิดปั้นจั่นเคลื่อนที่ <i class="fas fa-truck-pickup ml-1 text-brand-600"></i></span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-brand-600 mr-3 mt-1.5 flex-shrink-0"><i class="fas fa-circle text-[8px]"></i></span>
+                            <span class="flex-1 leading-relaxed text-gray-800">ความปลอดภัยการใช้งานรถฟอร์คลิฟท์ เครื่องยนต์ดีเซล <i class="fas fa-warehouse ml-1 text-brand-600"></i></span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-brand-600 mr-3 mt-1.5 flex-shrink-0"><i class="fas fa-circle text-[8px]"></i></span>
+                            <span class="flex-1 leading-relaxed text-gray-800">หลักเกณฑ์ และวิธีการปฏิบัติหน้าที่ผู้บังคับปั้นจั่นชนิดเคลื่อนที่ <i class="fas fa-truck-pickup ml-1 text-brand-600"></i></span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-brand-600 mr-3 mt-1.5 flex-shrink-0"><i class="fas fa-circle text-[8px]"></i></span>
+                            <span class="flex-1 leading-relaxed text-gray-800">การปฐมพยาบาลเบื้องต้นและการเคลื่อนย้ายผู้บาดเจ็บฉุกเฉิน <i class="fas fa-user-doctor ml-1 text-brand-600"></i></span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-brand-600 mr-3 mt-1.5 flex-shrink-0"><i class="fas fa-circle text-[8px]"></i></span>
+                            <span class="flex-1 leading-relaxed text-gray-800">ความปลอดภัยในการทำงานเกี่ยวกับความร้อนประกายไฟ <i class="fas fa-fire ml-1 text-brand-600"></i></span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-brand-600 mr-3 mt-1.5 flex-shrink-0"><i class="fas fa-circle text-[8px]"></i></span>
+                            <span class="flex-1 leading-relaxed text-gray-800">การทำงานบนที่สูง <i class="fas fa-person-falling ml-1 text-brand-600"></i></span>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+            
+        </div>
+    </section>
+
+    <section id="portfolio" class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <h3 class="text-brand-600 font-semibold tracking-wide uppercase mb-2">Our Portfolio</h3>
+                <h2 data-i18n="heading_portfolio" class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">ผลงานที่ผ่านมาของเรา</h2>
+                <div class="w-20 h-1 bg-brand-500 mx-auto rounded-full mb-6"></div>
+            </div>
+
+            <!-- ค้นหา + กรองหมวดหมู่ผลงาน -->
+            <div class="flex flex-col sm:flex-row gap-3 mb-8">
+                <div class="relative flex-1">
+                    <i class="fas fa-search absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i>
+                    <input id="portfolio-search" type="text" placeholder="ค้นหาผลงาน เช่น ชื่อโครงการ, สถานที่, ลูกค้า..."
+                        class="w-full pl-11 pr-4 py-3 rounded-full border border-gray-200 focus:border-brand-400 focus:ring-2 focus:ring-brand-100 outline-none text-sm transition">
+                </div>
+                <select id="portfolio-category-filter"
+                    class="sm:w-56 px-4 py-3 rounded-full border border-gray-200 focus:border-brand-400 focus:ring-2 focus:ring-brand-100 outline-none text-sm bg-white transition">
+                    <option value="">ทุกหมวดหมู่</option>
+                </select>
+            </div>
+
+            <!-- Gallery Grid: render อัตโนมัติจากฐานข้อมูล Supabase (เพิ่ม/แก้/ลบผลงานที่ backend.html) -->
+            <div id="portfolio-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-5"></div>
+        </div>
+    </section>
+
+
+    <!-- <section id="reviews" class="py-24 bg-brand-50 border-t border-brand-100 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h3 class="text-brand-600 font-semibold tracking-wide uppercase mb-2">Testimonials</h3>
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">เสียงตอบรับจากลูกค้า</h2>
+                <div class="w-20 h-1 bg-brand-500 mx-auto rounded-full mb-6"></div>
+                <p class="text-gray-600 text-lg mb-8">ความไว้วางใจจากลูกค้า คือเครื่องการันตีคุณภาพและความใส่ใจในทุกขั้นตอนการทำงานของเรา</p>
+                
+                <button onclick="openReviewModal()" class="bg-white border-2 border-brand-600 text-brand-700 hover:bg-brand-600 hover:text-white px-6 py-3 rounded-full font-semibold transition-all shadow-sm hover:shadow-md flex items-center gap-2 mx-auto">
+                    <i class="fas fa-star text-yellow-400"></i> เขียนรีวิวของคุณ
+                </button>
+            </div>
+
+            <div id="reviews-container" class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-brand-100 relative mt-6">
+                    <div class="absolute -top-6 left-8 w-12 h-12 bg-brand-100 text-brand-600 rounded-full flex items-center justify-center text-xl shadow-sm border-4 border-white">
+                        <i class="fas fa-quote-left"></i>
+                    </div>
+                    <div class="flex text-yellow-400 mb-4 mt-2 text-sm">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <p class="text-gray-600 mb-6 italic leading-relaxed">
+                        "ประทับใจทีมงานวิเศษวานิชมากครับ สร้างบ้านเสร็จก่อนกำหนด วัสดุที่ใช้ตรงตามสเปกที่ตกลงกันไว้ทั้งหมด วิศวกรคุมงานให้คำแนะนำดีมาก แก้ปัญหาหน้างานได้รวดเร็ว แนะนำเลยครับสำหรับคนที่กำลังมองหาบริษัทรับสร้างบ้าน"
+                    </p>
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-full bg-brand-50 text-brand-700 flex items-center justify-center font-bold text-xl">ส</div>
+                        <div>
+                            <h4 class="font-bold text-gray-900">คุณสมชาย เจริญทรัพย์</h4>
+                            <p class="text-xs text-gray-500">บริการ: รับสร้างบ้านเดี่ยว 2 ชั้น</p>
+                        </div>
+                    </div>
+                </div>
+
+              
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-brand-100 relative mt-6">
+                    <div class="absolute -top-6 left-8 w-12 h-12 bg-brand-100 text-brand-600 rounded-full flex items-center justify-center text-xl shadow-sm border-4 border-white">
+                        <i class="fas fa-quote-left"></i>
+                    </div>
+                    <div class="flex text-yellow-400 mb-4 mt-2 text-sm">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <p class="text-gray-600 mb-6 italic leading-relaxed">
+                        "จ้างมารื้อถอนอาคารพาณิชย์เก่า 3 คูหา ตอนแรกกังวลเรื่องฝุ่นและเสียงรบกวนเพื่อนบ้าน แต่ทีมงานจัดการดีมาก มีการฉีดน้ำกันฝุ่น กั้นรั้วเรียบร้อย ทำงานเป็นระบบ รวดเร็ว และเคลียร์เศษปูนออกหมดจดจนหน้าดินเรียบเนียน"
+                    </p>
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-full bg-brand-50 text-brand-700 flex items-center justify-center font-bold text-xl">ว</div>
+                        <div>
+                            <h4 class="font-bold text-gray-900">คุณวิภาดา มั่นคง</h4>
+                            <p class="text-xs text-gray-500">บริการ: รับรื้อถอนอาคารพาณิชย์</p>
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-brand-100 relative mt-6">
+                    <div class="absolute -top-6 left-8 w-12 h-12 bg-brand-100 text-brand-600 rounded-full flex items-center justify-center text-xl shadow-sm border-4 border-white">
+                        <i class="fas fa-quote-left"></i>
+                    </div>
+                    <div class="flex text-yellow-400 mb-4 mt-2 text-sm">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <p class="text-gray-600 mb-6 italic leading-relaxed">
+                        "ให้ทางบริษัทมารีโนเวทต่อเติมหลังบ้านเป็นห้องครัวสไตล์มินิมอล ทำงานละเอียดมาก เก็บงานเนี๊ยบ ที่สำคัญคือไม่ทิ้งงาน งบไม่บานปลาย ช่างพูดจาสุภาพ ทำความสะอาดหน้างานให้ทุกวันหลังเลิกงาน ประทับใจจริงๆ ค่ะ"
+                    </p>
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-full bg-brand-50 text-brand-700 flex items-center justify-center font-bold text-xl">พ</div>
+                        <div>
+                            <h4 class="font-bold text-gray-900">คุณพิมพ์ชนก สุขใจ</h4>
+                            <p class="text-xs text-gray-500">บริการ: ต่อเติมรีโนเวทห้องครัว</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section> -->
+
+    <section id="contact" class="py-24 bg-white relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="bg-white rounded-3xl shadow-xl overflow-hidden flex flex-col lg:flex-row border border-gray-100">
+                
+                <!-- Contact Info -->
+                <div class="w-full lg:w-2/5 bg-brand-900 text-white p-10 lg:p-12 relative overflow-hidden">
+                    <div class="absolute -right-20 -bottom-20 w-64 h-64 bg-brand-800 rounded-full opacity-50 z-0"></div>
+                    
+                    <div class="relative z-10">
+                        <h3 data-i18n="heading_contact" class="text-3xl font-bold mb-2">ติดต่อวิเศษวานิช</h3>
+                        <p class="text-brand-200 mb-10">พร้อมให้คำปรึกษาและประเมินราคา</p>
+                        
+                        <div class="space-y-8">
+                            <div class="flex items-start">
+                                <div class="w-11 h-11 rounded-xl bg-brand-500 flex items-center justify-center flex-shrink-0 mr-4">
+                                    <i class="fas fa-phone-alt text-white"></i>
+                                </div>
+                                <div>
+                                    <p class="text-sm text-brand-300 mb-1">โทรศัพท์</p>
+                                    <p class="text-lg font-semibold">
+                                        <a href="tel:0990595398" class="hover:text-white transition">099-059-5398</a>
+                                        <button type="button" onclick="copyToClipboard('099-059-5398', 'เบอร์โทรศัพท์')" aria-label="คัดลอกเบอร์โทรศัพท์" class="ml-2 text-brand-400 hover:text-white transition align-middle">
+                                            <i class="fas fa-copy text-sm"></i>
+                                        </button>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="w-11 h-11 rounded-xl bg-brand-500 flex items-center justify-center flex-shrink-0 mr-4">
+                                    <i class="fas fa-comment-dots text-white text-lg"></i>
+                                </div>
+                                <div>
+                                    <p class="text-sm text-brand-300 mb-1">Line ID</p>
+                                    <p class="text-lg font-semibold cursor-pointer hover:text-white transition" onclick="copyToClipboard('099-059-5398', 'Line ID')">099-059-5398 <i class="fas fa-copy text-sm ml-2 text-brand-400"></i></p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="w-11 h-11 rounded-xl bg-brand-500 flex items-center justify-center flex-shrink-0 mr-4">
+                                    <i class="fas fa-envelope text-white"></i>
+                                </div>
+                                <div>
+                                    <p class="text-sm text-brand-300 mb-1">อีเมล</p>
+                                    <p class="text-lg font-semibold">
+                                        <a href="mailto:wisetwanich2026@gmail.com" class="hover:text-white transition">wisetwanich2026@gmail.com</a>
+                                        <button type="button" onclick="copyToClipboard('wisetwanich2026@gmail.com', 'อีเมล')" aria-label="คัดลอกอีเมล" class="ml-2 text-brand-400 hover:text-white transition align-middle">
+                                            <i class="fas fa-copy text-sm"></i>
+                                        </button>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="w-11 h-11 rounded-xl bg-brand-500 flex items-center justify-center flex-shrink-0 mr-4">
+                                    <i class="fas fa-map-marker-alt text-white"></i>
+                                </div>
+                                <div>
+                                    <p class="text-sm text-brand-300 mb-1">สำนักงานใหญ่</p>
+                                    <p class="text-base font-semibold cursor-pointer hover:text-white transition" onclick="copyToClipboard('สำนักงานแห่งใหญ่ ตั้งอยู่เลขที่ 1/39 หมู่ที่ 16 ตำบลบางกระสั้น อำเภอบางปะอิน จังหวัดพระนครศรีอยุธยา 13160', 'ที่อยู่')">
+                                        สำนักงานแห่งใหญ่ ตั้งอยู่เลขที่ 1/39 หมู่ที่ 16 ตำบลบางกระสั้น อำเภอบางปะอิน จังหวัดพระนครศรีอยุธยา 13160
+                                        <i class="fas fa-copy text-sm ml-2 text-brand-400"></i>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Team Contact List -->
+                <div class="w-full lg:w-3/5 p-10 lg:p-12">
+                    <h3 class="text-2xl font-bold text-gray-900 mb-2">ข้อมูลติดต่อทีมงาน</h3>
+                    <p class="text-gray-500 mb-8">ติดต่อโดยตรงกับผู้รับผิดชอบในแต่ละส่วนงาน เพื่อความรวดเร็วในการประสานงาน</p>
+
+                    <div class="space-y-4">
+                        <!-- ฝ่ายประสานงาน -->
+                        <a href="tel:0990595398" class="flex items-center justify-between gap-4 p-4 rounded-xl border border-gray-100 hover:border-brand-200 hover:shadow-md transition-all group">
+                            <div class="flex items-center gap-4 min-w-0">
+                                <div class="w-12 h-12 rounded-full bg-brand-50 text-brand-600 flex items-center justify-center flex-shrink-0 group-hover:bg-brand-600 group-hover:text-white transition-colors">
+                                    <i class="fas fa-comments"></i>
+                                </div>
+                                <div class="min-w-0">
+                                    <p class="font-bold text-gray-900 truncate">ฝ่ายประสานงาน</p>
+                                    <p class="text-sm text-gray-500 truncate">คุณบุ๋ม</p>
+                                </div>
+                            </div>
+                            <span class="text-brand-700 font-semibold whitespace-nowrap flex items-center gap-2">
+                                <i class="fas fa-phone-alt text-xs text-brand-400"></i> 099-059-5398
+                            </span>
+                        </a>
+
+                        <!-- ฝ่ายประเมินทรัพย์สิน -->
+                        <a href="tel:0852764514" class="flex items-center justify-between gap-4 p-4 rounded-xl border border-gray-100 hover:border-brand-200 hover:shadow-md transition-all group">
+                            <div class="flex items-center gap-4 min-w-0">
+                                <div class="w-12 h-12 rounded-full bg-brand-50 text-brand-600 flex items-center justify-center flex-shrink-0 group-hover:bg-brand-600 group-hover:text-white transition-colors">
+                                    <i class="fas fa-clipboard-check"></i>
+                                </div>
+                                <div class="min-w-0">
+                                    <p class="font-bold text-gray-900 truncate">ฝ่ายประเมินทรัพย์สิน</p>
+                                    <p class="text-sm text-gray-500 truncate">คุณแจ้</p>
+                                </div>
+                            </div>
+                            <span class="text-brand-700 font-semibold whitespace-nowrap flex items-center gap-2">
+                                <i class="fas fa-phone-alt text-xs text-brand-400"></i> 085-276-4514
+                            </span>
+                        </a>
+
+                        <!-- วิศวกรควบคุมงาน -->
+                        <a href="tel:0805433399" class="flex items-center justify-between gap-4 p-4 rounded-xl border border-gray-100 hover:border-brand-200 hover:shadow-md transition-all group">
+                            <div class="flex items-center gap-4 min-w-0">
+                                <div class="w-12 h-12 rounded-full bg-brand-50 text-brand-600 flex items-center justify-center flex-shrink-0 group-hover:bg-brand-600 group-hover:text-white transition-colors">
+                                    <i class="fas fa-hard-hat"></i>
+                                </div>
+                                <div class="min-w-0">
+                                    <p class="font-bold text-gray-900 truncate">วิศวกรควบคุมงาน</p>
+                                    <p class="text-sm text-gray-500 truncate">คุณไมโล</p>
+                                </div>
+                            </div>
+                            <span class="text-brand-700 font-semibold whitespace-nowrap flex items-center gap-2">
+                                <i class="fas fa-phone-alt text-xs text-brand-400"></i> 080-543-3399
+                            </span>
+                        </a>
+
+                        <!-- เจ้าหน้าที่ความปลอดภัย (จป.) -->
+                        <a href="tel:0959190999" class="flex items-center justify-between gap-4 p-4 rounded-xl border border-gray-100 hover:border-brand-200 hover:shadow-md transition-all group">
+                            <div class="flex items-center gap-4 min-w-0">
+                                <div class="w-12 h-12 rounded-full bg-brand-50 text-brand-600 flex items-center justify-center flex-shrink-0 group-hover:bg-brand-600 group-hover:text-white transition-colors">
+                                    <i class="fas fa-shield-alt"></i>
+                                </div>
+                                <div class="min-w-0">
+                                    <p class="font-bold text-gray-900 truncate">เจ้าหน้าที่ความปลอดภัย (จป.)</p>
+                                    <p class="text-sm text-gray-500 truncate">คุณหนึ่ง</p>
+                                </div>
+                            </div>
+                            <span class="text-brand-700 font-semibold whitespace-nowrap flex items-center gap-2">
+                                <i class="fas fa-phone-alt text-xs text-brand-400"></i> 095-919-0999
+                            </span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-brand-900 text-brand-100 py-12 border-t border-brand-950">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                <div class="col-span-1 md:col-span-2">
+                    <div class="flex items-center mb-6">
+                        <div class="w-12 h-12 rounded-full bg-white/95 flex items-center justify-center p-2 mr-3 flex-shrink-0">
+                            <img src="img/favicon.png" alt="โลโก้ วิเศษวานิช คอนสตรัคชั่น" class="w-full h-full object-contain">
+                        </div>
+                        <div class="flex flex-col justify-center pt-1">
+                            <span class="font-bold text-lg md:text-xl text-white tracking-wide block leading-none mb-1.5">บริษัท วิเศษวานิช คอนสตรัคชั่น จำกัด</span>
+                            <span class="text-[8px] md:text-[10px] text-brand-300 font-bold tracking-[0.15em] leading-none">WISETWANICH CONSTRUCTION CO., LTD.</span>
+                        </div>
+                    </div>
+                    <p class="text-sm mb-4 max-w-sm text-brand-200 leading-relaxed">
+                        บริษัทให้บริการรื้อถอนอาคาร เคลียร์ริ่งพื้นที่ ขนย้ายเศษวัสดุทุกชนิดระดับประเทศ ดำเนินงานด้วยความซื่อสัตย์ ยึดมั่นในมาตรฐานวิศวกรรมและความปลอดภัยเป็นอันดับหนึ่ง
+                    </p>
+                </div>
+                <div>
+                    <h4 data-i18n="footer_quicklinks" class="text-white font-semibold mb-4">ลิงก์ด่วน</h4>
+                    <ul class="space-y-2 text-sm text-brand-200">
+                        <li><a href="#" class="hover:text-white transition-colors">หน้าแรก</a></li>
+                        <li><a href="#history" class="hover:text-white transition-colors">ความเป็นมา</a></li>
+                        <li><a href="#about" class="hover:text-white transition-colors">เกี่ยวกับเรา</a></li>
+                        <li><a href="#portfolio" class="hover:text-white transition-colors">ผลงานที่ผ่านมา</a></li>
+                        <li><a href="#contact" class="hover:text-white transition-colors">ติดต่อเรา</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 data-i18n="footer_hours" class="text-white font-semibold mb-4">เวลาทำการ</h4>
+                    <ul class="space-y-2 text-sm text-brand-200">
+                        <li>เปิดให้บริการทุกวัน 24/7</li>
+                    </ul>
+
+                    <!-- ช่องทางการติดตาม: แก้ href ของแต่ละไอคอนเป็นลิงก์เพจจริงของบริษัท -->
+                    <p data-i18n="footer_follow" class="text-white font-semibold mt-6 mb-3 text-sm">ช่องทางการติดตาม</p>
+                    <div class="flex items-center gap-3">
+                        <a href="#" target="_blank" rel="noopener noreferrer" aria-label="Facebook"
+                            class="w-9 h-9 rounded-full bg-brand-800 hover:bg-brand-500 flex items-center justify-center transition-colors">
+                            <i class="fab fa-facebook-f text-sm"></i>
+                        </a>
+                        <a href="#" target="_blank" rel="noopener noreferrer" aria-label="YouTube"
+                            class="w-9 h-9 rounded-full bg-brand-800 hover:bg-brand-500 flex items-center justify-center transition-colors">
+                            <i class="fab fa-youtube text-sm"></i>
+                        </a>
+                        <a href="#" target="_blank" rel="noopener noreferrer" aria-label="TikTok"
+                            class="w-9 h-9 rounded-full bg-brand-800 hover:bg-brand-500 flex items-center justify-center transition-colors">
+                            <i class="fab fa-tiktok text-sm"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-brand-800 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-brand-400 gap-2">
+                <p>&copy; 2026 บริษัท วิเศษวานิช คอนสตรัคชั่น จำกัด. สงวนลิขสิทธิ์.</p>
+                <button type="button" onclick="openAdminBar()" aria-label="" tabindex="-1"
+                    class="w-2 h-2 rounded-full bg-brand-800 hover:bg-brand-600 transition-colors opacity-40 hover:opacity-100"></button>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Review Modal Pop-up (Demo) -->
+    <div id="review-modal" class="fixed inset-0 z-[100] hidden">
+        <div class="absolute inset-0 bg-gray-900/80 backdrop-blur-sm transition-opacity" onclick="closeReviewModal()"></div>
+        <div class="flex items-center justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:p-0 pointer-events-none">
+            <div class="relative bg-white rounded-2xl text-left overflow-hidden shadow-2xl transform transition-all sm:my-8 sm:max-w-lg w-full flex flex-col pointer-events-auto">
+                <div class="px-6 py-4 border-b border-gray-100 flex justify-between items-center bg-gray-50">
+                    <h3 class="text-xl font-bold text-brand-900">แบ่งปันประสบการณ์ของคุณ</h3>
+                    <button type="button" onclick="closeReviewModal()" class="text-gray-400 hover:text-brand-600 bg-transparent border-0 transition-colors">
+                        <i class="fas fa-times text-xl"></i>
+                    </button>
+                </div>
+                <div class="p-6">
+                    <form id="write-review-form" class="space-y-4">
+                        <div class="text-center mb-6">
+                            <label class="block text-sm font-medium text-gray-700 mb-2">ให้คะแนนความพึงพอใจ <span class="text-red-500">*</span></label>
+                            <div class="flex justify-center text-gray-300 text-3xl cursor-pointer gap-2" id="star-rating">
+                                <i class="fas fa-star hover:text-yellow-400 transition-colors" data-rating="1"></i>
+                                <i class="fas fa-star hover:text-yellow-400 transition-colors" data-rating="2"></i>
+                                <i class="fas fa-star hover:text-yellow-400 transition-colors" data-rating="3"></i>
+                                <i class="fas fa-star hover:text-yellow-400 transition-colors" data-rating="4"></i>
+                                <i class="fas fa-star hover:text-yellow-400 transition-colors" data-rating="5"></i>
+                            </div>
+                            <input type="hidden" id="review-rating" required>
+                            <p id="rating-error" class="text-red-500 text-xs mt-1 hidden">กรุณาเลือกคะแนนดาว</p>
+                        </div>
+                        
+                        <div>
+                            <label for="review-name" class="block text-sm font-medium text-gray-700 mb-1">ชื่อของคุณ / ชื่อบริษัท <span class="text-red-500">*</span></label>
+                            <input type="text" id="review-name" required class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-200 focus:bg-white focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none transition-colors" placeholder="เช่น คุณสมหญิง ใจดี">
+                        </div>
+
+                        <div>
+                            <label for="review-service" class="block text-sm font-medium text-gray-700 mb-1">บริการที่ได้รับ</label>
+                            <input type="text" id="review-service" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-200 focus:bg-white focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none transition-colors" placeholder="เช่น สร้างบ้านเดี่ยว, รื้อถอนอาคาร">
+                        </div>
+                        
+                        <div>
+                            <label for="review-text" class="block text-sm font-medium text-gray-700 mb-1">รายละเอียดรีวิว <span class="text-red-500">*</span></label>
+                            <textarea id="review-text" rows="4" required class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-200 focus:bg-white focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none transition-colors resize-none" placeholder="บอกเล่าความประทับใจที่คุณมีต่อบริการของเรา..."></textarea>
+                        </div>
+
+                        <div class="mt-6 pt-4 border-t border-gray-100">
+                            <button type="submit" class="w-full px-5 py-4 bg-brand-600 hover:bg-brand-700 text-white rounded-xl font-bold transition-colors flex justify-center items-center gap-2 shadow-md">
+                                โพสต์รีวิว
+                            </button>
+                            <p class="text-center text-xs text-gray-400 mt-3">*นี่คือฟังก์ชันจำลอง (Demo) ข้อมูลจะแสดงผลชั่วคราวเท่านั้น</p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Certificate Image Modal -->
+    <div id="cert-modal" class="fixed inset-0 z-[110] hidden">
+        <div class="absolute inset-0 bg-gray-900/90 backdrop-blur-sm transition-opacity" onclick="closeCertModal()"></div>
+        <div class="flex items-center justify-center min-h-screen p-4 sm:p-8 pointer-events-none">
+            <div class="relative max-w-3xl w-full pointer-events-auto">
+                <button type="button" onclick="closeCertModal()" aria-label="ปิด" class="absolute -top-12 right-0 w-10 h-10 bg-white/10 hover:bg-white/20 text-white rounded-full flex items-center justify-center transition-colors z-10">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+                <button type="button" id="cert-modal-prev" onclick="modalCertPrev()" aria-label="ย้อนกลับ"
+                    class="absolute left-1 sm:-left-14 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-12 sm:h-12 bg-white/10 hover:bg-white/20 text-white rounded-full flex items-center justify-center transition-colors z-10">
+                    <i class="fas fa-chevron-left text-lg sm:text-xl"></i>
+                </button>
+                <button type="button" id="cert-modal-next" onclick="modalCertNext()" aria-label="ถัดไป"
+                    class="absolute right-1 sm:-right-14 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-12 sm:h-12 bg-white/10 hover:bg-white/20 text-white rounded-full flex items-center justify-center transition-colors z-10">
+                    <i class="fas fa-chevron-right text-lg sm:text-xl"></i>
+                </button>
+                <div class="cert-modal-content bg-white rounded-2xl overflow-hidden shadow-2xl fade-in">
+                    <img id="cert-modal-image" src="" alt="" class="w-full max-h-[75vh] object-contain bg-gray-50">
+                    <p id="cert-modal-caption" class="text-center text-gray-600 text-sm py-3 border-t border-gray-100"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Access Bar: แถบใส่รหัสผ่านลับ เด้งขึ้นจากด้านล่างเมื่อกดจุดใน footer -->
+    <div id="admin-access-bar"
+        class="fixed bottom-0 inset-x-0 z-[70] translate-y-full transition-transform duration-300 ease-out bg-brand-900 border-t border-brand-700 shadow-2xl">
+        <div class="max-w-lg mx-auto px-4 py-4 sm:py-3 flex flex-col sm:flex-row items-center gap-3">
+            <div class="flex items-center gap-2 text-brand-200 shrink-0">
+                <i class="fas fa-lock"></i>
+                <span class="text-sm font-medium whitespace-nowrap">รหัสผ่านผู้ดูแล</span>
+            </div>
+            <div class="flex-1 w-full flex items-center gap-2">
+                <input id="admin-pass-input" type="password" placeholder="ใส่รหัสผ่าน"
+                    onkeydown="if(event.key==='Enter') submitAdminAccess();"
+                    class="flex-1 px-3 py-2 rounded-lg bg-brand-800 border border-brand-700 text-white placeholder-brand-400 focus:border-brand-400 focus:ring-2 focus:ring-brand-500/30 outline-none text-sm">
+                <button type="button" onclick="submitAdminAccess()"
+                    class="shrink-0 bg-brand-500 hover:bg-brand-400 text-brand-950 font-medium px-4 py-2 rounded-lg text-sm transition-colors">
+                    เข้าสู่ระบบ
+                </button>
+                <button type="button" onclick="closeAdminBar()" aria-label="ปิด"
+                    class="shrink-0 w-9 h-9 flex items-center justify-center text-brand-300 hover:text-white hover:bg-brand-800 rounded-lg transition-colors">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+        <p id="admin-pass-error" class="hidden text-center sm:text-left sm:pl-[7.5rem] pb-3 -mt-2 text-xs text-red-300">รหัสผ่านไม่ถูกต้อง ลองใหม่อีกครั้ง</p>
+    </div>
+
+    <!-- Back to Top Button -->
+    <button id="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" aria-label="กลับขึ้นด้านบน"
+        class="fixed bottom-6 right-6 z-50 w-12 h-12 md:w-14 md:h-14 rounded-full bg-brand-600 hover:bg-brand-700 text-white shadow-lg flex items-center justify-center transition-all duration-300 opacity-0 translate-y-4 pointer-events-none">
+        <i class="fas fa-arrow-up text-lg md:text-xl"></i>
+    </button>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="javascript/supabase-config.js"></script>
+    <script src="javascript/projects-loader.js"></script>
+    <script src="javascript/i18n.js"></script>
+
+    <script>
+        // ============================================
+        // ระบบสลับภาษา TH/EN (เฉพาะเมนู + หัวข้อหลักแต่ละ section)
+        // ตัวระบบหลักอยู่ใน i18n.js - ที่นี่กำหนดแค่คำแปลเฉพาะของหน้านี้
+        // ============================================
+        initI18n({
+            heading_portfolio: { th: "ผลงานที่ผ่านมาของเรา", en: "Our Past Projects" },
+            heading_history:   { th: "ความเป็นมาของบริษัท", en: "Company History" },
+            heading_training:  { th: "การฝึกอบรมพนักงาน", en: "Employee Training" },
+            heading_process:   { th: "ขั้นตอนการทำงาน", en: "Our Process" },
+            heading_contact:   { th: "ติดต่อวิเศษวานิช", en: "Contact Wiseswanich" },
+            read_more:         { th: "อ่านเพิ่มเติม", en: "Read More" },
+        });
+
+        // ============================================
+        // Render การ์ดผลงานในหน้าแรกอัตโนมัติจากฐานข้อมูล Supabase
+        // เพิ่ม/แก้/ลบผลงานทำผ่านหน้า backend.html เท่านั้น ไม่ต้องแก้ไฟล์นี้
+        // ============================================
+        let allPortfolioProjects = [];
+
+        const TAG_LABELS = {
+            latest:  { label: 'ล่าสุด', class: 'bg-red-500 text-white animate-pulse' },
+            new:     { label: 'ใหม่', class: 'bg-blue-500 text-white' },
+            quality: { label: 'คุณภาพ', class: 'bg-yellow-400 text-gray-900' },
+        };
+        function tagBadgesHtml(tags) {
+            if (!tags || !tags.length) return '';
+            return tags.map(t => TAG_LABELS[t]
+                ? `<span class="text-[9px] sm:text-[10px] font-bold px-2 py-1 rounded-full shadow-sm ${TAG_LABELS[t].class}">${TAG_LABELS[t].label}</span>`
+                : '').join('');
+        }
+
+        async function renderPortfolioGrid(showLoading) {
+            const grid = document.getElementById('portfolio-grid');
+            if (!grid) return;
+
+            if (showLoading) {
+                grid.innerHTML = `<p class="col-span-full text-center text-gray-400 py-10"><i class="fas fa-spinner fa-spin mr-2"></i>กำลังโหลดผลงาน...</p>`;
+            }
+
+            allPortfolioProjects = await loadProjects();
+            populateCategoryFilter(allPortfolioProjects);
+            applyPortfolioFilter();
+        }
+
+        function populateCategoryFilter(projects) {
+            const select = document.getElementById('portfolio-category-filter');
+            if (!select) return;
+            const current = select.value;
+            const categories = [...new Set(projects.map(p => p.category).filter(Boolean))];
+            select.innerHTML = `<option value="">ทุกหมวดหมู่</option>` +
+                categories.map(c => `<option value="${c}">${c}</option>`).join('');
+            if (categories.includes(current)) select.value = current;
+        }
+
+        function applyPortfolioFilter() {
+            const grid = document.getElementById('portfolio-grid');
+            if (!grid) return;
+
+            const searchTerm = (document.getElementById('portfolio-search')?.value || '').trim().toLowerCase();
+            const category = document.getElementById('portfolio-category-filter')?.value || '';
+
+            let filtered = allPortfolioProjects;
+            if (category) filtered = filtered.filter(p => p.category === category);
+            if (searchTerm) {
+                filtered = filtered.filter(p =>
+                    (p.title || '').toLowerCase().includes(searchTerm) ||
+                    (p.location || '').toLowerCase().includes(searchTerm) ||
+                    (p.client || '').toLowerCase().includes(searchTerm) ||
+                    (p.category || '').toLowerCase().includes(searchTerm)
+                );
+            }
+
+            // ผลงานที่ติดป้าย "ล่าสุด" จะถูกเลื่อนมาไว้อันดับแรกเสมอ เพื่อดึงดูดความสนใจลูกค้า
+            filtered = filtered
+                .map((p, i) => ({ p, i }))
+                .sort((a, b) => {
+                    const aLatest = (a.p.tags || []).includes('latest') ? 0 : 1;
+                    const bLatest = (b.p.tags || []).includes('latest') ? 0 : 1;
+                    if (aLatest !== bLatest) return aLatest - bLatest;
+                    return a.i - b.i; // stable sort: คงลำดับเดิมถ้าไม่มีป้าย ล่าสุด
+                })
+                .map(x => x.p);
+
+            if (allPortfolioProjects.length === 0) {
+                grid.innerHTML = `<p class="col-span-full text-center text-gray-400 py-10">ยังไม่มีผลงานในระบบ</p>`;
+                return;
+            }
+
+            if (filtered.length === 0) {
+                grid.innerHTML = `<p class="col-span-full text-center text-gray-400 py-10"><i class="fas fa-search mr-2"></i>ไม่พบผลงานที่ตรงกับการค้นหา</p>`;
+                return;
+            }
+
+            grid.innerHTML = filtered.map(p => `
+                <a href="project.html?id=${encodeURIComponent(p.id)}" class="group bg-white rounded-2xl border border-brand-100 overflow-hidden shadow-sm hover:shadow-xl hover:shadow-brand-100 hover:-translate-y-1.5 hover:border-brand-300 transition-all duration-300 block">
+                    <div class="relative h-36 sm:h-44 overflow-hidden bg-brand-50">
+                        <img src="${p.image}"
+                             onerror="this.onerror=null; this.src='https://placehold.co/600x400/eeeeee/333333?text=${p.placeholder || 'Project'}'"
+                             alt="${p.title}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        <span class="absolute top-2.5 left-2.5 ${p.badgeBg || 'bg-brand-50'} ${p.badgeText || 'text-brand-600'} text-[9px] sm:text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full shadow-sm ring-1 ring-white/60">${p.category}</span>
+                        <div class="absolute top-2.5 right-2.5 flex flex-col items-end gap-1">${tagBadgesHtml(p.tags)}</div>
+                    </div>
+                    <div class="p-3 sm:p-4">
+                        <h4 class="text-gray-900 font-bold text-sm sm:text-base truncate group-hover:text-brand-700 transition-colors">${p.title}</h4>
+                        <p class="text-gray-400 text-[11px] sm:text-xs mt-1 flex items-center gap-1 truncate">
+                            <i class="fas fa-map-marker-alt text-brand-500"></i> ${p.location}
+                        </p>
+                        <div class="mt-3 h-0.5 bg-brand-50 rounded-full overflow-hidden">
+                            <div class="h-full w-0 bg-brand-500 group-hover:w-full transition-all duration-500 ease-out rounded-full"></div>
+                        </div>
+                    </div>
+                </a>
+            `).join('');
+        }
+
+        renderPortfolioGrid(true);
+        document.getElementById('portfolio-search')?.addEventListener('input', applyPortfolioFilter);
+        document.getElementById('portfolio-category-filter')?.addEventListener('change', applyPortfolioFilter);
+
+        // อัปเดตการ์ดผลงานอัตโนมัติทันทีที่มีการเพิ่ม/แก้/ลบผลงานจากหน้า backend.html
+        // โดยไม่ต้องกด F5 (ใช้ Supabase Realtime - ต้องเปิดใช้งาน Realtime ของตาราง projects ในแดชบอร์ดก่อน)
+        sbClient
+            .channel('projects-index-sync')
+            .on('postgres_changes', { event: '*', schema: 'public', table: 'projects' }, () => {
+                renderPortfolioGrid(false);
+            })
+            .subscribe();
+
+        // Certificate Carousel
+        // ในอนาคตถ้ามีใบประกาศนียบัตรเพิ่ม แค่ก็อปบรรทัดในนี้
+        // แล้วเปลี่ยน src กับ alt เท่านั้น ไม่ต้องแก้ HTML ด้านบนเลย
+        // ============================================
+        const certificates = [
+            { src: 'img/Cer-1.jpg', alt: 'ใบประกาศนียบัตร 1' },
+            { src: 'img/Cer-2.jpg', alt: 'ใบประกาศนียบัตร 2' },
+            { src: 'img/Cer-3.jpg', alt: 'ใบประกาศนียบัตร 3' },
+            { src: 'img/Cer-4.jpg', alt: 'ใบประกาศนียบัตร 4' },
+        ];
+
+        (function initCertCarousel() {
+            const track = document.getElementById('cert-track');
+            const dotsWrap = document.getElementById('cert-dots');
+            const prevBtn = document.getElementById('cert-prev');
+            const nextBtn = document.getElementById('cert-next');
+            const wrap = document.getElementById('cert-carousel');
+            if (!track || certificates.length === 0) return;
+
+            let current = 0;
+            let autoplayTimer = null;
+
+            // สร้างสไลด์จาก array certificates
+            track.innerHTML = certificates.map((cert, i) => `
+                <div class="w-full flex-shrink-0 p-3 sm:p-6">
+                    <div data-cert-index="${i}" class="cert-zoom w-full aspect-[4/3] sm:aspect-[16/11] bg-gray-50 rounded-xl overflow-hidden flex items-center justify-center relative cursor-zoom-in group">
+                        <img src="${cert.src}" alt="${cert.alt}" class="w-full h-full object-contain transition-transform duration-300 group-hover:scale-105">
+                        <div class="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors flex items-center justify-center">
+                            <i class="fas fa-search-plus text-white text-2xl opacity-0 group-hover:opacity-100 transition-opacity drop-shadow-lg"></i>
+                        </div>
+                    </div>
+                    <p class="text-center text-gray-500 text-sm mt-3">${cert.alt}</p>
+                </div>
+            `).join('');
+
+            // คลิกที่รูปเพื่อเปิดดูขนาดใหญ่
+            track.querySelectorAll('.cert-zoom').forEach(el => {
+                el.addEventListener('click', () => {
+                    const idx = parseInt(el.getAttribute('data-cert-index'));
+                    openCertModal(idx);
+                });
+            });
+
+            // สร้างจุดบอกตำแหน่งจาก array certificates
+            dotsWrap.innerHTML = certificates.map((_, i) => `
+                <button type="button" data-index="${i}" aria-label="ไปที่ใบที่ ${i + 1}"
+                    class="cert-dot h-2.5 rounded-full transition-all duration-300 ${i === 0 ? 'bg-brand-600 w-6' : 'bg-brand-200 hover:bg-brand-400 w-2.5'}"></button>
+            `).join('');
+
+            const dots = dotsWrap.querySelectorAll('.cert-dot');
+
+            function goTo(index) {
+                current = (index + certificates.length) % certificates.length;
+                track.style.transform = `translateX(-${current * 100}%)`;
+                dots.forEach((dot, i) => {
+                    const active = i === current;
+                    dot.classList.toggle('bg-brand-600', active);
+                    dot.classList.toggle('w-6', active);
+                    dot.classList.toggle('bg-brand-200', !active);
+                    dot.classList.toggle('w-2.5', !active);
+                });
+            }
+
+            function resetAutoplay() {
+                clearInterval(autoplayTimer);
+                if (certificates.length > 1) {
+                    autoplayTimer = setInterval(() => goTo(current + 1), 5000);
+                }
+            }
+
+            dots.forEach(dot => {
+                dot.addEventListener('click', () => {
+                    goTo(parseInt(dot.getAttribute('data-index')));
+                    resetAutoplay();
+                });
+            });
+
+            prevBtn.addEventListener('click', () => { goTo(current - 1); resetAutoplay(); });
+            nextBtn.addEventListener('click', () => { goTo(current + 1); resetAutoplay(); });
+
+            // ถ้ามีใบเดียวไม่ต้องแสดงปุ่มเลื่อน/จุด
+            if (certificates.length <= 1) {
+                prevBtn.classList.add('hidden');
+                nextBtn.classList.add('hidden');
+                dotsWrap.classList.add('hidden');
+            }
+
+            wrap.addEventListener('mouseenter', () => clearInterval(autoplayTimer));
+            wrap.addEventListener('mouseleave', resetAutoplay);
+
+            goTo(0);
+            resetAutoplay();
+        })();
+
+        // เปิด-ปิดโมดัลดูรูปใบประกาศนียบัตรขนาดใหญ่ (เลื่อนดูใบถัดไป/ก่อนหน้าได้โดยไม่ต้องปิดโมดัล)
+        let modalCertIndex = 0;
+
+        function renderCertModalImage() {
+            const cert = certificates[modalCertIndex];
+            const img = document.getElementById('cert-modal-image');
+            const caption = document.getElementById('cert-modal-caption');
+            img.src = cert.src;
+            img.alt = cert.alt;
+            caption.textContent = cert.alt;
+
+            const content = document.querySelector('#cert-modal .cert-modal-content');
+            content.classList.remove('fade-in');
+            void content.offsetWidth;
+            content.classList.add('fade-in');
+
+            // ถ้ามีใบเดียวไม่ต้องแสดงปุ่มเลื่อน
+            const showNav = certificates.length > 1;
+            document.getElementById('cert-modal-prev').classList.toggle('hidden', !showNav);
+            document.getElementById('cert-modal-next').classList.toggle('hidden', !showNav);
+        }
+
+        function openCertModal(index) {
+            modalCertIndex = index;
+            document.getElementById('cert-modal').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+            renderCertModalImage();
+        }
+
+        function modalCertPrev() {
+            modalCertIndex = (modalCertIndex - 1 + certificates.length) % certificates.length;
+            renderCertModalImage();
+        }
+
+        function modalCertNext() {
+            modalCertIndex = (modalCertIndex + 1) % certificates.length;
+            renderCertModalImage();
+        }
+
+        function closeCertModal() {
+            document.getElementById('cert-modal').classList.add('hidden');
+            document.body.style.overflow = '';
+        }
+
+        // Navbar styling on scroll
+        const navbar = document.getElementById('navbar');
+        const backToTopBtn = document.getElementById('back-to-top');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 20) {
+                navbar.classList.add('shadow-md');
+                navbar.classList.remove('border-brand-50');
+            } else {
+                navbar.classList.remove('shadow-md');
+                navbar.classList.add('border-brand-50');
+            }
+
+            if (window.scrollY > 400) {
+                backToTopBtn.classList.remove('opacity-0', 'translate-y-4', 'pointer-events-none');
+                backToTopBtn.classList.add('opacity-100', 'translate-y-0');
+            } else {
+                backToTopBtn.classList.add('opacity-0', 'translate-y-4', 'pointer-events-none');
+                backToTopBtn.classList.remove('opacity-100', 'translate-y-0');
+            }
+        });
+
+        // Mobile menu toggle
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
+
+        const mobileLinks = menu.querySelectorAll('a');
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                menu.classList.add('hidden');
+            });
+        });
+
+        // ปุ่มลับสำหรับพนักงาน: กดจุดเล็กๆ ท้าย footer จะเด้งแถบใส่รหัสผ่านขึ้นมาจากด้านล่าง
+        function openAdminBar() {
+            const bar = document.getElementById('admin-access-bar');
+            bar.classList.remove('translate-y-full');
+            document.getElementById('admin-pass-input').value = '';
+            document.getElementById('admin-pass-error').classList.add('hidden');
+            setTimeout(() => document.getElementById('admin-pass-input').focus(), 300);
+        }
+
+        function closeAdminBar() {
+            document.getElementById('admin-access-bar').classList.add('translate-y-full');
+        }
+
+        function submitAdminAccess() {
+            const input = document.getElementById('admin-pass-input');
+            const errorEl = document.getElementById('admin-pass-error');
+            if (input.value === ADMIN_PASSWORD) {
+                window.open("backend.html", "_blank");
+                closeAdminBar();
+            } else {
+                errorEl.classList.remove('hidden');
+                input.value = '';
+                input.focus(); 
+                const bar = document.getElementById('admin-access-bar');
+                bar.classList.add('animate-shake');
+                setTimeout(() => bar.classList.remove('animate-shake'), 400);
+            }
+        }
+
+        // Copy text helper
+        function copyToClipboard(text, label) {
+            label = label || 'Line ID';
+            navigator.clipboard.writeText(text).then(() => {
+                const tempToast = document.createElement('div');
+                tempToast.className = 'fixed bottom-4 right-4 bg-brand-900 text-white px-4 py-2 rounded-lg shadow-lg z-50 fade-in text-sm border border-brand-700';
+                tempToast.innerHTML = `<i class="fas fa-check text-brand-400 mr-2"></i> คัดลอก${label}แล้ว`;
+                document.body.appendChild(tempToast);
+                setTimeout(() => {
+                    tempToast.style.opacity = '0';
+                    tempToast.style.transition = 'opacity 0.5s ease';
+                    setTimeout(() => document.body.removeChild(tempToast), 500);
+                }, 2000);
+            }).catch(err => console.error('Copy failed', err));
+        }
+
+        document.addEventListener('keydown', function(event) {
+            if (event.key === "Escape") {
+                closeReviewModal();
+                closeCertModal();
+                closeAdminBar();
+            }
+            if (!document.getElementById('cert-modal').classList.contains('hidden')) {
+                if (event.key === "ArrowLeft") modalCertPrev();
+                if (event.key === "ArrowRight") modalCertNext();
+            }
+        });
+
+        // Review Modal Logic
+        let selectedRating = 0;
+        const stars = document.querySelectorAll('#star-rating i');
+        const ratingInput = document.getElementById('review-rating');
+
+        stars.forEach(star => {
+            star.addEventListener('click', (e) => {
+                selectedRating = parseInt(e.target.getAttribute('data-rating'));
+                ratingInput.value = selectedRating;
+                updateStars(selectedRating);
+                document.getElementById('rating-error').classList.add('hidden');
+            });
+            star.addEventListener('mouseover', (e) => updateStars(parseInt(e.target.getAttribute('data-rating'))));
+            star.addEventListener('mouseout', () => updateStars(selectedRating));
+        });
+
+        function updateStars(rating) {
+            stars.forEach((star, index) => {
+                if (index < rating) {
+                    star.classList.remove('text-gray-300');
+                    star.classList.add('text-yellow-400');
+                } else {
+                    star.classList.remove('text-yellow-400');
+                    star.classList.add('text-gray-300');
+                }
+            });
+        }
+
+        function openReviewModal() {
+            const modal = document.getElementById('review-modal');
+            modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+            const modalContent = modal.querySelector('.relative.bg-white');
+            modalContent.classList.remove('fade-in');
+            void modalContent.offsetWidth;
+            modalContent.classList.add('fade-in');
+        }
+
+        function closeReviewModal() {
+            document.getElementById('review-modal').classList.add('hidden');
+            document.body.style.overflow = '';
+            document.getElementById('write-review-form').reset();
+            selectedRating = 0;
+            ratingInput.value = '';
+            updateStars(0);
+            document.getElementById('rating-error').classList.add('hidden');
+        }
+
+        // Submit Review
+        document.getElementById('write-review-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            if (selectedRating === 0) {
+                document.getElementById('rating-error').classList.remove('hidden');
+                return;
+            }
+
+            const name = document.getElementById('review-name').value;
+            const service = document.getElementById('review-service').value || 'บริการทั่วไป';
+            const text = document.getElementById('review-text').value;
+
+            let starsHtml = '';
+            for (let i = 1; i <= 5; i++) {
+                starsHtml += i <= selectedRating ? '<i class="fas fa-star"></i>' : '<i class="far fa-star text-gray-300"></i>';
+            }
+            
+            const initial = name.charAt(0).toUpperCase();
+            const reviewHTML = `
+                <div class="bg-white p-8 rounded-2xl shadow-md border-2 border-brand-200 relative mt-6 fade-in transform transition hover:-translate-y-1 duration-300">
+                    <div class="absolute -top-6 left-8 w-12 h-12 bg-brand-600 text-white rounded-full flex items-center justify-center text-xl shadow-md border-4 border-white">
+                        <i class="fas fa-quote-left"></i>
+                    </div>
+                    <div class="absolute top-4 right-4 bg-brand-100 text-brand-700 text-xs px-3 py-1 rounded-full font-bold tracking-wide">NEW</div>
+                    <div class="flex text-yellow-400 mb-4 mt-2 text-sm">
+                        ${starsHtml}
+                    </div>
+                    <p class="text-gray-700 mb-6 italic leading-relaxed font-medium">"${text}"</p>
+                    <div class="flex items-center gap-4 border-t border-gray-100 pt-4">
+                        <div class="w-12 h-12 rounded-full bg-brand-50 text-brand-700 border border-brand-100 flex items-center justify-center font-bold text-xl">
+                            ${initial}
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-gray-900">${name}</h4>
+                            <p class="text-xs text-gray-500">บริการ: ${service}</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('reviews-container').insertAdjacentHTML('afterbegin', reviewHTML);
+
+            const toast = document.createElement('div');
+            toast.className = "fixed top-24 right-4 sm:right-8 bg-brand-600 text-white px-6 py-4 rounded-xl shadow-2xl z-50 flex items-center gap-3 fade-in";
+            toast.innerHTML = `<i class="fas fa-check-circle text-xl text-brand-300"></i><span class="font-medium text-sm">ขอบคุณสำหรับรีวิว! (โหมด Demo)</span>`;
+            document.body.appendChild(toast);
+
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transition = 'opacity 0.5s ease';
+                setTimeout(() => toast.remove(), 500);
+            }, 3000);
+
+            closeReviewModal();
+            document.getElementById('reviews').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+    </script>
+</body>
+</html>

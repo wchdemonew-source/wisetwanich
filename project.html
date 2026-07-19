@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="th" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ผลงานของเรา | บริษัท วิเศษวานิช คอนสตรัคชั่น จำกัด</title>
+    <link rel="icon" type="image/png" href="./img/favicon.png">
+    <link rel="apple-touch-icon" href="./img/favicon.png">
+    <meta name="description" content="ผลงานของบริษัท วิเศษวานิช คอนสตรัคชั่น จำกัด">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Kanit', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            200: '#bbf7d0',
+                            300: '#86efac',
+                            400: '#4ade80',
+                            500: '#22c55e',
+                            600: '#16a34a',
+                            700: '#15803d',
+                            800: '#166534',
+                            900: '#14532d',
+                            950: '#052e16',
+                        },
+                        accent: {
+                            100: '#d1fae5',
+                            300: '#6ee7b7',
+                            500: '#10b981',
+                            600: '#059669',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .fade-in {
+            animation: fadeIn 0.6s ease-out forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f0fdf4; }
+        ::-webkit-scrollbar-thumb { background: #86efac; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #16a34a; }
+    </style>
+</head>
+<body class="font-sans text-gray-800 antialiased bg-white">
+
+    <nav class="fixed w-full z-50 bg-white/95 backdrop-blur-sm shadow-md transition-all duration-300 border-b border-brand-50" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-24">
+                <!-- Logo -->
+                <a href="index.html" class="flex items-center min-w-0 mr-2 cursor-pointer">
+                    <img src="img/favicon.png" alt="โลโก้ วิเศษวานิช คอนสตรัคชั่น" class="w-9 h-9 sm:w-12 sm:h-12 md:w-14 md:h-14 mr-2 sm:mr-3 flex-shrink-0 object-contain">
+                    <div class="flex flex-col justify-center pt-1 min-w-0">
+                        <h1 class="font-bold text-xs sm:text-lg md:text-2xl text-brand-800 tracking-tight leading-tight sm:leading-none mb-0.5 sm:mb-1.5 truncate">บริษัท วิเศษวานิช คอนสตรัคชั่น จำกัด</h1>
+                        <p class="hidden sm:block text-[9px] md:text-[11px] text-brand-700 font-bold tracking-[0.15em] leading-none truncate">WISETWANICH CONSTRUCTION CO., LTD.</p>
+                    </div>
+                </a>
+
+                <!-- Desktop Menu -->
+                <div class="hidden lg:flex space-x-8 items-center">
+                    <a href="index.html#history" data-i18n="nav_history" class="text-gray-600 hover:text-brand-600 font-medium transition-colors">ความเป็นมา</a>
+                    <a href="index.html#about" data-i18n="nav_about" class="text-gray-600 hover:text-brand-600 font-medium transition-colors">เกี่ยวกับเรา</a>
+                    <a href="index.html#portfolio" data-i18n="nav_portfolio" class="text-gray-600 hover:text-brand-600 font-medium transition-colors">ผลงาน</a>
+                    <!-- ปิด "รีวิว" ไว้ก่อนชั่วคราว (เปิดใช้เมื่อพร้อมเปิด section รีวิวอีกครั้ง) -->
+                    <button type="button" class="lang-toggle-btn flex items-center gap-1 text-xs font-bold text-white bg-brand-600 hover:bg-brand-700 rounded-full px-3 py-1.5 transition-colors" title="เปลี่ยนภาษา / Switch language">
+                        <i class="fas fa-globe text-[10px]"></i> <span class="lang-toggle-label">EN</span>
+                    </button>
+                    <a href="index.html#contact" class="bg-brand-600 hover:bg-brand-700 text-white px-6 py-2.5 rounded-full font-medium transition-all transform hover:-translate-y-0.5 shadow-md flex items-center gap-2">
+                        <i class="fas fa-comment-dots"></i> <span data-i18n="nav_cta">ประเมินราคาฟรี</span>
+                    </a>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="lg:hidden flex items-center gap-2 flex-shrink-0">
+                    <button type="button" class="lang-toggle-btn flex items-center gap-1 text-xs font-bold text-white bg-brand-600 hover:bg-brand-700 rounded-full px-2.5 py-1.5 transition-colors" title="เปลี่ยนภาษา / Switch language">
+                        <i class="fas fa-globe text-[10px]"></i> <span class="lang-toggle-label">EN</span>
+                    </button>
+                    <button id="mobile-menu-btn" class="text-gray-600 hover:text-brand-600 focus:outline-none p-2">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Panel -->
+        <div id="mobile-menu" class="hidden lg:hidden bg-white border-t border-brand-100 shadow-xl absolute w-full">
+            <div class="px-4 pt-2 pb-6 space-y-2">
+                <a href="index.html#history" data-i18n="nav_history" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:text-brand-600 hover:bg-brand-50">ความเป็นมา</a>
+                <a href="index.html#about" data-i18n="nav_about" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:text-brand-600 hover:bg-brand-50">เกี่ยวกับเรา</a>
+                <a href="index.html#portfolio" data-i18n="nav_portfolio" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:text-brand-600 hover:bg-brand-50">ผลงาน</a>
+                <!-- ปิด "รีวิว" ไว้ก่อนชั่วคราว (เปิดใช้เมื่อพร้อมเปิด section รีวิวอีกครั้ง) -->
+                <a href="index.html#contact" data-i18n="nav_cta" class="block px-3 py-3 mt-4 text-center rounded-md text-base font-medium bg-brand-600 text-white hover:bg-brand-700">ประเมินราคาฟรี</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Breadcrumb -->
+    <div class="pt-28 pb-4 bg-brand-50/60 border-b border-brand-100">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <nav class="text-sm text-gray-500 flex items-center gap-2 flex-wrap">
+                <a href="index.html" data-i18n="nav_home" class="hover:text-brand-600 transition-colors">หน้าแรก</a>
+                <i class="fas fa-chevron-right text-xs text-gray-300"></i>
+                <a href="index.html#portfolio" data-i18n="heading_portfolio" class="hover:text-brand-600 transition-colors">ผลงานที่ผ่านมาของเรา</a>
+                <i class="fas fa-chevron-right text-xs text-gray-300"></i>
+                <span id="breadcrumb-title" class="text-gray-800 font-medium">กำลังโหลด...</span>
+            </nav>
+        </div>
+    </div>
+
+    <!-- Project Not Found -->
+    <div id="not-found-wrap" class="hidden py-24">
+        <div class="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <i class="fas fa-image text-5xl text-brand-200 mb-6"></i>
+            <h2 data-i18n="heading_notfound" class="text-2xl font-bold text-gray-900 mb-3">ไม่พบผลงานที่คุณต้องการ</h2>
+            <p class="text-gray-500 mb-8">ผลงานนี้อาจถูกย้ายหรือลบไปแล้ว ลองดูผลงานอื่นๆ ของเราแทนได้ครับ</p>
+            <a href="index.html#portfolio" class="inline-flex items-center gap-2 bg-brand-600 hover:bg-brand-700 text-white px-6 py-3 rounded-xl font-medium transition-colors shadow-md">
+                <i class="fas fa-arrow-left"></i> กลับไปดูผลงานทั้งหมด
+            </a>
+        </div>
+    </div>
+
+    <!-- Project Detail -->
+    <section id="project-detail-wrap" class="py-12 sm:py-16">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden fade-in">
+                <img id="hero-image" src="" alt="" class="w-full h-64 sm:h-[26rem] object-cover bg-gray-100">
+                <div class="p-6 sm:p-10">
+                    <!-- ผลงานและประสบการณ์ -->
+                    <div class="pt-2">
+                        <h3 data-i18n="heading_gallery" class="text-xl sm:text-2xl font-bold text-brand-700 mb-1">ผลงานและประสบการณ์</h3>
+                        <p id="client-name" class="text-lg font-semibold text-gray-900 mb-4"></p>
+                        <ul id="facts-list" class="space-y-2 mb-8"></ul>
+
+                        <!--
+                            แกลเลอรีรูปภาพหน้างาน
+                            ไม่ต้องแก้อะไรตรงนี้ - รูปดึงมาจาก field "gallery" ของผลงานแต่ละอันในฐานข้อมูล Supabase
+                        -->
+                        <div id="gallery-grid" class="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4"></div>
+                    </div>
+
+                    <div class="mt-10 pt-8 border-t border-gray-100 flex flex-col sm:flex-row justify-between items-center gap-4">
+                        <a href="index.html#contact" class="w-full sm:w-auto text-center bg-brand-600 hover:bg-brand-700 text-white px-8 py-3.5 rounded-xl font-medium transition-colors shadow-md flex justify-center items-center gap-2">
+                            <i class="fas fa-comment-dots"></i> สนใจบริการแบบนี้
+                        </a>
+                        <a href="index.html#portfolio" class="w-full sm:w-auto text-center text-brand-700 hover:text-brand-900 font-medium flex justify-center items-center gap-2">
+                            <i class="fas fa-arrow-left"></i> กลับไปดูผลงานทั้งหมด
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Related Projects: แสดงผลงานอื่นๆ ทั้งหมดที่สะสมไว้ ให้ลูกค้าเลือกดูเปรียบเทียบได้ -->
+            <div id="related-section" class="mt-16 hidden">
+                <h3 data-i18n="heading_related" class="text-xl sm:text-2xl font-bold text-gray-900 mb-6">ผลงานอื่นๆ ที่น่าสนใจ</h3>
+                <div id="related-grid" class="grid grid-cols-1 sm:grid-cols-2 gap-6"></div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-brand-900 text-brand-100 py-12 border-t border-brand-950">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                <div class="col-span-1 md:col-span-2">
+                    <div class="flex items-center mb-6">
+                        <div class="w-12 h-12 rounded-full bg-white/95 flex items-center justify-center p-2 mr-3 flex-shrink-0">
+                            <img src="img/favicon.png" alt="โลโก้ วิเศษวานิช คอนสตรัคชั่น" class="w-full h-full object-contain">
+                        </div>
+                        <div class="flex flex-col justify-center pt-1">
+                            <span class="font-bold text-lg md:text-xl text-white tracking-wide block leading-none mb-1.5">บริษัท วิเศษวานิช คอนสตรัคชั่น จำกัด</span>
+                            <span class="text-[8px] md:text-[10px] text-brand-300 font-bold tracking-[0.15em] leading-none">WISETWANICH CONSTRUCTION CO., LTD.</span>
+                        </div>
+                    </div>
+                    <p class="text-sm mb-4 max-w-sm text-brand-200 leading-relaxed">
+                        บริษัทให้บริการรื้อถอนอาคาร เคลียร์ริ่งพื้นที่ ขนย้ายเศษวัสดุทุกชนิดระดับประเทศ ดำเนินงานด้วยความซื่อสัตย์ ยึดมั่นในมาตรฐานวิศวกรรมและความปลอดภัยเป็นอันดับหนึ่ง
+                    </p>
+                </div>
+                <div>
+                    <h4 data-i18n="footer_quicklinks" class="text-white font-semibold mb-4">ลิงก์ด่วน</h4>
+                    <ul class="space-y-2 text-sm text-brand-200">
+                        <li><a href="index.html" class="hover:text-white transition-colors">หน้าแรก</a></li>
+                        <li><a href="index.html#history" class="hover:text-white transition-colors">ความเป็นมา</a></li>
+                        <li><a href="index.html#about" class="hover:text-white transition-colors">เกี่ยวกับเรา</a></li>
+                        <li><a href="index.html#portfolio" class="hover:text-white transition-colors">ผลงานที่ผ่านมา</a></li>
+                        <li><a href="index.html#contact" class="hover:text-white transition-colors">ติดต่อเรา</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 data-i18n="footer_hours" class="text-white font-semibold mb-4">เวลาทำการ</h4>
+                    <ul class="space-y-2 text-sm text-brand-200">
+                        <li>เปิดให้บริการทุกวัน 24/7</li>
+                    </ul>
+
+                    <!-- ช่องทางการติดตาม: แก้ href ของแต่ละไอคอนเป็นลิงก์เพจจริงของบริษัท -->
+                    <p data-i18n="footer_follow" class="text-white font-semibold mt-6 mb-3 text-sm">ช่องทางการติดตาม</p>
+                    <div class="flex items-center gap-3">
+                        <a href="#" target="_blank" rel="noopener noreferrer" aria-label="Facebook"
+                            class="w-9 h-9 rounded-full bg-brand-800 hover:bg-brand-500 flex items-center justify-center transition-colors">
+                            <i class="fab fa-facebook-f text-sm"></i>
+                        </a>
+                        <a href="#" target="_blank" rel="noopener noreferrer" aria-label="YouTube"
+                            class="w-9 h-9 rounded-full bg-brand-800 hover:bg-brand-500 flex items-center justify-center transition-colors">
+                            <i class="fab fa-youtube text-sm"></i>
+                        </a>
+                        <a href="#" target="_blank" rel="noopener noreferrer" aria-label="TikTok"
+                            class="w-9 h-9 rounded-full bg-brand-800 hover:bg-brand-500 flex items-center justify-center transition-colors">
+                            <i class="fab fa-tiktok text-sm"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-brand-800 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-brand-400">
+                <p>&copy; 2026 บริษัท วิเศษวานิช คอนสตรัคชั่น จำกัด. สงวนลิขสิทธิ์.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Gallery Image Modal -->
+    <div id="gallery-modal" class="fixed inset-0 z-[110] hidden">
+        <div class="absolute inset-0 bg-gray-900/90 backdrop-blur-sm transition-opacity" onclick="closeGalleryModal()"></div>
+        <div class="flex items-center justify-center min-h-screen p-4 sm:p-8 pointer-events-none">
+            <div class="relative max-w-3xl w-full pointer-events-auto">
+                <button type="button" onclick="closeGalleryModal()" aria-label="ปิด" class="absolute -top-12 right-0 w-10 h-10 bg-white/10 hover:bg-white/20 text-white rounded-full flex items-center justify-center transition-colors z-10">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+                <button type="button" id="gallery-modal-prev" onclick="modalGalleryPrev()" aria-label="ย้อนกลับ"
+                    class="absolute left-1 sm:-left-14 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-12 sm:h-12 bg-white/10 hover:bg-white/20 text-white rounded-full flex items-center justify-center transition-colors z-10">
+                    <i class="fas fa-chevron-left text-lg sm:text-xl"></i>
+                </button>
+                <button type="button" id="gallery-modal-next" onclick="modalGalleryNext()" aria-label="ถัดไป"
+                    class="absolute right-1 sm:-right-14 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-12 sm:h-12 bg-white/10 hover:bg-white/20 text-white rounded-full flex items-center justify-center transition-colors z-10">
+                    <i class="fas fa-chevron-right text-lg sm:text-xl"></i>
+                </button>
+                <div class="gallery-modal-content bg-white rounded-2xl overflow-hidden shadow-2xl fade-in">
+                    <img id="gallery-modal-image" src="" alt="" class="w-full max-h-[80vh] object-contain bg-gray-50">
+                    <p id="gallery-modal-caption" class="text-center text-gray-600 text-sm py-3 border-t border-gray-100"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Back to Top Button -->
+    <button id="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" aria-label="กลับขึ้นด้านบน"
+        class="fixed bottom-6 right-6 z-50 w-12 h-12 md:w-14 md:h-14 rounded-full bg-brand-600 hover:bg-brand-700 text-white shadow-lg flex items-center justify-center transition-all duration-300 opacity-0 translate-y-4 pointer-events-none">
+        <i class="fas fa-arrow-up text-lg md:text-xl"></i>
+    </button>
+
+    <!-- โหลดข้อมูลผลงานจากฐานข้อมูล Supabase: เพิ่ม/แก้/ลบผลงานทำผ่านหน้า backend.html แทน -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="javascript/supabase-config.js"></script>
+    <script src="javascript/projects-loader.js"></script>
+    <script src="javascript/i18n.js"></script>
+
+    <script>
+        // ============================================
+        // ระบบสลับภาษา TH/EN (เฉพาะเมนู + หัวข้อหลักแต่ละ section)
+        // ตัวระบบหลักอยู่ใน i18n.js - ที่นี่กำหนดแค่คำแปลเฉพาะของหน้านี้
+        // ============================================
+        initI18n({
+            heading_portfolio: { th: "ผลงานที่ผ่านมาของเรา", en: "Our Past Projects" },
+            heading_notfound:  { th: "ไม่พบผลงานที่คุณต้องการ", en: "Project Not Found" },
+            heading_gallery:   { th: "ผลงานและประสบการณ์", en: "Project Gallery & Details" },
+            heading_related:   { th: "ผลงานอื่นๆ ที่น่าสนใจ", en: "Other Related Projects" },
+        });
+
+        // ============================================
+        // Photo Gallery renderer (ใช้ร่วมกันทุกผลงาน)
+        // ============================================
+        let galleryPhotos = [];
+
+        function renderGallery() {
+            const grid = document.getElementById('gallery-grid');
+            if (!grid) return;
+            if (!galleryPhotos || galleryPhotos.length === 0) {
+                grid.innerHTML = '';
+                return;
+            }
+
+            grid.innerHTML = galleryPhotos.map((photo, i) => `
+                <div data-gallery-index="${i}" class="gallery-zoom aspect-square bg-gray-50 rounded-xl overflow-hidden relative cursor-zoom-in group border border-gray-100">
+                    <img src="${photo.src}" alt="${photo.alt}"
+                         onerror="this.src='https://placehold.co/400x400/eeeeee/333333?text=Photo'"
+                         class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors flex items-center justify-center">
+                        <i class="fas fa-search-plus text-white text-xl opacity-0 group-hover:opacity-100 transition-opacity drop-shadow-lg"></i>
+                    </div>
+                </div>
+            `).join('');
+
+            grid.querySelectorAll('.gallery-zoom').forEach(el => {
+                el.addEventListener('click', () => {
+                    const idx = parseInt(el.getAttribute('data-gallery-index'));
+                    openGalleryModal(idx);
+                });
+            });
+        }
+
+        // เปิด-ปิดโมดัลดูรูปหน้างานขนาดใหญ่ (เลื่อนดูรูปถัดไป/ก่อนหน้าได้โดยไม่ต้องปิดโมดัล)
+        let modalGalleryIndex = 0;
+
+        function renderGalleryModalImage() {
+            const photo = galleryPhotos[modalGalleryIndex];
+            const img = document.getElementById('gallery-modal-image');
+            const caption = document.getElementById('gallery-modal-caption');
+            img.src = photo.src;
+            img.alt = photo.alt;
+            caption.textContent = photo.alt;
+
+            const content = document.querySelector('#gallery-modal .gallery-modal-content');
+            content.classList.remove('fade-in');
+            void content.offsetWidth;
+            content.classList.add('fade-in');
+
+            // ถ้ามีรูปเดียวไม่ต้องแสดงปุ่มเลื่อน
+            const showNav = galleryPhotos.length > 1;
+            document.getElementById('gallery-modal-prev').classList.toggle('hidden', !showNav);
+            document.getElementById('gallery-modal-next').classList.toggle('hidden', !showNav);
+        }
+
+        function openGalleryModal(index) {
+            modalGalleryIndex = index;
+            document.getElementById('gallery-modal').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+            renderGalleryModalImage();
+        }
+
+        function modalGalleryPrev() {
+            modalGalleryIndex = (modalGalleryIndex - 1 + galleryPhotos.length) % galleryPhotos.length;
+            renderGalleryModalImage();
+        }
+
+        function modalGalleryNext() {
+            modalGalleryIndex = (modalGalleryIndex + 1) % galleryPhotos.length;
+            renderGalleryModalImage();
+        }
+
+        function closeGalleryModal() {
+            document.getElementById('gallery-modal').classList.add('hidden');
+            document.body.style.overflow = '';
+        }
+
+        document.addEventListener('keydown', function(event) {
+            if (event.key === "Escape") {
+                closeGalleryModal();
+            }
+            if (!document.getElementById('gallery-modal').classList.contains('hidden')) {
+                if (event.key === "ArrowLeft") modalGalleryPrev();
+                if (event.key === "ArrowRight") modalGalleryNext();
+            }
+        });
+
+        // ============================================
+        // โหลดข้อมูลผลงานตาม ?id= ใน URL แล้ววาดหน้าเพจ
+        // ============================================
+        function renderProject(project) {
+            document.title = `${project.title} | บริษัท วิเศษวานิช คอนสตรัคชั่น จำกัด`;
+            const metaDesc = document.querySelector('meta[name="description"]');
+            if (metaDesc) {
+                metaDesc.setAttribute('content', `ผลงาน${project.category} ${project.title} ${project.location} โดยบริษัท วิเศษวานิช คอนสตรัคชั่น จำกัด`);
+            }
+
+            document.getElementById('breadcrumb-title').textContent = project.title;
+
+            const heroImg = document.getElementById('hero-image');
+            heroImg.src = project.image;
+            heroImg.alt = project.title;
+            heroImg.onerror = function () {
+                this.onerror = null;
+                this.src = `https://placehold.co/1200x600/eeeeee/333333?text=${project.placeholder || 'Project'}`;
+            };
+
+            document.getElementById('client-name').textContent = project.client || '';
+
+            document.getElementById('facts-list').innerHTML = (project.facts || []).map(fact => {
+                const isHighlighted = typeof fact === 'string' && fact.startsWith('!');
+                const text = isHighlighted ? fact.slice(1) : fact;
+                return `
+                <li class="flex items-start gap-2 ${isHighlighted ? 'text-red-600 font-semibold' : 'text-gray-600'}">
+                    <span class="w-2 h-2 rounded-full ${isHighlighted ? 'bg-red-500' : 'bg-brand-500'} mt-2.5 flex-shrink-0"></span>
+                    <span>${text}</span>
+                </li>
+            `;
+            }).join('');
+
+            galleryPhotos = project.gallery || [];
+            renderGallery();
+
+            // ผลงานอื่นๆ ที่สะสมไว้ (ไม่รวมผลงานที่กำลังดูอยู่)
+            const others = PROJECTS.filter(p => p.id !== project.id);
+            const relatedSection = document.getElementById('related-section');
+            const relatedGrid = document.getElementById('related-grid');
+
+            if (others.length === 0) {
+                relatedSection.classList.add('hidden');
+            } else {
+                relatedSection.classList.remove('hidden');
+                relatedGrid.innerHTML = others.map(p => `
+                    <a href="project.html?id=${encodeURIComponent(p.id)}" class="group bg-white rounded-2xl border border-brand-100 overflow-hidden shadow-sm hover:shadow-xl hover:shadow-brand-100 hover:-translate-y-1.5 hover:border-brand-300 transition-all duration-300 block">
+                        <div class="relative h-40 sm:h-48 overflow-hidden bg-brand-50">
+                            <img src="${p.image}"
+                                 onerror="this.onerror=null; this.src='https://placehold.co/600x400/eeeeee/333333?text=${p.placeholder || 'Project'}'"
+                                 alt="${p.title}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                            <span class="absolute top-3 left-3 ${p.badgeBg || 'bg-brand-50'} ${p.badgeText || 'text-brand-600'} text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full shadow-sm ring-1 ring-white/60">${p.category}</span>
+                        </div>
+                        <div class="p-4">
+                            <h4 class="text-gray-900 font-bold text-base truncate group-hover:text-brand-700 transition-colors">${p.title}</h4>
+                            <p class="text-gray-400 text-xs mt-1 flex items-center gap-1 truncate">
+                                <i class="fas fa-map-marker-alt text-brand-500"></i> ${p.location}
+                            </p>
+                            <div class="mt-3 h-0.5 bg-brand-50 rounded-full overflow-hidden">
+                                <div class="h-full w-0 bg-brand-500 group-hover:w-full transition-all duration-500 ease-out rounded-full"></div>
+                            </div>
+                        </div>
+                    </a>
+                `).join('');
+            }
+        }
+
+        let PROJECTS = [];
+
+        (async function init() {
+            PROJECTS = await loadProjects();
+
+            const params = new URLSearchParams(window.location.search);
+            const projectId = params.get('id');
+
+            let project;
+            if (!projectId) {
+                // ไม่ระบุ id มา แสดงผลงานล่าสุด (อันแรกใน array) ให้เป็นค่าเริ่มต้น
+                project = PROJECTS[0];
+            } else {
+                project = PROJECTS.find(p => p.id === projectId);
+            }
+
+            if (project) {
+                document.getElementById('project-detail-wrap').classList.remove('hidden');
+                document.getElementById('not-found-wrap').classList.add('hidden');
+                renderProject(project);
+            } else {
+                document.getElementById('project-detail-wrap').classList.add('hidden');
+                document.getElementById('not-found-wrap').classList.remove('hidden');
+            }
+        })();
+
+        // Mobile menu toggle
+        const menuBtn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+        menuBtn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
+        const mobileLinks = menu.querySelectorAll('a');
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                menu.classList.add('hidden');
+            });
+        });
+
+        // Navbar + back-to-top on scroll
+        const navbar = document.getElementById('navbar');
+        const backToTopBtn = document.getElementById('back-to-top');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 20) {
+                navbar.classList.add('shadow-md');
+                navbar.classList.remove('border-brand-50');
+            } else {
+                navbar.classList.remove('shadow-md');
+                navbar.classList.add('border-brand-50');
+            }
+
+            if (window.scrollY > 400) {
+                backToTopBtn.classList.remove('opacity-0', 'translate-y-4', 'pointer-events-none');
+                backToTopBtn.classList.add('opacity-100', 'translate-y-0');
+            } else {
+                backToTopBtn.classList.add('opacity-0', 'translate-y-4', 'pointer-events-none');
+                backToTopBtn.classList.remove('opacity-100', 'translate-y-0');
+            }
+        });
+    </script>
+</body>
+</html>

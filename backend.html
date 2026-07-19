@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="th" class="scroll-smooth">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ระบบจัดการผลงาน | วิเศษวานิช คอนสตรัคชั่น</title>
+<link rel="icon" type="image/png" href="./img/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<!-- ใช้ค่าเชื่อมต่อเดียวกับ index.html / project.html: แก้ไฟล์ supabase-config.js ไฟล์เดียว ใช้ได้ทุกเครื่อง -->
+<script src="javascript/supabase-config.js"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        fontFamily: { sans: ['Kanit', 'sans-serif'] },
+        colors: {
+          brand: {
+            50: '#f0fdf4', 100: '#dcfce7', 200: '#bbf7d0', 300: '#86efac',
+            400: '#4ade80', 500: '#22c55e', 600: '#16a34a', 700: '#15803d',
+            800: '#166534', 900: '#14532d', 950: '#052e16',
+          },
+          accent: { 100: '#d1fae5', 300: '#6ee7b7', 500: '#10b981', 600: '#059669' }
+        }
+      }
+    }
+  }
+</script>
+<style>
+  body { background: #f7faf8; }
+  .scrollbar-thin::-webkit-scrollbar { width: 6px; }
+  .scrollbar-thin::-webkit-scrollbar-thumb { background: #bbf7d0; border-radius: 4px; }
+  .fade-in { animation: fadeIn .35s ease-out forwards; }
+  @keyframes fadeIn { from { opacity:0; transform: translateY(8px);} to { opacity:1; transform: translateY(0);} }
+  [x-cloak] { display: none !important; }
+</style>
+</head>
+<body class="font-sans text-gray-800 antialiased min-h-screen">
+
+<!-- ============ SETUP SCREEN (แสดงถ้ายังไม่ได้เชื่อม Supabase) ============ -->
+<div id="setup-screen" class="min-h-screen flex items-center justify-center px-4">
+  <div class="max-w-lg w-full bg-white rounded-2xl shadow-xl border border-brand-100 p-8">
+    <div class="flex items-center gap-3 mb-2">
+      <div class="w-11 h-11 rounded-xl bg-brand-600 text-white flex items-center justify-center text-xl"><i class="fas fa-database"></i></div>
+      <h1 class="text-xl font-bold text-brand-900">เชื่อมต่อฐานข้อมูล Supabase</h1>
+    </div>
+    <p class="text-sm text-gray-500 mb-4">กรอกครั้งเดียว ระบบจะจำไว้ในเบราว์เซอร์นี้</p>
+
+    <div class="bg-brand-50 border border-brand-100 rounded-xl p-4 mb-6">
+      <p class="text-sm text-brand-800 font-medium mb-1"><i class="fas fa-star text-brand-500 mr-1"></i> แนะนำ: แก้ที่ไฟล์เดียว ใช้ได้ทุกเครื่อง</p>
+      <p class="text-xs text-brand-700 leading-relaxed">เปิดไฟล์ <code class="bg-white px-1 py-0.5 rounded border border-brand-100">javascript/supabase-config.js</code> (อยู่ในโฟลเดอร์ javascript ของเว็บ) แล้วใส่ Project URL กับ Anon Key ตรงนั้นแทน จะไม่ต้องมากรอกซ้ำทุกครั้งที่เปิดเครื่องใหม่หรือเบราว์เซอร์ใหม่ เพราะเว็บจะดึงค่าจากไฟล์นี้อัตโนมัติ (ไฟล์เดียวกับที่ index.html และ project.html ใช้อยู่แล้วด้วย)</p>
+    </div>
+
+    <p class="text-xs text-gray-400 mb-4 text-center">— หรือกรอกที่นี่ชั่วคราว (จะจำไว้แค่ในเบราว์เซอร์นี้เครื่องเดียว) —</p>
+
+    <label class="block text-sm font-medium text-gray-700 mb-1">Project URL</label>
+    <input id="input-url" type="text" placeholder="https://xxxxxxxx.supabase.co"
+      class="w-full mb-4 px-4 py-2.5 rounded-lg border border-gray-300 focus:border-brand-500 focus:ring-2 focus:ring-brand-100 outline-none text-sm">
+
+    <label class="block text-sm font-medium text-gray-700 mb-1">Anon Public Key</label>
+    <input id="input-key" type="text" placeholder="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+      class="w-full mb-2 px-4 py-2.5 rounded-lg border border-gray-300 focus:border-brand-500 focus:ring-2 focus:ring-brand-100 outline-none text-sm">
+    <p class="text-xs text-gray-400 mb-5">หาได้ที่ Supabase Dashboard &gt; Settings &gt; API</p>
+
+    <button id="btn-connect" class="w-full bg-brand-600 hover:bg-brand-700 text-white font-medium py-2.5 rounded-lg transition flex items-center justify-center gap-2">
+      <i class="fas fa-plug"></i> เชื่อมต่อ
+    </button>
+    <p id="setup-error" class="hidden mt-3 text-sm text-red-600 bg-red-50 border border-red-100 rounded-lg px-3 py-2"></p>
+
+    <details class="mt-6 text-xs text-gray-500">
+      <summary class="cursor-pointer font-medium text-brand-700">ยังไม่เคยตั้งตารางในฐานข้อมูล? กดดูคำสั่ง SQL</summary>
+      <pre class="mt-2 bg-gray-900 text-green-300 rounded-lg p-3 overflow-x-auto whitespace-pre-wrap leading-relaxed">create table projects (
+  id text primary key,
+  category text,
+  badge_bg text,
+  badge_text text,
+  card_tag_color text,
+  title text,
+  location text,
+  image text,
+  placeholder text,
+  client text,
+  facts jsonb default '[]',
+  gallery jsonb default '[]',
+  sort_order int default 0,
+  created_at timestamp default now()
+);
+
+alter table projects enable row level security;
+
+create policy "public can read"
+  on projects for select using (true);
+
+create policy "public can write"
+  on projects for all using (true) with check (true);</pre>
+      <p class="mt-2">แล้วไปที่ <b>Storage &gt; New bucket</b> ตั้งชื่อ <code>project-images</code> เลือก Public bucket</p>
+    </details>
+  </div>
+</div>
+
+<!-- ============ MAIN APP ============ -->
+<div id="app" class="hidden min-h-screen">
+
+  <nav class="bg-white border-b border-brand-100 sticky top-0 z-40">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-9 h-9 rounded-lg bg-brand-600 text-white flex items-center justify-center"><i class="fas fa-hard-hat"></i></div>
+        <div>
+          <h1 class="font-bold text-brand-900 leading-tight">ระบบจัดการผลงาน</h1>
+          <p class="text-[11px] text-gray-400 leading-tight">วิเศษวานิช คอนสตรัคชั่น</p>
+        </div>
+      </div>
+      <div class="flex items-center gap-2">
+        <a href="index.html" class="flex items-center gap-1.5 text-xs font-medium text-gray-500 hover:text-brand-600 px-3 py-1.5 rounded-full hover:bg-brand-50 transition">
+          <i class="fas fa-arrow-left"></i> <span class="hidden sm:inline">กลับหน้าเว็บ</span>
+        </a>
+        <span id="conn-status" class="hidden sm:flex items-center gap-1.5 text-xs text-brand-700 bg-brand-50 px-3 py-1.5 rounded-full">
+          <span class="w-2 h-2 rounded-full bg-brand-500"></span> เชื่อมต่อแล้ว
+        </span>
+        <button id="btn-disconnect" class="text-xs text-gray-400 hover:text-red-500 px-3 py-1.5 transition">ตัดการเชื่อมต่อ</button>
+      </div>
+    </div>
+  </nav>
+
+  <main class="max-w-6xl mx-auto px-4 sm:px-6 py-8">
+    <div class="flex flex-wrap items-center justify-between gap-3 mb-6">
+      <div>
+        <h2 class="text-2xl font-bold text-brand-900">ผลงานทั้งหมด</h2>
+        <p class="text-sm text-gray-500"><span id="count-label">0</span> รายการ</p>
+      </div>
+      <button id="btn-new" class="bg-brand-600 hover:bg-brand-700 text-white font-medium px-5 py-2.5 rounded-full transition flex items-center gap-2 shadow-md">
+        <i class="fas fa-plus"></i> เพิ่มผลงานใหม่
+      </button>
+    </div>
+
+    <div class="flex flex-col sm:flex-row gap-3 mb-6">
+      <div class="relative flex-1">
+        <i class="fas fa-search absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i>
+        <input id="search-input" type="text" placeholder="ค้นหาผลงาน เช่น ชื่อโครงการ, สถานที่, ลูกค้า..."
+          class="w-full pl-11 pr-4 py-2.5 rounded-full border border-gray-200 focus:border-brand-400 focus:ring-2 focus:ring-brand-100 outline-none text-sm transition">
+      </div>
+      <select id="category-filter"
+        class="sm:w-56 px-4 py-2.5 rounded-full border border-gray-200 focus:border-brand-400 focus:ring-2 focus:ring-brand-100 outline-none text-sm bg-white transition">
+        <option value="">ทุกหมวดหมู่</option>
+      </select>
+    </div>
+
+    <div id="loading" class="text-center py-20 text-gray-400">
+      <i class="fas fa-spinner fa-spin text-2xl mb-2"></i>
+      <p class="text-sm">กำลังโหลดข้อมูล...</p>
+    </div>
+
+    <div id="empty-state" class="hidden text-center py-20 bg-white rounded-2xl border border-dashed border-gray-200">
+      <i class="fas fa-folder-open text-3xl text-gray-300 mb-3"></i>
+      <p class="text-gray-500">ยังไม่มีผลงานในระบบ กดปุ่ม "เพิ่มผลงานใหม่" เพื่อเริ่มต้น</p>
+    </div>
+
+    <div id="no-match-state" class="hidden text-center py-20 bg-white rounded-2xl border border-dashed border-gray-200">
+      <i class="fas fa-search text-3xl text-gray-300 mb-3"></i>
+      <p class="text-gray-500">ไม่พบผลงานที่ตรงกับการค้นหา</p>
+    </div>
+
+    <div id="project-grid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5"></div>
+  </main>
+</div>
+
+<!-- ============ FORM MODAL ============ -->
+<div id="form-modal" class="hidden fixed inset-0 bg-black/50 z-50 flex items-start sm:items-center justify-center p-4 overflow-y-auto">
+  <div class="bg-white rounded-2xl shadow-2xl w-full max-w-2xl my-8 fade-in">
+    <div class="flex items-center justify-between px-6 py-4 border-b border-gray-100 sticky top-0 bg-white rounded-t-2xl">
+      <h3 id="form-title" class="font-bold text-lg text-brand-900">เพิ่มผลงานใหม่</h3>
+      <button id="btn-close-form" class="text-gray-400 hover:text-gray-700 w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100"><i class="fas fa-times"></i></button>
+    </div>
+
+    <div class="px-6 py-5 space-y-4 max-h-[70vh] overflow-y-auto scrollbar-thin">
+      <div class="grid sm:grid-cols-2 gap-4">
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">รหัสงาน (id) <span class="text-red-400">*</span></label>
+          <input id="f-id" type="text" placeholder="เช่น modern-house-4" class="w-full px-3 py-2 rounded-lg border border-gray-300 focus:border-brand-500 outline-none text-sm">
+          <p id="f-id-hint" class="text-[11px] text-gray-400 mt-1">ใช้ต่อท้าย URL ห้ามซ้ำ ห้ามเว้นวรรค</p>
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">หมวดหมู่</label>
+          <input id="f-category" type="text" placeholder="เช่น รื้อถอน" class="w-full px-3 py-2 rounded-lg border border-gray-300 focus:border-brand-500 outline-none text-sm">
+        </div>
+      </div>
+
+      <div class="grid sm:grid-cols-2 gap-4">
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">ชื่อโครงการ</label>
+          <input id="f-title" type="text" class="w-full px-3 py-2 rounded-lg border border-gray-300 focus:border-brand-500 outline-none text-sm">
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">ที่ตั้ง</label>
+          <input id="f-location" type="text" class="w-full px-3 py-2 rounded-lg border border-gray-300 focus:border-brand-500 outline-none text-sm">
+        </div>
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">ลูกค้า</label>
+        <input id="f-client" type="text" class="w-full px-3 py-2 rounded-lg border border-gray-300 focus:border-brand-500 outline-none text-sm">
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">สีป้ายหมวดหมู่</label>
+        <div class="flex gap-2" id="f-color-group">
+          <button type="button" data-color="green" class="color-opt flex-1 py-2 rounded-lg border-2 text-sm font-medium border-brand-500 bg-brand-50 text-brand-700">🟢 เขียว</button>
+          <button type="button" data-color="red" class="color-opt flex-1 py-2 rounded-lg border-2 text-sm font-medium border-gray-200 text-gray-500">🔴 แดง</button>
+          <button type="button" data-color="mint" class="color-opt flex-1 py-2 rounded-lg border-2 text-sm font-medium border-gray-200 text-gray-500">🟩 มิ้นท์</button>
+        </div>
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">ป้ายกำกับ (แสดงในหน้าเว็บด้วย)</label>
+        <p class="text-[11px] text-gray-400 mb-1.5">ติ๊กได้มากกว่า 1 ป้าย — ผลงานที่ติ๊ก "ล่าสุด" จะถูกเลื่อนไปอยู่การ์ดแรกสุดในหน้าแรกโดยอัตโนมัติ</p>
+        <div class="flex flex-wrap gap-2" id="f-tags-group">
+          <button type="button" data-tag="latest" class="tag-opt py-2 px-3 rounded-lg border-2 text-sm font-medium border-gray-200 text-gray-500 flex items-center gap-1.5">
+            <i class="fas fa-bolt text-[11px]"></i> ล่าสุด
+          </button>
+          <button type="button" data-tag="new" class="tag-opt py-2 px-3 rounded-lg border-2 text-sm font-medium border-gray-200 text-gray-500 flex items-center gap-1.5">
+            <i class="fas fa-sparkles text-[11px]"></i> ใหม่
+          </button>
+          <button type="button" data-tag="quality" class="tag-opt py-2 px-3 rounded-lg border-2 text-sm font-medium border-gray-200 text-gray-500 flex items-center gap-1.5">
+            <i class="fas fa-medal text-[11px]"></i> คุณภาพ
+          </button>
+        </div>
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">รูปภาพหลัก</label>
+        <div class="flex items-center gap-3">
+          <img id="f-image-preview" class="w-16 h-16 rounded-lg object-cover bg-gray-100 border border-gray-200 hidden">
+          <input id="f-image" type="text" placeholder="URL รูปภาพ หรือกดอัปโหลดด้านขวา" class="flex-1 px-3 py-2 rounded-lg border border-gray-300 focus:border-brand-500 outline-none text-sm">
+          <label class="shrink-0 cursor-pointer bg-gray-100 hover:bg-gray-200 text-gray-600 px-3 py-2 rounded-lg text-sm flex items-center gap-1.5">
+            <i class="fas fa-upload"></i> อัปโหลด
+            <input id="f-image-upload" type="file" accept="image/*" class="hidden">
+          </label>
+        </div>
+        <p id="f-image-status" class="text-[11px] text-gray-400 mt-1"></p>
+      </div>
+
+      <div>
+        <div class="flex items-center justify-between mb-1">
+          <label class="block text-sm font-medium text-gray-700">ข้อเท็จจริงสำคัญ (facts)</label>
+          <button type="button" id="btn-add-fact" class="text-xs text-brand-600 hover:text-brand-800 font-medium"><i class="fas fa-plus mr-1"></i>เพิ่มข้อ</button>
+        </div>
+        <p class="text-[11px] text-gray-400 mb-1.5">กดจุดด้านหน้าข้อความ เพื่อทำให้ข้อนั้นเน้นเป็นสีแดงในหน้าเว็บ</p>
+        <div id="facts-list" class="space-y-2"></div>
+      </div>
+
+      <div>
+        <div class="flex items-center justify-between mb-1">
+          <label class="block text-sm font-medium text-gray-700">รูปภาพหน้างาน (gallery)</label>
+          <button type="button" id="btn-add-gallery" class="text-xs text-brand-600 hover:text-brand-800 font-medium"><i class="fas fa-plus mr-1"></i>เพิ่มรูป</button>
+        </div>
+        <div id="gallery-list" class="space-y-2"></div>
+      </div>
+    </div>
+
+    <div class="px-6 py-4 border-t border-gray-100 flex items-center justify-between sticky bottom-0 bg-white rounded-b-2xl">
+      <p id="form-error" class="hidden text-sm text-red-600"></p>
+      <div class="flex gap-2 ml-auto">
+        <button id="btn-cancel-form" class="px-5 py-2.5 rounded-full text-gray-600 hover:bg-gray-100 font-medium text-sm">ยกเลิก</button>
+        <button id="btn-save-form" class="px-6 py-2.5 rounded-full bg-brand-600 hover:bg-brand-700 text-white font-medium text-sm flex items-center gap-2">
+          <i class="fas fa-check"></i> บันทึก
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div id="toast" class="hidden fixed bottom-6 right-6 bg-brand-900 text-white px-5 py-3 rounded-xl shadow-2xl z-[60] text-sm items-center gap-2"></div>
+
+<script>
+  const COLOR_MAP = {
+    green: { badgeBg: 'bg-brand-50', badgeText: 'text-brand-600', cardTagColor: 'text-brand-400' },
+    red:   { badgeBg: 'bg-red-50',   badgeText: 'text-red-600',   cardTagColor: 'text-red-400' },
+    mint:  { badgeBg: 'bg-accent-100', badgeText: 'text-accent-600', cardTagColor: 'text-accent-400' },
+  };
+  const TAG_STYLE_MAP = {
+    latest:  { active: 'border-red-500 bg-red-50 text-red-700' },
+    new:     { active: 'border-blue-500 bg-blue-50 text-blue-700' },
+    quality: { active: 'border-yellow-500 bg-yellow-50 text-yellow-700' },
+  };
+  const BUCKET = 'project-images';
+
+  let sb = null;
+  let editingId = null;      // null = กำลังเพิ่มใหม่, มีค่า = กำลังแก้ไข
+  let selectedColor = 'green';
+  let selectedTags = new Set();
+  let factCount = 0;
+  let galleryCount = 0;
+  let cachedProjects = [];
+
+  // ---------- Toast ----------
+  function showToast(msg, isError) {
+    const t = document.getElementById('toast');
+    t.className = 'fixed bottom-6 right-6 px-5 py-3 rounded-xl shadow-2xl z-[60] text-sm flex items-center gap-2 fade-in ' +
+      (isError ? 'bg-red-600 text-white' : 'bg-brand-900 text-white');
+    t.innerHTML = `<i class="fas ${isError ? 'fa-circle-exclamation' : 'fa-check-circle'}"></i> ${msg}`;
+    clearTimeout(window.__toastTimer);
+    window.__toastTimer = setTimeout(() => { t.classList.add('hidden'); }, 2800);
+  }
+
+  // ---------- Connection ----------
+  const CONFIG_PLACEHOLDER_URL = "https://xxxxxxxx.supabase.co";
+
+  async function initConnection() {
+    // 1) ลองใช้ค่าจาก supabase-config.js ก่อน (ไฟล์เดียวกับที่ index.html/project.html ใช้)
+    //    วิธีนี้ทำให้เปิดจากเครื่องไหนก็เชื่อมต่อได้เลย ไม่ต้องพึ่งข้อมูลที่เก็บไว้ในเบราว์เซอร์
+    if (typeof SUPABASE_URL !== 'undefined' && SUPABASE_URL && SUPABASE_URL !== CONFIG_PLACEHOLDER_URL) {
+      const ok = await connect(SUPABASE_URL, SUPABASE_ANON_KEY, true);
+      if (ok) return;
+    }
+
+    // 2) ถ้ายังไม่ได้แก้ supabase-config.js ให้ลองใช้ค่าที่เคยกรอกไว้ในเบราว์เซอร์นี้ (เผื่อไว้)
+    const url = localStorage.getItem('sb_url');
+    const key = localStorage.getItem('sb_key');
+    if (url && key) {
+      await connect(url, key, true);
+    }
+  }
+
+  async function connect(url, key, silent) {
+    try {
+      sb = window.supabase.createClient(url, key);
+      const { error } = await sb.from('projects').select('id').limit(1);
+      if (error) throw error;
+      localStorage.setItem('sb_url', url);
+      localStorage.setItem('sb_key', key);
+      document.getElementById('setup-screen').classList.add('hidden');
+      document.getElementById('app').classList.remove('hidden');
+      loadProjects();
+      return true;
+    } catch (err) {
+      sb = null;
+      if (!silent) {
+        const el = document.getElementById('setup-error');
+        el.textContent = 'เชื่อมต่อไม่สำเร็จ: ' + (err.message || 'ตรวจสอบ URL / Key และตารางในฐานข้อมูล');
+        el.classList.remove('hidden');
+      }
+      return false;
+    }
+  }
+
+  document.getElementById('btn-connect').addEventListener('click', () => {
+    const url = document.getElementById('input-url').value.trim();
+    const key = document.getElementById('input-key').value.trim();
+    if (!url || !key) {
+      const el = document.getElementById('setup-error');
+      el.textContent = 'กรุณากรอก URL และ Key ให้ครบ';
+      el.classList.remove('hidden');
+      return;
+    }
+    connect(url, key, false);
+  });
+
+  document.getElementById('btn-disconnect').addEventListener('click', () => {
+    if (!confirm('ตัดการเชื่อมต่อฐานข้อมูล?')) return;
+    localStorage.removeItem('sb_url');
+    localStorage.removeItem('sb_key');
+    location.reload();
+  });
+
+  // ---------- Load & render projects ----------
+  async function loadProjects() {
+    document.getElementById('loading').classList.remove('hidden');
+    document.getElementById('empty-state').classList.add('hidden');
+    document.getElementById('no-match-state').classList.add('hidden');
+    document.getElementById('project-grid').innerHTML = '';
+
+    const { data, error } = await sb.from('projects').select('*').order('sort_order', { ascending: true });
+    document.getElementById('loading').classList.add('hidden');
+
+    if (error) { showToast('โหลดข้อมูลไม่สำเร็จ: ' + error.message, true); return; }
+
+    cachedProjects = data || [];
+    document.getElementById('count-label').textContent = cachedProjects.length;
+    populateCategoryFilter(cachedProjects);
+
+    if (cachedProjects.length === 0) {
+      document.getElementById('empty-state').classList.remove('hidden');
+      return;
+    }
+    applyFilter();
+  }
+
+  function populateCategoryFilter(projects) {
+    const select = document.getElementById('category-filter');
+    if (!select) return;
+    const current = select.value;
+    const categories = [...new Set(projects.map(p => p.category).filter(Boolean))];
+    select.innerHTML = `<option value="">ทุกหมวดหมู่</option>` +
+      categories.map(c => `<option value="${c}">${c}</option>`).join('');
+    if (categories.includes(current)) select.value = current;
+  }
+
+  function applyFilter() {
+    const grid = document.getElementById('project-grid');
+    const noMatch = document.getElementById('no-match-state');
+    const searchTerm = (document.getElementById('search-input')?.value || '').trim().toLowerCase();
+    const category = document.getElementById('category-filter')?.value || '';
+
+    let filtered = cachedProjects;
+    if (category) filtered = filtered.filter(p => p.category === category);
+    if (searchTerm) {
+      filtered = filtered.filter(p =>
+        (p.title || '').toLowerCase().includes(searchTerm) ||
+        (p.location || '').toLowerCase().includes(searchTerm) ||
+        (p.client || '').toLowerCase().includes(searchTerm) ||
+        (p.category || '').toLowerCase().includes(searchTerm)
+      );
+    }
+
+    if (cachedProjects.length > 0 && filtered.length === 0) {
+      grid.innerHTML = '';
+      noMatch.classList.remove('hidden');
+      return;
+    }
+    noMatch.classList.add('hidden');
+    renderGrid(filtered);
+  }
+
+  document.getElementById('search-input').addEventListener('input', applyFilter);
+  document.getElementById('category-filter').addEventListener('change', applyFilter);
+
+  const TAG_LABELS = {
+    latest:  { label: 'ล่าสุด', class: 'bg-red-500 text-white' },
+    new:     { label: 'ใหม่', class: 'bg-blue-500 text-white' },
+    quality: { label: 'คุณภาพ', class: 'bg-yellow-400 text-gray-900' },
+  };
+  function tagBadgesHtml(tags) {
+    if (!tags || !tags.length) return '';
+    return tags.map(t => TAG_LABELS[t]
+      ? `<span class="text-[9px] font-bold px-1.5 py-0.5 rounded ${TAG_LABELS[t].class}">${TAG_LABELS[t].label}</span>`
+      : '').join(' ');
+  }
+
+  function renderGrid(projects) {
+    const grid = document.getElementById('project-grid');
+    grid.innerHTML = projects.map(p => `
+      <div class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden hover:shadow-md transition group">
+        <div class="h-40 bg-gray-100 relative overflow-hidden">
+          ${p.image
+            ? `<img src="${escapeHtml(p.image)}" class="w-full h-full object-cover" onerror="this.style.display='none'">`
+            : `<div class="w-full h-full flex items-center justify-center text-gray-300"><i class="fas fa-image text-3xl"></i></div>`}
+          <span class="absolute top-3 left-3 text-[11px] font-medium px-2.5 py-1 rounded-full ${p.badge_bg || 'bg-brand-50'} ${p.badge_text || 'text-brand-600'}">${escapeHtml(p.category || '')}</span>
+          <div class="absolute top-3 right-3 flex flex-col items-end gap-1">${tagBadgesHtml(p.tags)}</div>
+        </div>
+        <div class="p-4">
+          <h3 class="font-bold text-brand-900 truncate">${escapeHtml(p.title || '(ไม่มีชื่อ)')}</h3>
+          <p class="text-xs text-gray-400 mb-3"><i class="fas fa-location-dot mr-1"></i>${escapeHtml(p.location || '-')}</p>
+          <div class="flex gap-2">
+            <button onclick="openEdit('${escapeAttr(p.id)}')" class="flex-1 text-xs font-medium bg-gray-50 hover:bg-brand-50 text-gray-600 hover:text-brand-700 py-2 rounded-lg transition"><i class="fas fa-pen mr-1"></i> แก้ไข</button>
+            <button onclick="deleteProject('${escapeAttr(p.id)}')" class="text-xs font-medium bg-gray-50 hover:bg-red-50 text-gray-400 hover:text-red-500 py-2 px-3 rounded-lg transition"><i class="fas fa-trash"></i></button>
+          </div>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  function escapeHtml(s) { return String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+  function escapeAttr(s) { return String(s ?? '').replace(/'/g, "\\'"); }
+
+  // ---------- Delete ----------
+  async function deleteProject(id) {
+    if (!confirm('ลบผลงานนี้ถาวร? กู้คืนไม่ได้')) return;
+    const { error } = await sb.from('projects').delete().eq('id', id);
+    if (error) { showToast('ลบไม่สำเร็จ: ' + error.message, true); return; }
+    showToast('ลบผลงานแล้ว');
+    loadProjects();
+  }
+
+  // ---------- Form: facts ----------
+  function addFactRow(value) {
+    factCount++;
+    const id = 'fact-' + factCount;
+    let raw = value || '';
+    const highlighted = raw.startsWith('!');
+    if (highlighted) raw = raw.slice(1);
+
+    const wrap = document.createElement('div');
+    wrap.className = 'flex gap-2 items-center';
+    wrap.id = id;
+    wrap.dataset.highlighted = highlighted ? 'true' : 'false';
+    wrap.innerHTML = `
+      <button type="button" class="fact-highlight-btn shrink-0 w-9 h-9 rounded-lg flex items-center justify-center transition ${highlighted ? 'bg-red-50 text-red-500' : 'bg-gray-50 text-gray-300 hover:text-gray-400'}"
+        title="เน้นข้อความนี้เป็นสีแดง">
+        <i class="fas fa-circle text-[9px]"></i>
+      </button>
+      <input type="text" value="${escapeHtml(raw)}" placeholder="เช่น ราคาประมูล 5,000,000 บาท"
+        class="fact-input flex-1 px-3 py-2 rounded-lg border ${highlighted ? 'border-red-200 text-red-600' : 'border-gray-300'} focus:border-brand-500 outline-none text-sm">
+      <button type="button" onclick="document.getElementById('${id}').remove()" class="w-9 h-9 shrink-0 rounded-lg bg-gray-50 hover:bg-red-50 text-gray-400 hover:text-red-500"><i class="fas fa-minus"></i></button>
+    `;
+    document.getElementById('facts-list').appendChild(wrap);
+
+    const btn = wrap.querySelector('.fact-highlight-btn');
+    const input = wrap.querySelector('.fact-input');
+    btn.addEventListener('click', () => {
+      const isOn = wrap.dataset.highlighted === 'true';
+      wrap.dataset.highlighted = isOn ? 'false' : 'true';
+      if (isOn) {
+        btn.classList.remove('bg-red-50', 'text-red-500');
+        btn.classList.add('bg-gray-50', 'text-gray-300');
+        input.classList.remove('border-red-200', 'text-red-600');
+        input.classList.add('border-gray-300');
+      } else {
+        btn.classList.remove('bg-gray-50', 'text-gray-300');
+        btn.classList.add('bg-red-50', 'text-red-500');
+        input.classList.remove('border-gray-300');
+        input.classList.add('border-red-200', 'text-red-600');
+      }
+    });
+  }
+
+  function addGalleryRow(src, alt) {
+    galleryCount++;
+    const id = 'gal-' + galleryCount;
+    const rowNumber = document.getElementById('gallery-list').children.length + 1;
+    const defaultAlt = alt || `ภาพงานที่ ${rowNumber}`;
+    const wrap = document.createElement('div');
+    wrap.className = 'flex gap-2 items-center';
+    wrap.id = id;
+    wrap.innerHTML = `
+      <input type="text" value="${escapeHtml(src || '')}" placeholder="URL รูปภาพ"
+        class="gallery-src flex-1 px-3 py-2 rounded-lg border border-gray-300 focus:border-brand-500 outline-none text-sm">
+      <input type="text" value="${escapeHtml(defaultAlt)}" placeholder="คำอธิบายรูป (alt)"
+        class="gallery-alt w-36 px-3 py-2 rounded-lg border border-gray-300 focus:border-brand-500 outline-none text-sm">
+      <label class="shrink-0 cursor-pointer w-9 h-9 rounded-lg bg-gray-50 hover:bg-gray-200 text-gray-500 flex items-center justify-center">
+        <i class="fas fa-upload text-xs"></i>
+        <input type="file" accept="image/*" class="hidden gallery-upload">
+      </label>
+      <button type="button" onclick="document.getElementById('${id}').remove()" class="w-9 h-9 shrink-0 rounded-lg bg-gray-50 hover:bg-red-50 text-gray-400 hover:text-red-500"><i class="fas fa-minus"></i></button>
+    `;
+    document.getElementById('gallery-list').appendChild(wrap);
+    wrap.querySelector('.gallery-upload').addEventListener('change', async (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+      const url = await uploadImage(file);
+      if (url) wrap.querySelector('.gallery-src').value = url;
+    });
+  }
+
+  document.getElementById('btn-add-fact').addEventListener('click', () => addFactRow(''));
+  document.getElementById('btn-add-gallery').addEventListener('click', () => addGalleryRow('', ''));
+
+  // ---------- Live check: รหัสงาน (id) ซ้ำหรือไม่ ----------
+  document.getElementById('f-id').addEventListener('input', (e) => {
+    const hint = document.getElementById('f-id-hint');
+    const val = e.target.value.trim();
+    const isDuplicate = !editingId && val && cachedProjects.some(p => p.id === val);
+    if (isDuplicate) {
+      hint.textContent = 'รหัสนี้ถูกใช้ไปแล้ว กรุณาตั้งรหัสอื่น';
+      hint.className = 'text-[11px] text-red-500 mt-1 font-medium';
+      e.target.classList.add('border-red-400');
+      e.target.classList.remove('border-gray-300');
+    } else {
+      hint.textContent = 'ใช้ต่อท้าย URL ห้ามซ้ำ ห้ามเว้นวรรค';
+      hint.className = 'text-[11px] text-gray-400 mt-1';
+      e.target.classList.remove('border-red-400');
+      e.target.classList.add('border-gray-300');
+    }
+  });
+
+  // ---------- Color picker ----------
+  document.getElementById('f-color-group').addEventListener('click', (e) => {
+    const btn = e.target.closest('.color-opt');
+    if (!btn) return;
+    selectedColor = btn.dataset.color;
+    document.querySelectorAll('.color-opt').forEach(b => {
+      b.classList.remove('border-brand-500', 'bg-brand-50', 'text-brand-700');
+      b.classList.add('border-gray-200', 'text-gray-500');
+    });
+    btn.classList.remove('border-gray-200', 'text-gray-500');
+    btn.classList.add('border-brand-500', 'bg-brand-50', 'text-brand-700');
+  });
+
+  // ---------- Tag / badge picker (multi-select) ----------
+  document.getElementById('f-tags-group').addEventListener('click', (e) => {
+    const btn = e.target.closest('.tag-opt');
+    if (!btn) return;
+    const tag = btn.dataset.tag;
+    const style = TAG_STYLE_MAP[tag].active.split(' ');
+    if (selectedTags.has(tag)) {
+      selectedTags.delete(tag);
+      btn.classList.remove(...style);
+      btn.classList.add('border-gray-200', 'text-gray-500');
+    } else {
+      selectedTags.add(tag);
+      btn.classList.remove('border-gray-200', 'text-gray-500');
+      btn.classList.add(...style);
+    }
+  });
+
+  // ---------- Image upload ----------
+  async function uploadImage(file) {
+    const path = `${Date.now()}-${file.name.replace(/[^a-zA-Z0-9.\-_]/g, '')}`;
+    const { error } = await sb.storage.from(BUCKET).upload(path, file);
+    if (error) { showToast('อัปโหลดรูปไม่สำเร็จ: ' + error.message, true); return null; }
+    const { data } = sb.storage.from(BUCKET).getPublicUrl(path);
+    return data.publicUrl;
+  }
+
+  document.getElementById('f-image-upload').addEventListener('change', async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    document.getElementById('f-image-status').textContent = 'กำลังอัปโหลด...';
+    const url = await uploadImage(file);
+    if (url) {
+      document.getElementById('f-image').value = url;
+      document.getElementById('f-image-status').textContent = 'อัปโหลดสำเร็จ';
+      updateImagePreview();
+    } else {
+      document.getElementById('f-image-status').textContent = '';
+    }
+  });
+
+  document.getElementById('f-image').addEventListener('input', updateImagePreview);
+  function updateImagePreview() {
+    const url = document.getElementById('f-image').value.trim();
+    const img = document.getElementById('f-image-preview');
+    if (url) { img.src = url; img.classList.remove('hidden'); } else { img.classList.add('hidden'); }
+  }
+
+  // ---------- Open form ----------
+  function resetForm() {
+    editingId = null;
+    factCount = 0;
+    galleryCount = 0;
+    selectedColor = 'green';
+    document.getElementById('f-id').value = '';
+    document.getElementById('f-id').disabled = false;
+    document.getElementById('f-id').classList.remove('border-red-400');
+    document.getElementById('f-id').classList.add('border-gray-300');
+    document.getElementById('f-id-hint').textContent = 'ใช้ต่อท้าย URL ห้ามซ้ำ ห้ามเว้นวรรค';
+    document.getElementById('f-id-hint').className = 'text-[11px] text-gray-400 mt-1';
+    document.getElementById('f-category').value = '';
+    document.getElementById('f-title').value = '';
+    document.getElementById('f-location').value = '';
+    document.getElementById('f-client').value = '';
+    document.getElementById('f-image').value = '';
+    document.getElementById('f-image-status').textContent = '';
+    document.getElementById('f-image-preview').classList.add('hidden');
+    document.getElementById('facts-list').innerHTML = '';
+    document.getElementById('gallery-list').innerHTML = '';
+    document.getElementById('form-error').classList.add('hidden');
+    document.querySelectorAll('.color-opt').forEach(b => {
+      b.classList.remove('border-brand-500', 'bg-brand-50', 'text-brand-700');
+      b.classList.add('border-gray-200', 'text-gray-500');
+    });
+    document.querySelector('.color-opt[data-color="green"]').classList.add('border-brand-500', 'bg-brand-50', 'text-brand-700');
+    selectedTags = new Set();
+    document.querySelectorAll('.tag-opt').forEach(b => {
+      const tag = b.dataset.tag;
+      b.classList.remove(...TAG_STYLE_MAP[tag].active.split(' '));
+      b.classList.add('border-gray-200', 'text-gray-500');
+    });
+    addFactRow('');
+    addGalleryRow('', '');
+  }
+
+  function openNew() {
+    resetForm();
+    document.getElementById('form-title').textContent = 'เพิ่มผลงานใหม่';
+    document.getElementById('form-modal').classList.remove('hidden');
+  }
+
+  function openEdit(id) {
+    const p = cachedProjects.find(x => x.id === id);
+    if (!p) return;
+    resetForm();
+    editingId = id;
+    document.getElementById('form-title').textContent = 'แก้ไขผลงาน: ' + p.title;
+    document.getElementById('f-id').value = p.id;
+    document.getElementById('f-id').disabled = true;
+    document.getElementById('f-category').value = p.category || '';
+    document.getElementById('f-title').value = p.title || '';
+    document.getElementById('f-location').value = p.location || '';
+    document.getElementById('f-client').value = p.client || '';
+    document.getElementById('f-image').value = p.image || '';
+    updateImagePreview();
+
+    const colorKey = Object.keys(COLOR_MAP).find(k => COLOR_MAP[k].badgeBg === p.badge_bg) || 'green';
+    document.querySelector(`.color-opt[data-color="${colorKey}"]`).click();
+
+    (p.tags || []).forEach(tag => {
+      const btn = document.querySelector(`.tag-opt[data-tag="${tag}"]`);
+      if (btn) btn.click();
+    });
+
+    document.getElementById('facts-list').innerHTML = '';
+    (p.facts && p.facts.length ? p.facts : ['']).forEach(f => addFactRow(f));
+
+    document.getElementById('gallery-list').innerHTML = '';
+    (p.gallery && p.gallery.length ? p.gallery : [{src:'',alt:''}]).forEach(g => addGalleryRow(g.src, g.alt));
+
+    document.getElementById('form-modal').classList.remove('hidden');
+  }
+  window.openEdit = openEdit;
+  window.deleteProject = deleteProject;
+
+  document.getElementById('btn-new').addEventListener('click', openNew);
+  document.getElementById('btn-close-form').addEventListener('click', closeForm);
+  document.getElementById('btn-cancel-form').addEventListener('click', closeForm);
+  function closeForm() { document.getElementById('form-modal').classList.add('hidden'); }
+
+  // ---------- Save ----------
+  document.getElementById('btn-save-form').addEventListener('click', async () => {
+    const id = document.getElementById('f-id').value.trim();
+    const errEl = document.getElementById('form-error');
+    errEl.classList.add('hidden');
+
+    if (!id) { errEl.textContent = 'กรุณากรอกรหัสงาน (id)'; errEl.classList.remove('hidden'); return; }
+    if (!/^[a-zA-Z0-9\-]+$/.test(id)) { errEl.textContent = 'รหัสงานใช้ได้เฉพาะ a-z, 0-9 และ - เท่านั้น'; errEl.classList.remove('hidden'); return; }
+    if (!editingId && cachedProjects.some(p => p.id === id)) {
+      errEl.textContent = `รหัสงาน "${id}" ถูกใช้ไปแล้ว กรุณาตั้งรหัสอื่น`;
+      errEl.classList.remove('hidden');
+      return;
+    }
+
+    const facts = Array.from(document.getElementById('facts-list').children)
+      .map(row => {
+        const text = row.querySelector('.fact-input').value.trim();
+        if (!text) return null;
+        return row.dataset.highlighted === 'true' ? '!' + text : text;
+      })
+      .filter(Boolean);
+    const gallery = Array.from(document.getElementById('gallery-list').children)
+      .map(row => ({ src: row.querySelector('.gallery-src').value.trim(), alt: row.querySelector('.gallery-alt').value.trim() }))
+      .filter(g => g.src);
+
+    const colors = COLOR_MAP[selectedColor];
+    const payload = {
+      id,
+      category: document.getElementById('f-category').value.trim(),
+      title: document.getElementById('f-title').value.trim(),
+      location: document.getElementById('f-location').value.trim(),
+      client: document.getElementById('f-client').value.trim(),
+      image: document.getElementById('f-image').value.trim(),
+      badge_bg: colors.badgeBg,
+      badge_text: colors.badgeText,
+      card_tag_color: colors.cardTagColor,
+      facts,
+      gallery,
+      tags: Array.from(selectedTags),
+    };
+
+    const btn = document.getElementById('btn-save-form');
+    btn.disabled = true;
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> กำลังบันทึก...';
+
+    const { error } = editingId
+      ? await sb.from('projects').update(payload).eq('id', editingId)
+      : await sb.from('projects').insert(payload);
+
+    btn.disabled = false;
+    btn.innerHTML = '<i class="fas fa-check"></i> บันทึก';
+
+    if (error) {
+      errEl.textContent = 'บันทึกไม่สำเร็จ: ' + error.message;
+      errEl.classList.remove('hidden');
+      return;
+    }
+
+    showToast(editingId ? 'แก้ไขผลงานแล้ว' : 'เพิ่มผลงานใหม่แล้ว');
+    closeForm();
+    loadProjects();
+  });
+
+  initConnection();
+</script>
+</body>
+</html>
