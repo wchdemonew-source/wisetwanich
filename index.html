@@ -557,8 +557,8 @@
                                 <div>
                                     <p class="text-sm text-brand-300 mb-1">โทรศัพท์</p>
                                     <p class="text-lg font-semibold">
-                                        <a href="tel:0990595398" class="hover:text-white transition">099-059-5398</a>
-                                        <button type="button" onclick="copyToClipboard('099-059-5398', 'เบอร์โทรศัพท์')" aria-label="คัดลอกเบอร์โทรศัพท์" class="ml-2 text-brand-400 hover:text-white transition align-middle">
+                                        <a id="contact-phone-link" href="tel:0990595398" class="hover:text-white transition">099-059-5398</a>
+                                        <button type="button" id="contact-phone-copy" onclick="copyToClipboard(this.dataset.value, 'เบอร์โทรศัพท์')" data-value="099-059-5398" aria-label="คัดลอกเบอร์โทรศัพท์" class="ml-2 text-brand-400 hover:text-white transition align-middle">
                                             <i class="fas fa-copy text-sm"></i>
                                         </button>
                                     </p>
@@ -570,7 +570,7 @@
                                 </div>
                                 <div>
                                     <p class="text-sm text-brand-300 mb-1">Line ID</p>
-                                    <p class="text-lg font-semibold cursor-pointer hover:text-white transition" onclick="copyToClipboard('099-059-5398', 'Line ID')">099-059-5398 <i class="fas fa-copy text-sm ml-2 text-brand-400"></i></p>
+                                    <p id="contact-line-id" class="text-lg font-semibold cursor-pointer hover:text-white transition" onclick="copyToClipboard(this.dataset.value, 'Line ID')" data-value="099-059-5398"><span id="contact-line-id-text">099-059-5398</span> <i class="fas fa-copy text-sm ml-2 text-brand-400"></i></p>
                                 </div>
                             </div>
                             <div class="flex items-start">
@@ -580,8 +580,8 @@
                                 <div>
                                     <p class="text-sm text-brand-300 mb-1">อีเมล</p>
                                     <p class="text-lg font-semibold">
-                                        <a href="mailto:wisetwanich2026@gmail.com" class="hover:text-white transition">wisetwanich2026@gmail.com</a>
-                                        <button type="button" onclick="copyToClipboard('wisetwanich2026@gmail.com', 'อีเมล')" aria-label="คัดลอกอีเมล" class="ml-2 text-brand-400 hover:text-white transition align-middle">
+                                        <a id="contact-email-link" href="mailto:wisetwanich2026@gmail.com" class="hover:text-white transition">wisetwanich2026@gmail.com</a>
+                                        <button type="button" id="contact-email-copy" onclick="copyToClipboard(this.dataset.value, 'อีเมล')" data-value="wisetwanich2026@gmail.com" aria-label="คัดลอกอีเมล" class="ml-2 text-brand-400 hover:text-white transition align-middle">
                                             <i class="fas fa-copy text-sm"></i>
                                         </button>
                                     </p>
@@ -593,8 +593,8 @@
                                 </div>
                                 <div>
                                     <p class="text-sm text-brand-300 mb-1">สำนักงานใหญ่</p>
-                                    <p class="text-base font-semibold cursor-pointer hover:text-white transition" onclick="copyToClipboard('สำนักงานแห่งใหญ่ ตั้งอยู่เลขที่ 1/39 หมู่ที่ 16 ตำบลบางกระสั้น อำเภอบางปะอิน จังหวัดพระนครศรีอยุธยา 13160', 'ที่อยู่')">
-                                        สำนักงานแห่งใหญ่ ตั้งอยู่เลขที่ 1/39 หมู่ที่ 16 ตำบลบางกระสั้น อำเภอบางปะอิน จังหวัดพระนครศรีอยุธยา 13160
+                                    <p id="contact-address" class="text-base font-semibold cursor-pointer hover:text-white transition" onclick="copyToClipboard(this.dataset.value, 'ที่อยู่')" data-value="สำนักงานแห่งใหญ่ ตั้งอยู่เลขที่ 1/39 หมู่ที่ 16 ตำบลบางกระสั้น อำเภอบางปะอิน จังหวัดพระนครศรีอยุธยา 13160">
+                                        <span id="contact-address-text">สำนักงานแห่งใหญ่ ตั้งอยู่เลขที่ 1/39 หมู่ที่ 16 ตำบลบางกระสั้น อำเภอบางปะอิน จังหวัดพระนครศรีอยุธยา 13160</span>
                                         <i class="fas fa-copy text-sm ml-2 text-brand-400"></i>
                                     </p>
                                 </div>
@@ -608,70 +608,8 @@
                     <h3 class="text-2xl font-bold text-gray-900 mb-2">ข้อมูลติดต่อทีมงาน</h3>
                     <p class="text-gray-500 mb-8">ติดต่อโดยตรงกับผู้รับผิดชอบในแต่ละส่วนงาน เพื่อความรวดเร็วในการประสานงาน</p>
 
-                    <div class="space-y-4">
-                        <!-- ฝ่ายประสานงาน -->
-                        <a href="tel:0990595398" class="flex items-center justify-between gap-4 p-4 rounded-xl border border-gray-100 hover:border-brand-200 hover:shadow-md transition-all group">
-                            <div class="flex items-center gap-4 min-w-0">
-                                <div class="w-12 h-12 rounded-full bg-brand-50 text-brand-600 flex items-center justify-center flex-shrink-0 group-hover:bg-brand-600 group-hover:text-white transition-colors">
-                                    <i class="fas fa-comments"></i>
-                                </div>
-                                <div class="min-w-0">
-                                    <p class="font-bold text-gray-900 truncate">ฝ่ายประสานงาน</p>
-                                    <p class="text-sm text-gray-500 truncate">คุณบุ๋ม</p>
-                                </div>
-                            </div>
-                            <span class="text-brand-700 font-semibold whitespace-nowrap flex items-center gap-2">
-                                <i class="fas fa-phone-alt text-xs text-brand-400"></i> 099-059-5398
-                            </span>
-                        </a>
-
-                        <!-- ฝ่ายประเมินทรัพย์สิน -->
-                        <a href="tel:0852764514" class="flex items-center justify-between gap-4 p-4 rounded-xl border border-gray-100 hover:border-brand-200 hover:shadow-md transition-all group">
-                            <div class="flex items-center gap-4 min-w-0">
-                                <div class="w-12 h-12 rounded-full bg-brand-50 text-brand-600 flex items-center justify-center flex-shrink-0 group-hover:bg-brand-600 group-hover:text-white transition-colors">
-                                    <i class="fas fa-clipboard-check"></i>
-                                </div>
-                                <div class="min-w-0">
-                                    <p class="font-bold text-gray-900 truncate">ฝ่ายประเมินทรัพย์สิน</p>
-                                    <p class="text-sm text-gray-500 truncate">คุณแจ้</p>
-                                </div>
-                            </div>
-                            <span class="text-brand-700 font-semibold whitespace-nowrap flex items-center gap-2">
-                                <i class="fas fa-phone-alt text-xs text-brand-400"></i> 085-276-4514
-                            </span>
-                        </a>
-
-                        <!-- วิศวกรควบคุมงาน -->
-                        <a href="tel:0805433399" class="flex items-center justify-between gap-4 p-4 rounded-xl border border-gray-100 hover:border-brand-200 hover:shadow-md transition-all group">
-                            <div class="flex items-center gap-4 min-w-0">
-                                <div class="w-12 h-12 rounded-full bg-brand-50 text-brand-600 flex items-center justify-center flex-shrink-0 group-hover:bg-brand-600 group-hover:text-white transition-colors">
-                                    <i class="fas fa-hard-hat"></i>
-                                </div>
-                                <div class="min-w-0">
-                                    <p class="font-bold text-gray-900 truncate">วิศวกรควบคุมงาน</p>
-                                    <p class="text-sm text-gray-500 truncate">คุณไมโล</p>
-                                </div>
-                            </div>
-                            <span class="text-brand-700 font-semibold whitespace-nowrap flex items-center gap-2">
-                                <i class="fas fa-phone-alt text-xs text-brand-400"></i> 080-543-3399
-                            </span>
-                        </a>
-
-                        <!-- เจ้าหน้าที่ความปลอดภัย (จป.) -->
-                        <a href="tel:0959190999" class="flex items-center justify-between gap-4 p-4 rounded-xl border border-gray-100 hover:border-brand-200 hover:shadow-md transition-all group">
-                            <div class="flex items-center gap-4 min-w-0">
-                                <div class="w-12 h-12 rounded-full bg-brand-50 text-brand-600 flex items-center justify-center flex-shrink-0 group-hover:bg-brand-600 group-hover:text-white transition-colors">
-                                    <i class="fas fa-shield-alt"></i>
-                                </div>
-                                <div class="min-w-0">
-                                    <p class="font-bold text-gray-900 truncate">เจ้าหน้าที่ความปลอดภัย (จป.)</p>
-                                    <p class="text-sm text-gray-500 truncate">คุณหนึ่ง</p>
-                                </div>
-                            </div>
-                            <span class="text-brand-700 font-semibold whitespace-nowrap flex items-center gap-2">
-                                <i class="fas fa-phone-alt text-xs text-brand-400"></i> 095-919-0999
-                            </span>
-                        </a>
+                    <div id="team-contact-list" class="space-y-4">
+                        <p class="text-gray-400 text-sm"><i class="fas fa-spinner fa-spin mr-2"></i>กำลังโหลดข้อมูล...</p>
                     </div>
                 </div>
             </div>
@@ -711,18 +649,18 @@
                         <li>เปิดให้บริการทุกวัน 24/7</li>
                     </ul>
 
-                    <!-- ช่องทางการติดตาม: แก้ href ของแต่ละไอคอนเป็นลิงก์เพจจริงของบริษัท -->
+                    <!-- ช่องทางการติดตาม: แก้ลิงก์จริงได้ที่หน้า backend.html แท็บ "ตั้งค่าเว็บไซต์" -->
                     <p data-i18n="footer_follow" class="text-white font-semibold mt-6 mb-3 text-sm">ช่องทางการติดตาม</p>
                     <div class="flex items-center gap-3">
-                        <a href="#" target="_blank" rel="noopener noreferrer" aria-label="Facebook"
+                        <a id="social-facebook" href="#" target="_blank" rel="noopener noreferrer" aria-label="Facebook"
                             class="w-9 h-9 rounded-full bg-brand-800 hover:bg-brand-500 flex items-center justify-center transition-colors">
                             <i class="fab fa-facebook-f text-sm"></i>
                         </a>
-                        <a href="#" target="_blank" rel="noopener noreferrer" aria-label="YouTube"
+                        <a id="social-youtube" href="#" target="_blank" rel="noopener noreferrer" aria-label="YouTube"
                             class="w-9 h-9 rounded-full bg-brand-800 hover:bg-brand-500 flex items-center justify-center transition-colors">
                             <i class="fab fa-youtube text-sm"></i>
                         </a>
-                        <a href="#" target="_blank" rel="noopener noreferrer" aria-label="TikTok"
+                        <a id="social-tiktok" href="#" target="_blank" rel="noopener noreferrer" aria-label="TikTok"
                             class="w-9 h-9 rounded-full bg-brand-800 hover:bg-brand-500 flex items-center justify-center transition-colors">
                             <i class="fab fa-tiktok text-sm"></i>
                         </a>
@@ -848,6 +786,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="javascript/supabase-config.js"></script>
     <script src="javascript/projects-loader.js"></script>
+    <script src="javascript/site-settings-loader.js"></script>
     <script src="javascript/i18n.js"></script>
 
     <script>
@@ -976,6 +915,86 @@
             .channel('projects-index-sync')
             .on('postgres_changes', { event: '*', schema: 'public', table: 'projects' }, () => {
                 renderPortfolioGrid(false);
+            })
+            .subscribe();
+
+        // ============================================
+        // โหลด/แสดงผล "ตั้งค่าเว็บไซต์" (เบอร์โทร, Line ID, อีเมล, ที่อยู่, โซเชียล, ทีมงาน)
+        // เพิ่ม/แก้ไขทำผ่านหน้า backend.html แท็บ "ตั้งค่าเว็บไซต์" เท่านั้น ไม่ต้องแก้ไฟล์นี้
+        // ============================================
+        async function renderSiteSettings() {
+            const settings = await loadSiteSettings();
+            if (!settings) return;
+
+            const phoneLink = document.getElementById('contact-phone-link');
+            const phoneCopy = document.getElementById('contact-phone-copy');
+            if (phoneLink && settings.phone) {
+                phoneLink.textContent = settings.phone;
+                phoneLink.href = 'tel:' + settings.phone.replace(/[^0-9]/g, '');
+                if (phoneCopy) phoneCopy.dataset.value = settings.phone;
+            }
+
+            const lineText = document.getElementById('contact-line-id-text');
+            const lineWrap = document.getElementById('contact-line-id');
+            if (lineText && settings.lineId) {
+                lineText.textContent = settings.lineId;
+                if (lineWrap) lineWrap.dataset.value = settings.lineId;
+            }
+
+            const emailLink = document.getElementById('contact-email-link');
+            const emailCopy = document.getElementById('contact-email-copy');
+            if (emailLink && settings.email) {
+                emailLink.textContent = settings.email;
+                emailLink.href = 'mailto:' + settings.email;
+                if (emailCopy) emailCopy.dataset.value = settings.email;
+            }
+
+            const addressText = document.getElementById('contact-address-text');
+            const addressWrap = document.getElementById('contact-address');
+            if (addressText && settings.address) {
+                addressText.textContent = settings.address;
+                if (addressWrap) addressWrap.dataset.value = settings.address;
+            }
+
+            const fb = document.getElementById('social-facebook');
+            const yt = document.getElementById('social-youtube');
+            const tt = document.getElementById('social-tiktok');
+            if (fb && settings.socialFacebook) fb.href = settings.socialFacebook;
+            if (yt && settings.socialYoutube) yt.href = settings.socialYoutube;
+            if (tt && settings.socialTiktok) tt.href = settings.socialTiktok;
+
+            const teamList = document.getElementById('team-contact-list');
+            if (teamList) {
+                if (!settings.teamMembers || settings.teamMembers.length === 0) {
+                    teamList.innerHTML = `<p class="text-gray-400 text-sm">ยังไม่มีข้อมูลทีมงาน</p>`;
+                } else {
+                    teamList.innerHTML = settings.teamMembers.map(m => `
+                        <a href="tel:${(m.phone || '').replace(/[^0-9]/g, '')}" class="flex items-center justify-between gap-4 p-4 rounded-xl border border-gray-100 hover:border-brand-200 hover:shadow-md transition-all group">
+                            <div class="flex items-center gap-4 min-w-0">
+                                <div class="w-12 h-12 rounded-full bg-brand-50 text-brand-600 flex items-center justify-center flex-shrink-0 group-hover:bg-brand-600 group-hover:text-white transition-colors">
+                                    <i class="fas ${m.icon || 'fa-user'}"></i>
+                                </div>
+                                <div class="min-w-0">
+                                    <p class="font-bold text-gray-900 truncate">${m.role || ''}</p>
+                                    <p class="text-sm text-gray-500 truncate">${m.name || ''}</p>
+                                </div>
+                            </div>
+                            <span class="text-brand-700 font-semibold whitespace-nowrap flex items-center gap-2">
+                                <i class="fas fa-phone-alt text-xs text-brand-400"></i> ${m.phone || ''}
+                            </span>
+                        </a>
+                    `).join('');
+                }
+            }
+        }
+
+        renderSiteSettings();
+
+        // อัปเดตข้อมูลตั้งค่าเว็บไซต์อัตโนมัติเมื่อมีการแก้ไขจากหน้า backend.html
+        sbClient
+            .channel('site-settings-sync')
+            .on('postgres_changes', { event: '*', schema: 'public', table: 'site_settings' }, () => {
+                renderSiteSettings();
             })
             .subscribe();
 

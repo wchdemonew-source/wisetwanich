@@ -127,44 +127,129 @@ create policy "public can write"
   </nav>
 
   <main class="max-w-6xl mx-auto px-4 sm:px-6 py-8">
-    <div class="flex flex-wrap items-center justify-between gap-3 mb-6">
-      <div>
-        <h2 class="text-2xl font-bold text-brand-900">ผลงานทั้งหมด</h2>
-        <p class="text-sm text-gray-500"><span id="count-label">0</span> รายการ</p>
-      </div>
-      <button id="btn-new" class="bg-brand-600 hover:bg-brand-700 text-white font-medium px-5 py-2.5 rounded-full transition flex items-center gap-2 shadow-md">
-        <i class="fas fa-plus"></i> เพิ่มผลงานใหม่
+    <!-- Tab Switcher -->
+    <div class="flex gap-2 mb-6 border-b border-gray-200">
+      <button type="button" id="tab-btn-projects" onclick="switchTab('projects')"
+        class="px-4 py-2.5 text-sm font-medium border-b-2 border-brand-600 text-brand-700 transition">
+        <i class="fas fa-images mr-1.5"></i> จัดการผลงาน
+      </button>
+      <button type="button" id="tab-btn-settings" onclick="switchTab('settings')"
+        class="px-4 py-2.5 text-sm font-medium border-b-2 border-transparent text-gray-400 hover:text-gray-600 transition">
+        <i class="fas fa-gear mr-1.5"></i> ตั้งค่าเว็บไซต์
       </button>
     </div>
 
-    <div class="flex flex-col sm:flex-row gap-3 mb-6">
-      <div class="relative flex-1">
-        <i class="fas fa-search absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i>
-        <input id="search-input" type="text" placeholder="ค้นหาผลงาน เช่น ชื่อโครงการ, สถานที่, ลูกค้า..."
-          class="w-full pl-11 pr-4 py-2.5 rounded-full border border-gray-200 focus:border-brand-400 focus:ring-2 focus:ring-brand-100 outline-none text-sm transition">
+    <!-- ============ TAB: จัดการผลงาน ============ -->
+    <div id="tab-projects">
+      <div class="flex flex-wrap items-center justify-between gap-3 mb-6">
+        <div>
+          <h2 class="text-2xl font-bold text-brand-900">ผลงานทั้งหมด</h2>
+          <p class="text-sm text-gray-500"><span id="count-label">0</span> รายการ</p>
+        </div>
+        <button id="btn-new" class="bg-brand-600 hover:bg-brand-700 text-white font-medium px-5 py-2.5 rounded-full transition flex items-center gap-2 shadow-md">
+          <i class="fas fa-plus"></i> เพิ่มผลงานใหม่
+        </button>
       </div>
-      <select id="category-filter"
-        class="sm:w-56 px-4 py-2.5 rounded-full border border-gray-200 focus:border-brand-400 focus:ring-2 focus:ring-brand-100 outline-none text-sm bg-white transition">
-        <option value="">ทุกหมวดหมู่</option>
-      </select>
+
+      <div class="flex flex-col sm:flex-row gap-3 mb-6">
+        <div class="relative flex-1">
+          <i class="fas fa-search absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i>
+          <input id="search-input" type="text" placeholder="ค้นหาผลงาน เช่น ชื่อโครงการ, สถานที่, ลูกค้า..."
+            class="w-full pl-11 pr-4 py-2.5 rounded-full border border-gray-200 focus:border-brand-400 focus:ring-2 focus:ring-brand-100 outline-none text-sm transition">
+        </div>
+        <select id="category-filter"
+          class="sm:w-56 px-4 py-2.5 rounded-full border border-gray-200 focus:border-brand-400 focus:ring-2 focus:ring-brand-100 outline-none text-sm bg-white transition">
+          <option value="">ทุกหมวดหมู่</option>
+        </select>
+      </div>
+
+      <div id="loading" class="text-center py-20 text-gray-400">
+        <i class="fas fa-spinner fa-spin text-2xl mb-2"></i>
+        <p class="text-sm">กำลังโหลดข้อมูล...</p>
+      </div>
+
+      <div id="empty-state" class="hidden text-center py-20 bg-white rounded-2xl border border-dashed border-gray-200">
+        <i class="fas fa-folder-open text-3xl text-gray-300 mb-3"></i>
+        <p class="text-gray-500">ยังไม่มีผลงานในระบบ กดปุ่ม "เพิ่มผลงานใหม่" เพื่อเริ่มต้น</p>
+      </div>
+
+      <div id="no-match-state" class="hidden text-center py-20 bg-white rounded-2xl border border-dashed border-gray-200">
+        <i class="fas fa-search text-3xl text-gray-300 mb-3"></i>
+        <p class="text-gray-500">ไม่พบผลงานที่ตรงกับการค้นหา</p>
+      </div>
+
+      <div id="project-grid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5"></div>
     </div>
 
-    <div id="loading" class="text-center py-20 text-gray-400">
-      <i class="fas fa-spinner fa-spin text-2xl mb-2"></i>
-      <p class="text-sm">กำลังโหลดข้อมูล...</p>
-    </div>
+    <!-- ============ TAB: ตั้งค่าเว็บไซต์ ============ -->
+    <div id="tab-settings" class="hidden space-y-6">
 
-    <div id="empty-state" class="hidden text-center py-20 bg-white rounded-2xl border border-dashed border-gray-200">
-      <i class="fas fa-folder-open text-3xl text-gray-300 mb-3"></i>
-      <p class="text-gray-500">ยังไม่มีผลงานในระบบ กดปุ่ม "เพิ่มผลงานใหม่" เพื่อเริ่มต้น</p>
-    </div>
+      <div id="settings-loading" class="text-center py-20 text-gray-400">
+        <i class="fas fa-spinner fa-spin text-2xl mb-2"></i>
+        <p class="text-sm">กำลังโหลดข้อมูล...</p>
+      </div>
 
-    <div id="no-match-state" class="hidden text-center py-20 bg-white rounded-2xl border border-dashed border-gray-200">
-      <i class="fas fa-search text-3xl text-gray-300 mb-3"></i>
-      <p class="text-gray-500">ไม่พบผลงานที่ตรงกับการค้นหา</p>
-    </div>
+      <div id="settings-content" class="hidden space-y-6">
+        <!-- ข้อมูลติดต่อ -->
+        <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
+          <h3 class="font-bold text-brand-900 mb-4"><i class="fas fa-address-card text-brand-500 mr-2"></i>ข้อมูลติดต่อ</h3>
+          <div class="grid sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">เบอร์โทรศัพท์</label>
+              <input id="s-phone" type="text" placeholder="เช่น 099-059-5398" class="w-full px-3 py-2 rounded-lg border border-gray-300 focus:border-brand-500 outline-none text-sm">
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Line ID</label>
+              <input id="s-line-id" type="text" placeholder="เช่น 099-059-5398 หรือ @wiseswanich" class="w-full px-3 py-2 rounded-lg border border-gray-300 focus:border-brand-500 outline-none text-sm">
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">อีเมล</label>
+              <input id="s-email" type="text" placeholder="เช่น info@company.com" class="w-full px-3 py-2 rounded-lg border border-gray-300 focus:border-brand-500 outline-none text-sm">
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">ที่อยู่สำนักงานใหญ่</label>
+              <input id="s-address" type="text" placeholder="ที่อยู่เต็ม" class="w-full px-3 py-2 rounded-lg border border-gray-300 focus:border-brand-500 outline-none text-sm">
+            </div>
+          </div>
+        </div>
 
-    <div id="project-grid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5"></div>
+        <!-- ช่องทางโซเชียล -->
+        <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
+          <h3 class="font-bold text-brand-900 mb-4"><i class="fas fa-share-nodes text-brand-500 mr-2"></i>ช่องทางการติดตาม (โซเชียล)</h3>
+          <div class="grid sm:grid-cols-3 gap-4">
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1"><i class="fab fa-facebook mr-1 text-blue-600"></i>Facebook</label>
+              <input id="s-facebook" type="text" placeholder="https://facebook.com/..." class="w-full px-3 py-2 rounded-lg border border-gray-300 focus:border-brand-500 outline-none text-sm">
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1"><i class="fab fa-youtube mr-1 text-red-600"></i>YouTube</label>
+              <input id="s-youtube" type="text" placeholder="https://youtube.com/..." class="w-full px-3 py-2 rounded-lg border border-gray-300 focus:border-brand-500 outline-none text-sm">
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1"><i class="fab fa-tiktok mr-1"></i>TikTok</label>
+              <input id="s-tiktok" type="text" placeholder="https://tiktok.com/@..." class="w-full px-3 py-2 rounded-lg border border-gray-300 focus:border-brand-500 outline-none text-sm">
+            </div>
+          </div>
+        </div>
+
+        <!-- ทีมงาน -->
+        <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
+          <div class="flex items-center justify-between mb-1">
+            <h3 class="font-bold text-brand-900"><i class="fas fa-users text-brand-500 mr-2"></i>ข้อมูลติดต่อทีมงาน</h3>
+            <button type="button" id="btn-add-team" class="text-xs text-brand-600 hover:text-brand-800 font-medium"><i class="fas fa-plus mr-1"></i>เพิ่มคน</button>
+          </div>
+          <p class="text-[11px] text-gray-400 mb-3">แสดงเป็นรายชื่อผู้ติดต่อในหน้าเว็บ (ส่วน "ข้อมูลติดต่อทีมงาน")</p>
+          <div id="team-list" class="space-y-3"></div>
+        </div>
+
+        <div class="flex items-center justify-end gap-3">
+          <p id="settings-error" class="hidden text-sm text-red-600 mr-auto"></p>
+          <button type="button" id="btn-save-settings" class="px-6 py-2.5 rounded-full bg-brand-600 hover:bg-brand-700 text-white font-medium text-sm flex items-center gap-2">
+            <i class="fas fa-check"></i> บันทึกการตั้งค่า
+          </button>
+        </div>
+      </div>
+    </div>
   </main>
 </div>
 
@@ -296,6 +381,8 @@ create policy "public can write"
   let factCount = 0;
   let galleryCount = 0;
   let cachedProjects = [];
+  let teamRowCount = 0;
+  let settingsLoaded = false;
 
   // ---------- Toast ----------
   function showToast(msg, isError) {
@@ -770,6 +857,130 @@ create policy "public can write"
     showToast(editingId ? 'แก้ไขผลงานแล้ว' : 'เพิ่มผลงานใหม่แล้ว');
     closeForm();
     loadProjects();
+  });
+
+  // ---------- Tab switcher ----------
+  function switchTab(tab) {
+    const isProjects = tab === 'projects';
+    document.getElementById('tab-projects').classList.toggle('hidden', !isProjects);
+    document.getElementById('tab-settings').classList.toggle('hidden', isProjects);
+
+    const btnProjects = document.getElementById('tab-btn-projects');
+    const btnSettings = document.getElementById('tab-btn-settings');
+    btnProjects.classList.toggle('border-brand-600', isProjects);
+    btnProjects.classList.toggle('text-brand-700', isProjects);
+    btnProjects.classList.toggle('border-transparent', !isProjects);
+    btnProjects.classList.toggle('text-gray-400', !isProjects);
+    btnSettings.classList.toggle('border-brand-600', !isProjects);
+    btnSettings.classList.toggle('text-brand-700', !isProjects);
+    btnSettings.classList.toggle('border-transparent', isProjects);
+    btnSettings.classList.toggle('text-gray-400', isProjects);
+
+    if (!isProjects && !settingsLoaded) {
+      loadSettings();
+    }
+  }
+  window.switchTab = switchTab;
+
+  // ---------- Team member rows (ตั้งค่าเว็บไซต์) ----------
+  function addTeamRow(member) {
+    member = member || {};
+    teamRowCount++;
+    const id = 'team-' + teamRowCount;
+    const wrap = document.createElement('div');
+    wrap.className = 'grid sm:grid-cols-[auto,1fr,1fr,1fr,auto] gap-2 items-center border border-gray-100 rounded-lg p-3';
+    wrap.id = id;
+    wrap.innerHTML = `
+      <select class="team-icon px-2 py-2 rounded-lg border border-gray-300 focus:border-brand-500 outline-none text-sm">
+        <option value="fa-comments">💬 ประสานงาน</option>
+        <option value="fa-clipboard-check">📋 ประเมินทรัพย์สิน</option>
+        <option value="fa-hard-hat">👷 วิศวกร</option>
+        <option value="fa-shield-alt">🛡️ ความปลอดภัย (จป.)</option>
+        <option value="fa-user-tie">🧑‍💼 ผู้บริหาร</option>
+        <option value="fa-user">👤 ทั่วไป</option>
+      </select>
+      <input type="text" placeholder="ตำแหน่ง เช่น ฝ่ายประสานงาน" class="team-role px-3 py-2 rounded-lg border border-gray-300 focus:border-brand-500 outline-none text-sm">
+      <input type="text" placeholder="ชื่อ เช่น คุณบุ๋ม" class="team-name px-3 py-2 rounded-lg border border-gray-300 focus:border-brand-500 outline-none text-sm">
+      <input type="text" placeholder="เบอร์โทร" class="team-phone px-3 py-2 rounded-lg border border-gray-300 focus:border-brand-500 outline-none text-sm">
+      <button type="button" onclick="document.getElementById('${id}').remove()" class="w-9 h-9 shrink-0 rounded-lg bg-gray-50 hover:bg-red-50 text-gray-400 hover:text-red-500 justify-self-end"><i class="fas fa-minus"></i></button>
+    `;
+    document.getElementById('team-list').appendChild(wrap);
+    if (member.icon) wrap.querySelector('.team-icon').value = member.icon;
+    wrap.querySelector('.team-role').value = member.role || '';
+    wrap.querySelector('.team-name').value = member.name || '';
+    wrap.querySelector('.team-phone').value = member.phone || '';
+  }
+  document.getElementById('btn-add-team').addEventListener('click', () => addTeamRow());
+
+  // ---------- Load settings ----------
+  async function loadSettings() {
+    document.getElementById('settings-loading').classList.remove('hidden');
+    document.getElementById('settings-content').classList.add('hidden');
+
+    const { data, error } = await sb.from('site_settings').select('*').eq('id', 'main').maybeSingle();
+    document.getElementById('settings-loading').classList.add('hidden');
+    document.getElementById('settings-content').classList.remove('hidden');
+
+    if (error) { showToast('โหลดข้อมูลตั้งค่าไม่สำเร็จ: ' + error.message, true); return; }
+
+    settingsLoaded = true;
+    const s = data || {};
+    document.getElementById('s-phone').value = s.phone || '';
+    document.getElementById('s-line-id').value = s.line_id || '';
+    document.getElementById('s-email').value = s.email || '';
+    document.getElementById('s-address').value = s.address || '';
+    document.getElementById('s-facebook').value = s.social_facebook || '';
+    document.getElementById('s-youtube').value = s.social_youtube || '';
+    document.getElementById('s-tiktok').value = s.social_tiktok || '';
+
+    document.getElementById('team-list').innerHTML = '';
+    teamRowCount = 0;
+    const members = (s.team_members && s.team_members.length) ? s.team_members : [{}];
+    members.forEach(m => addTeamRow(m));
+  }
+
+  // ---------- Save settings ----------
+  document.getElementById('btn-save-settings').addEventListener('click', async () => {
+    const errEl = document.getElementById('settings-error');
+    errEl.classList.add('hidden');
+
+    const teamMembers = Array.from(document.getElementById('team-list').children)
+      .map(row => ({
+        icon: row.querySelector('.team-icon').value,
+        role: row.querySelector('.team-role').value.trim(),
+        name: row.querySelector('.team-name').value.trim(),
+        phone: row.querySelector('.team-phone').value.trim(),
+      }))
+      .filter(m => m.role || m.name || m.phone);
+
+    const payload = {
+      id: 'main',
+      phone: document.getElementById('s-phone').value.trim(),
+      line_id: document.getElementById('s-line-id').value.trim(),
+      email: document.getElementById('s-email').value.trim(),
+      address: document.getElementById('s-address').value.trim(),
+      social_facebook: document.getElementById('s-facebook').value.trim(),
+      social_youtube: document.getElementById('s-youtube').value.trim(),
+      social_tiktok: document.getElementById('s-tiktok').value.trim(),
+      team_members: teamMembers,
+      updated_at: new Date().toISOString(),
+    };
+
+    const btn = document.getElementById('btn-save-settings');
+    btn.disabled = true;
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> กำลังบันทึก...';
+
+    const { error } = await sb.from('site_settings').upsert(payload);
+
+    btn.disabled = false;
+    btn.innerHTML = '<i class="fas fa-check"></i> บันทึกการตั้งค่า';
+
+    if (error) {
+      errEl.textContent = 'บันทึกไม่สำเร็จ: ' + error.message;
+      errEl.classList.remove('hidden');
+      return;
+    }
+    showToast('บันทึกการตั้งค่าเว็บไซต์แล้ว');
   });
 
   initConnection();
