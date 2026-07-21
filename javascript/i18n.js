@@ -58,3 +58,40 @@ function initI18n(pageTranslations) {
         btn.addEventListener('click', () => toggleLanguage(translations));
     });
 }
+
+/*
+================================================================
+ ปุ่มโซเชียลที่ยังไม่ได้ใส่ลิงก์จริง (เช่น YouTube/TikTok ที่ยังไม่ได้เปิดช่อง)
+ กดแล้วจะขึ้นข้อความ "เร็วๆ นี้" น่ารักๆ แทนที่จะเด้งไปหน้าว่างเปล่า
+ พอใส่ลิงก์จริงผ่าน backend.html แล้ว จะกลับไปเปิดลิงก์ปกติเองอัตโนมัติ
+================================================================
+*/
+const COMING_SOON_MESSAGES = [
+    '🐣 ช่องทางนี้กำลังจะมาเร็วๆ นี้ รอติดตามนะ!',
+    '🎬 เตรียมพบกันเร็วๆ นี้ รอแป๊บนึงนะ!',
+    '✨ กำลังเตรียมตัวอยู่ เร็วๆ นี้จ้า!',
+];
+
+function handleSocialClick(event) {
+    const link = event.currentTarget;
+    const href = link.getAttribute('href');
+    if (!href || href === '#') {
+        event.preventDefault();
+        showComingSoonToast();
+    }
+}
+
+function showComingSoonToast() {
+    const msg = COMING_SOON_MESSAGES[Math.floor(Math.random() * COMING_SOON_MESSAGES.length)];
+    const el = document.createElement('div');
+    el.className = 'fixed bottom-4 right-4 bg-brand-900 text-white px-4 py-3 rounded-xl shadow-lg z-[200] text-sm border border-brand-700 flex items-center gap-2';
+    el.style.opacity = '0';
+    el.style.transition = 'opacity 0.3s ease';
+    el.textContent = msg;
+    document.body.appendChild(el);
+    requestAnimationFrame(() => { el.style.opacity = '1'; });
+    setTimeout(() => {
+        el.style.opacity = '0';
+        setTimeout(() => el.remove(), 400);
+    }, 2500);
+}

@@ -194,7 +194,7 @@
                         </p>
                     </div>
 
-                    <a href="/about" class="inline-flex items-center gap-1.5 mt-6 text-brand-600 hover:text-brand-800 font-semibold transition-colors group">
+                    <a href="about" class="inline-flex items-center gap-1.5 mt-6 text-brand-600 hover:text-brand-800 font-semibold transition-colors group">
                         <span data-i18n="read_more">อ่านเพิ่มเติม</span> <i class="fas fa-arrow-right text-sm transition-transform group-hover:translate-x-1"></i>
                     </a>
                 </div>
@@ -639,11 +639,11 @@
                             class="w-9 h-9 rounded-full bg-brand-800 hover:bg-brand-500 flex items-center justify-center transition-colors">
                             <i class="fab fa-facebook-f text-sm"></i>
                         </a>
-                        <a id="social-youtube" href="#" target="_blank" rel="noopener noreferrer" aria-label="YouTube"
+                        <a id="social-youtube" href="#" target="_blank" rel="noopener noreferrer" aria-label="YouTube" onclick="handleSocialClick(event)"
                             class="w-9 h-9 rounded-full bg-brand-800 hover:bg-brand-500 flex items-center justify-center transition-colors">
                             <i class="fab fa-youtube text-sm"></i>
                         </a>
-                        <a id="social-tiktok" href="#" target="_blank" rel="noopener noreferrer" aria-label="TikTok"
+                        <a id="social-tiktok" href="#" target="_blank" rel="noopener noreferrer" aria-label="TikTok" onclick="handleSocialClick(event)"
                             class="w-9 h-9 rounded-full bg-brand-800 hover:bg-brand-500 flex items-center justify-center transition-colors">
                             <i class="fab fa-tiktok text-sm"></i>
                         </a>
@@ -867,7 +867,7 @@
             }
 
             grid.innerHTML = filtered.map(p => `
-                <a href="/project?id=${encodeURIComponent(p.id)}" class="group bg-white rounded-2xl border border-brand-100 overflow-hidden shadow-sm hover:shadow-xl hover:shadow-brand-100 hover:-translate-y-1.5 hover:border-brand-300 transition-all duration-300 block">
+                <a href="project?id=${encodeURIComponent(p.id)}" class="group bg-white rounded-2xl border border-brand-100 overflow-hidden shadow-sm hover:shadow-xl hover:shadow-brand-100 hover:-translate-y-1.5 hover:border-brand-300 transition-all duration-300 block">
                     <div class="relative h-36 sm:h-44 overflow-hidden bg-brand-50">
                         <img src="${p.image}"
                              onerror="this.onerror=null; this.src='https://placehold.co/600x400/eeeeee/333333?text=${p.placeholder || 'Project'}'"
