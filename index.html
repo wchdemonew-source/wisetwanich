@@ -14,61 +14,6 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-
-    <style>
-        /* จัดตำแหน่งปุ่มให้อยู่กึ่งกลางจอฝั่งขวา */
-        .floating-fb {
-        position: fixed;
-        top: 50%;
-        right: 30px;
-        transform: translateY(-50%);
-        width: 60px;
-        height: 60px;
-        z-index: 1000;
-        border-radius: 50%;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-        transition: transform 0.3s ease;
-        animation: bounce 2s infinite; /* เรียกใช้แอนิเมชันเด้ง */
-        }
-
-        .floating-fb img {
-        width: 100%;
-        height: 100%;
-        object-fit: contain;
-        }
-
-        /* เอฟเฟกต์เมื่อเอาเมาส์ชี้ให้ขยายใหญ่ขึ้นนิดหน่อย */
-        .floating-fb:hover {
-        transform: translateY(-50%) scale(1.1);
-        animation: none; /* หยุดเด้งเมื่อเอาเมาส์ชี้ */
-        }
-
-        /* แอนิเมชันทำให้ปุ่มเด้งขึ้นลง (อิงตำแหน่งกึ่งกลางจอเดิมไว้เสมอ) */
-        @keyframes bounce {
-        0%, 20%, 50%, 80%, 100% {
-            transform: translateY(-50%);
-        }
-        40% {
-            transform: translateY(calc(-50% - 15px));
-        }
-        60% {
-            transform: translateY(calc(-50% - 7px));
-        }
-        }
-
-        /* บนมือถือ: ย่อขนาดลง ขยับชิดขอบขวามากขึ้น และลดความชัดเล็กน้อยกันบังเนื้อหา */
-        @media (max-width: 640px) {
-            .floating-fb {
-                width: 42px;
-                height: 42px;
-                right: 10px;
-                opacity: 0.8;
-            }
-            .floating-fb:active {
-                opacity: 1;
-            }
-        }
-    </Style>
     <script>
         tailwind.config = {
             theme: {
@@ -514,6 +459,67 @@
         </div>
     </section>
 
+    <!-- Section: Facebook Banner (Block Share Click) -->
+    <section class="py-10 md:py-12 flex justify-center items-center relative overflow-hidden bg-cover bg-center bg-fixed" 
+            style="background-image: url('https://images.unsplash.com/photo-1503387762-592deb58ef4e?q=80&w=2831&auto=format&fit=crop');">
+        
+        <!-- แผ่นฟิล์มสีเขียวเข้ม (โทนสีแบรนด์) ทับรูปภาพ -->
+        <div class="absolute inset-0 bg-[#14532d]/85 backdrop-blur-[2px]"></div>
+        
+        <div class="relative group w-full max-w-5xl mx-auto px-4 sm:px-6 z-10">
+            
+            <!-- Main Card -->
+            <div class="relative bg-white/95 backdrop-blur-xl border border-white/80 p-5 md:p-8 rounded-3xl shadow-2xl flex flex-col lg:flex-row items-center justify-between gap-6 lg:gap-8">
+                
+                <!-- ด้านซ้าย: ข้อความ & ปุ่ม 3D -->
+                <div class="flex flex-col sm:flex-row items-center sm:items-start text-center sm:text-left gap-5 w-full lg:w-1/2">
+                    
+                    <!-- ปุ่มลอย 3 มิติ -->
+                    <div class="relative shrink-0 mt-1">
+                        <a href="https://www.facebook.com/wisetvanichconstruction/" target="_blank" rel="noopener noreferrer" 
+                        class="w-16 h-16 bg-[#1877F2] rounded-2xl flex items-center justify-center text-white text-3xl shadow-[0_6px_0_#0b53b3,0_10px_15px_rgba(24,119,242,0.3)] transform transition-all active:translate-y-1.5 active:shadow-[0_0px_0_#0b53b3,0_5px_10px_rgba(24,119,242,0.3)] hover:-translate-y-1">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                    </div>
+
+                    <div class="flex-1 mt-1">
+                        <!-- ข้อความหลัก -->
+                        <h3 class="text-xl md:text-2xl font-black text-gray-800 mb-1 tracking-tight">
+                            ติดตามเราบน <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#1877F2] to-[#00C6FF]">Facebook</span>
+                        </h3>
+                        <p class="text-gray-500 font-medium text-sm">
+                            อัปเดตผลงานรื้อถอน เคลียร์ริ่งพื้นที่ และข่าวสารใหม่ๆ พร้อมให้คำปรึกษาประเมินราคาฟรี
+                        </p>
+                    </div>
+                </div>
+
+                <!-- ด้านขวา: Facebook Iframe (แท้) พร้อมแผ่นใสป้องกันการกดแชร์ -->
+                <div class="relative shrink-0 bg-gray-50 p-2 rounded-2xl border border-gray-200 shadow-[inset_0_4px_6px_rgba(0,0,0,0.05)] w-full sm:w-auto flex justify-center transition-all">
+                    
+                    <!-- 💻 Desktop Iframe -->
+                    <div class="hidden sm:block relative rounded-xl overflow-hidden shadow-sm">
+                        <iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fwisetvanichconstruction&tabs&width=400&height=130&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=false&appId" 
+                            width="400" height="130" style="border:none;overflow:hidden;" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+                        
+                        <!-- 🛡️ แผ่นใสบังปุ่มแชร์ (ล่างขวา) -->
+                        <div class="absolute bottom-0 right-0 w-[100px] h-[45px] bg-transparent z-50 cursor-default" title="ไม่สามารถแชร์ได้ในขณะนี้"></div>
+                    </div>
+                    
+                    <!-- 📱 Mobile Iframe -->
+                    <div class="block sm:hidden relative rounded-xl overflow-hidden shadow-sm w-full max-w-[300px]">
+                        <iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fwisetvanichconstruction&tabs&width=300&height=130&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=false&appId" 
+                            width="300" height="130" style="border:none;overflow:hidden;" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+                        
+                        <!-- 🛡️ แผ่นใสบังปุ่มแชร์ (ล่างขวา) -->
+                        <div class="absolute bottom-0 right-0 w-[100px] h-[45px] bg-transparent z-50 cursor-default" title="ไม่สามารถแชร์ได้ในขณะนี้"></div>
+                    </div>
+                    
+                </div>
+
+            </div>
+        </div>
+    </section>
+
     <section id="contact" class="py-24 bg-white relative">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div class="bg-white rounded-3xl shadow-xl overflow-hidden flex flex-col lg:flex-row border border-gray-100">
@@ -759,11 +765,6 @@
         class="fixed bottom-6 right-6 z-50 w-12 h-12 md:w-14 md:h-14 rounded-full bg-brand-600 hover:bg-brand-700 text-white shadow-lg flex items-center justify-center transition-all duration-300 opacity-0 translate-y-4 pointer-events-none">
         <i class="fas fa-arrow-up text-lg md:text-xl"></i>
     </button>
-
-    <!-- ปุ่ม Facebook ลอยข้างจอ -->
-    <a href="https://www.facebook.com/wisetvanichconstruction/" target="_blank" class="floating-fb">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/b/b8/2021_Facebook_icon.svg" alt="Facebook Page">
-    </a>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="javascript/supabase-config.js"></script>
