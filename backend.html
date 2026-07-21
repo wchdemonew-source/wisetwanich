@@ -121,6 +121,9 @@ create policy "public can write"
         <span id="conn-status" class="hidden sm:flex items-center gap-1.5 text-xs text-brand-700 bg-brand-50 px-3 py-1.5 rounded-full">
           <span class="w-2 h-2 rounded-full bg-brand-500"></span> เชื่อมต่อแล้ว
         </span>
+        <button id="btn-admin-settings" onclick="startAdminChallenge()" title="ตั้งค่าแอดมิน / เปลี่ยนรหัสผ่าน" class="w-9 h-9 flex items-center justify-center text-gray-400 hover:text-brand-600 hover:bg-brand-50 rounded-full transition">
+          <i class="fas fa-gear"></i>
+        </button>
         <button id="btn-disconnect" class="text-xs text-gray-400 hover:text-red-500 px-3 py-1.5 transition">ตัดการเชื่อมต่อ</button>
       </div>
     </div>
@@ -200,7 +203,7 @@ create policy "public can write"
             </div>
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-1">Line ID</label>
-              <input id="s-line-id" type="text" placeholder="เช่น 099-059-5398 หรือ @wisesvanich" class="w-full px-3 py-2 rounded-lg border border-gray-300 focus:border-brand-500 outline-none text-sm">
+              <input id="s-line-id" type="text" placeholder="เช่น 099-059-5398 หรือ @wiseswanich" class="w-full px-3 py-2 rounded-lg border border-gray-300 focus:border-brand-500 outline-none text-sm">
             </div>
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-1">อีเมล</label>
@@ -359,6 +362,57 @@ create policy "public can write"
 </div>
 
 <!-- Toast -->
+<!-- ============ ADMIN CHALLENGE MODAL ============ -->
+<div id="challenge-modal" class="hidden fixed inset-0 bg-black/50 z-[70] flex items-center justify-center p-4">
+  <div class="bg-white rounded-2xl shadow-2xl w-full max-w-sm p-6 text-center fade-in">
+    <div class="w-12 h-12 rounded-full bg-brand-50 text-brand-600 flex items-center justify-center mx-auto mb-4 text-xl">
+      <i class="fas fa-shield-halved"></i>
+    </div>
+    <h3 class="font-bold text-lg text-brand-900 mb-1">ยืนยันตัวตนก่อนเข้าตั้งค่าแอดมิน</h3>
+    <p class="text-sm text-gray-500 mb-4">พิมพ์รหัสด้านล่างให้ตรงกันภายในเวลาที่กำหนด</p>
+
+    <div class="bg-gray-900 text-white text-2xl font-bold tracking-[0.3em] rounded-xl py-4 mb-4 select-none" id="challenge-code-display">--------</div>
+
+    <input id="challenge-input" type="text" placeholder="พิมพ์รหัสด้านบน"
+      class="w-full text-center px-4 py-3 rounded-lg border border-gray-300 focus:border-brand-500 focus:ring-2 focus:ring-brand-100 outline-none text-lg tracking-widest mb-3"
+      onkeydown="if(event.key==='Enter') confirmAdminChallenge();">
+
+    <div class="w-full bg-gray-100 rounded-full h-1.5 mb-4 overflow-hidden">
+      <div id="challenge-timer-bar" class="h-full bg-brand-500 rounded-full transition-all duration-1000 ease-linear" style="width: 100%"></div>
+    </div>
+
+    <p id="challenge-error" class="hidden text-sm text-red-600 mb-3">รหัสไม่ตรง ลองใหม่อีกครั้ง</p>
+
+    <div class="flex gap-2">
+      <button type="button" onclick="closeAdminChallenge()" class="flex-1 px-4 py-2.5 rounded-full text-gray-600 hover:bg-gray-100 font-medium text-sm">ยกเลิก</button>
+      <button type="button" onclick="confirmAdminChallenge()" class="flex-1 px-4 py-2.5 rounded-full bg-brand-600 hover:bg-brand-700 text-white font-medium text-sm">ยืนยัน</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ ADMIN SETTINGS MODAL (เปลี่ยนรหัสผ่าน) ============ -->
+<div id="admin-settings-modal" class="hidden fixed inset-0 bg-black/50 z-[70] flex items-center justify-center p-4">
+  <div class="bg-white rounded-2xl shadow-2xl w-full max-w-sm p-6 fade-in">
+    <div class="flex items-center justify-between mb-4">
+      <h3 class="font-bold text-lg text-brand-900"><i class="fas fa-key text-brand-500 mr-2"></i>เปลี่ยนรหัสผ่านแอดมิน</h3>
+      <button type="button" onclick="closeAdminSettingsModal()" class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100 text-gray-400"><i class="fas fa-times"></i></button>
+    </div>
+    <p class="text-xs text-gray-400 mb-4">รหัสผ่านนี้ใช้เข้าหน้านี้ผ่านปุ่มลับที่ footer ของหน้าเว็บ (index.html)</p>
+
+    <label class="block text-sm font-medium text-gray-700 mb-1">รหัสผ่านใหม่</label>
+    <input id="new-admin-password" type="text" placeholder="ตั้งรหัสผ่านใหม่" class="w-full mb-3 px-3 py-2 rounded-lg border border-gray-300 focus:border-brand-500 outline-none text-sm">
+
+    <label class="block text-sm font-medium text-gray-700 mb-1">ยืนยันรหัสผ่านใหม่</label>
+    <input id="confirm-admin-password" type="text" placeholder="พิมพ์ซ้ำอีกครั้ง" class="w-full mb-2 px-3 py-2 rounded-lg border border-gray-300 focus:border-brand-500 outline-none text-sm">
+
+    <p id="admin-password-error" class="hidden text-sm text-red-600 mb-3"></p>
+
+    <button type="button" onclick="saveAdminPassword()" class="w-full bg-brand-600 hover:bg-brand-700 text-white font-medium py-2.5 rounded-lg transition flex items-center justify-center gap-2">
+      <i class="fas fa-check"></i> บันทึกรหัสผ่านใหม่
+    </button>
+  </div>
+</div>
+
 <div id="toast" class="hidden fixed bottom-6 right-6 bg-brand-900 text-white px-5 py-3 rounded-xl shadow-2xl z-[60] text-sm items-center gap-2"></div>
 
 <script>
@@ -982,6 +1036,106 @@ create policy "public can write"
     }
     showToast('บันทึกการตั้งค่าเว็บไซต์แล้ว');
   });
+
+  // ---------- Admin Settings: ยืนยันตัวตนด้วยรหัสสุ่ม 8 ตัว ก่อนเข้าเปลี่ยนรหัสผ่านแอดมิน ----------
+  let challengeCode = '';
+  let challengeTimerInterval = null;
+  const CHALLENGE_SECONDS = 30;
+
+  function generateChallengeCode() {
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%&*';
+    let code = '';
+    for (let i = 0; i < 8; i++) {
+      code += chars[Math.floor(Math.random() * chars.length)];
+    }
+    return code;
+  }
+
+  function startAdminChallenge() {
+    challengeCode = generateChallengeCode();
+    document.getElementById('challenge-code-display').textContent = challengeCode;
+    document.getElementById('challenge-input').value = '';
+    document.getElementById('challenge-error').classList.add('hidden');
+    document.getElementById('challenge-modal').classList.remove('hidden');
+    document.getElementById('challenge-input').focus();
+
+    let secondsLeft = CHALLENGE_SECONDS;
+    const bar = document.getElementById('challenge-timer-bar');
+    bar.style.width = '100%';
+
+    clearInterval(challengeTimerInterval);
+    challengeTimerInterval = setInterval(() => {
+      secondsLeft--;
+      bar.style.width = Math.max(0, (secondsLeft / CHALLENGE_SECONDS) * 100) + '%';
+      if (secondsLeft <= 0) {
+        clearInterval(challengeTimerInterval);
+        closeAdminChallenge();
+        showToast('หมดเวลา กรุณาลองใหม่อีกครั้ง', true);
+      }
+    }, 1000);
+  }
+  window.startAdminChallenge = startAdminChallenge;
+
+  function closeAdminChallenge() {
+    clearInterval(challengeTimerInterval);
+    document.getElementById('challenge-modal').classList.add('hidden');
+  }
+  window.closeAdminChallenge = closeAdminChallenge;
+
+  function confirmAdminChallenge() {
+    const input = document.getElementById('challenge-input').value;
+    if (input === challengeCode) {
+      clearInterval(challengeTimerInterval);
+      document.getElementById('challenge-modal').classList.add('hidden');
+      openAdminSettingsModal();
+    } else {
+      document.getElementById('challenge-error').classList.remove('hidden');
+      document.getElementById('challenge-input').value = '';
+      document.getElementById('challenge-input').focus();
+    }
+  }
+  window.confirmAdminChallenge = confirmAdminChallenge;
+
+  function openAdminSettingsModal() {
+    document.getElementById('new-admin-password').value = '';
+    document.getElementById('confirm-admin-password').value = '';
+    document.getElementById('admin-password-error').classList.add('hidden');
+    document.getElementById('admin-settings-modal').classList.remove('hidden');
+  }
+
+  function closeAdminSettingsModal() {
+    document.getElementById('admin-settings-modal').classList.add('hidden');
+  }
+  window.closeAdminSettingsModal = closeAdminSettingsModal;
+
+  async function saveAdminPassword() {
+    const newPass = document.getElementById('new-admin-password').value.trim();
+    const confirmPass = document.getElementById('confirm-admin-password').value.trim();
+    const errEl = document.getElementById('admin-password-error');
+    errEl.classList.add('hidden');
+
+    if (newPass.length < 4) {
+      errEl.textContent = 'รหัสผ่านควรมีอย่างน้อย 4 ตัวอักษร';
+      errEl.classList.remove('hidden');
+      return;
+    }
+    if (newPass !== confirmPass) {
+      errEl.textContent = 'รหัสผ่านที่ยืนยันไม่ตรงกัน';
+      errEl.classList.remove('hidden');
+      return;
+    }
+
+    const { error } = await sb.from('site_settings').upsert({ id: 'main', admin_password: newPass });
+    if (error) {
+      errEl.textContent = 'บันทึกไม่สำเร็จ: ' + error.message;
+      errEl.classList.remove('hidden');
+      return;
+    }
+
+    showToast('เปลี่ยนรหัสผ่านแอดมินแล้ว');
+    closeAdminSettingsModal();
+  }
+  window.saveAdminPassword = saveAdminPassword;
 
   initConnection();
 </script>

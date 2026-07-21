@@ -7,23 +7,6 @@
     <meta name="description" content="บริษัท วิเศษวานิช คอนสตรัคชั่น จำกัด รับเหมารื้อถอนอาคาร บ้าน โรงงาน โกดัง และโครงสร้างเหล็กทุกชนิด บริการทั่วประเทศไทย ทีมวิศวกรและช่างผู้ชำนาญการ มาตรฐานความปลอดภัยสูง ประเมินราคาฟรี">
     <link rel="icon" type="image/png" href="./img/favicon.png">
     <link rel="apple-touch-icon" href="./img/favicon.png">
-
-    <!-- Canonical Tag -->
-    <link rel="canonical" href="https://wisetvanich.com" />
-
-    <!-- Open Graph / Facebook / LINE -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://wisetvanich.com/">
-    <meta property="og:title" content="บริษัท วิเศษวานิช คอนสตรัคชั่น จำกัด - รับเหมารื้อถอนอาคาร">
-    <meta property="og:description" content="บริการรับเหมารื้อถอนอาคาร บ้าน โรงงาน โกดัง และโครงสร้างเหล็กทุกชนิด ประเมินราคาฟรี">
-    <meta property="og:image" content="https://wisetvanich.com/img/banner-w.png">
-
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://wisetvanich.com/">
-    <meta property="twitter:title" content="บริษัท วิเศษวานิช คอนสตรัคชั่น จำกัด">
-    <meta property="twitter:description" content="บริการรับเหมารื้อถอนอาคาร บ้าน โรงงาน โกดัง และโครงสร้างเหล็กทุกชนิด">
-    <meta property="twitter:image" content="https://wisetvanich.com/img/banner-w.png">
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -31,6 +14,61 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
+
+    <style>
+        /* จัดตำแหน่งปุ่มให้อยู่กึ่งกลางจอฝั่งขวา */
+        .floating-fb {
+        position: fixed;
+        top: 50%;
+        right: 30px;
+        transform: translateY(-50%);
+        width: 60px;
+        height: 60px;
+        z-index: 1000;
+        border-radius: 50%;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        transition: transform 0.3s ease;
+        animation: bounce 2s infinite; /* เรียกใช้แอนิเมชันเด้ง */
+        }
+
+        .floating-fb img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        }
+
+        /* เอฟเฟกต์เมื่อเอาเมาส์ชี้ให้ขยายใหญ่ขึ้นนิดหน่อย */
+        .floating-fb:hover {
+        transform: translateY(-50%) scale(1.1);
+        animation: none; /* หยุดเด้งเมื่อเอาเมาส์ชี้ */
+        }
+
+        /* แอนิเมชันทำให้ปุ่มเด้งขึ้นลง (อิงตำแหน่งกึ่งกลางจอเดิมไว้เสมอ) */
+        @keyframes bounce {
+        0%, 20%, 50%, 80%, 100% {
+            transform: translateY(-50%);
+        }
+        40% {
+            transform: translateY(calc(-50% - 15px));
+        }
+        60% {
+            transform: translateY(calc(-50% - 7px));
+        }
+        }
+
+        /* บนมือถือ: ย่อขนาดลง ขยับชิดขอบขวามากขึ้น และลดความชัดเล็กน้อยกันบังเนื้อหา */
+        @media (max-width: 640px) {
+            .floating-fb {
+                width: 42px;
+                height: 42px;
+                right: 10px;
+                opacity: 0.8;
+            }
+            .floating-fb:active {
+                opacity: 1;
+            }
+        }
+    </Style>
     <script>
         tailwind.config = {
             theme: {
@@ -114,7 +152,7 @@
                     <div class="flex flex-col justify-center pt-1 min-w-0">
                         <h1 class="font-bold text-xs sm:text-lg md:text-2xl text-brand-800 tracking-tight leading-tight sm:leading-none mb-0.5 sm:mb-1.5 truncate">บริษัท วิเศษวานิช คอนสตรัคชั่น จำกัด</h1>
                         <p class="hidden sm:block text-[9px] md:text-[11px] text-brand-700 font-bold tracking-[0.15em] leading-none truncate">WISETVANICH CONSTRUCTION CO., LTD.</p>
-                    </div>                                                                                                                    
+                    </div>
                 </div>
 
                 <!-- Desktop Menu -->
@@ -800,34 +838,18 @@
         <i class="fas fa-arrow-up text-lg md:text-xl"></i>
     </button>
 
+    <!-- ปุ่ม Facebook ลอยข้างจอ -->
+    <a href="https://www.facebook.com/wisetvanichconstruction/" target="_blank" class="floating-fb">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/b/b8/2021_Facebook_icon.svg" alt="Facebook Page">
+    </a>
+
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="javascript/supabase-config.js"></script>
     <script src="javascript/projects-loader.js"></script>
     <script src="javascript/site-settings-loader.js"></script>
     <script src="javascript/i18n.js"></script>
 
-   <script type="application/ld+json">
-    {
-    "@context": "https://schema.org",
-    "@type": "LocalBusiness",
-    "name": "บริษัท วิเศษวานิช คอนสตรัคชั่น จำกัด",
-    "image": "https://wisetvanich.com/img/favicon.png",
-    "telephone": "099-059-5398",
-    "email": "wisetvanich2026@gmail.com",
-    "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "1/39 หมู่ที่ 16 ตำบลบางกระสั้น",
-        "addressLocality": "อำเภอบางปะอิน",
-        "addressRegion": "พระนครศรีอยุธยา",
-        "postalCode": "13160",
-        "addressCountry": "TH"
-    },
-    "url": "https://wisetvanich.com/"
-    }
-    </script>
-
     <script>
-        
         // ============================================
         // ระบบสลับภาษา TH/EN (เฉพาะเมนู + หัวข้อหลักแต่ละ section)
         // ตัวระบบหลักอยู่ใน i18n.js - ที่นี่กำหนดแค่คำแปลเฉพาะของหน้านี้
@@ -837,7 +859,7 @@
             heading_history:   { th: "ความเป็นมาของบริษัท", en: "Company History" },
             heading_training:  { th: "การฝึกอบรมพนักงาน", en: "Employee Training" },
             heading_process:   { th: "ขั้นตอนการทำงาน", en: "Our Process" },
-            heading_contact:   { th: "ติดต่อวิเศษวานิช", en: "Contact Wisesvanich" },
+            heading_contact:   { th: "ติดต่อวิเศษวานิช", en: "Contact Wiseswanich" },
             read_more:         { th: "อ่านเพิ่มเติม", en: "Read More" },
         });
 
@@ -929,6 +951,9 @@
                              alt="${p.title}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
                         <span class="absolute top-2.5 left-2.5 ${p.badgeBg || 'bg-brand-50'} ${p.badgeText || 'text-brand-600'} text-[9px] sm:text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full shadow-sm ring-1 ring-white/60">${p.category}</span>
                         <div class="absolute top-2.5 right-2.5 flex flex-col items-end gap-1">${tagBadgesHtml(p.tags)}</div>
+                        <span class="absolute bottom-2.5 right-2.5 bg-black/60 text-white text-[10px] sm:text-[11px] font-medium px-2 py-1 rounded-full flex items-center gap-1">
+                            <i class="fas fa-eye text-[9px]"></i> ${formatViewCount(p.views)}
+                        </span>
                     </div>
                     <div class="p-3 sm:p-4">
                         <h4 class="text-gray-900 font-bold text-sm sm:text-base truncate group-hover:text-brand-700 transition-colors">${p.title}</h4>
@@ -960,9 +985,13 @@
         // โหลด/แสดงผล "ตั้งค่าเว็บไซต์" (เบอร์โทร, Line ID, อีเมล, ที่อยู่, โซเชียล, ทีมงาน)
         // เพิ่ม/แก้ไขทำผ่านหน้า backend.html แท็บ "ตั้งค่าเว็บไซต์" เท่านั้น ไม่ต้องแก้ไฟล์นี้
         // ============================================
+        let currentAdminPassword = ''; // ดึงจากฐานข้อมูล ใช้เช็คตอนเปิดแถบรหัสผ่านลับที่ footer
+
         async function renderSiteSettings() {
             const settings = await loadSiteSettings();
             if (!settings) return;
+
+            if (settings.adminPassword) currentAdminPassword = settings.adminPassword;
 
             const phoneLink = document.getElementById('contact-phone-link');
             const phoneCopy = document.getElementById('contact-phone-copy');
@@ -1226,7 +1255,8 @@
         function submitAdminAccess() {
             const input = document.getElementById('admin-pass-input');
             const errorEl = document.getElementById('admin-pass-error');
-            if (input.value === ADMIN_PASSWORD) {
+            const validPassword = currentAdminPassword || ADMIN_PASSWORD;
+            if (input.value === validPassword) {
                 window.open("backend.html", "_blank");
                 closeAdminBar();
             } else {

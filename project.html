@@ -141,7 +141,12 @@
     <section id="project-detail-wrap" class="py-12 sm:py-16">
         <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden fade-in">
-                <img id="hero-image" src="" alt="" class="w-full h-64 sm:h-[26rem] object-cover bg-gray-100">
+                <div class="relative">
+                    <img id="hero-image" src="" alt="" class="w-full h-64 sm:h-[26rem] object-cover bg-gray-100">
+                    <span id="project-view-count" class="absolute bottom-4 right-4 bg-black/60 text-white text-sm font-medium px-3 py-1.5 rounded-full flex items-center gap-1.5">
+                        <i class="fas fa-eye"></i> 0
+                    </span>
+                </div>
                 <div class="p-6 sm:p-10">
                     <!-- ผลงานและประสบการณ์ -->
                     <div class="pt-2">
@@ -208,18 +213,18 @@
                         <li>เปิดให้บริการทุกวัน 24/7</li>
                     </ul>
 
-                    <!-- ช่องทางการติดตาม: แก้ href ของแต่ละไอคอนเป็นลิงก์เพจจริงของบริษัท -->
+                    <!-- ช่องทางการติดตาม: แก้ลิงก์จริงได้ที่หน้า backend.html แท็บ "ตั้งค่าเว็บไซต์" -->
                     <p data-i18n="footer_follow" class="text-white font-semibold mt-6 mb-3 text-sm">ช่องทางการติดตาม</p>
                     <div class="flex items-center gap-3">
-                        <a href="#" target="_blank" rel="noopener noreferrer" aria-label="Facebook"
+                        <a id="social-facebook" href="#" target="_blank" rel="noopener noreferrer" aria-label="Facebook"
                             class="w-9 h-9 rounded-full bg-brand-800 hover:bg-brand-500 flex items-center justify-center transition-colors">
                             <i class="fab fa-facebook-f text-sm"></i>
                         </a>
-                        <a href="#" target="_blank" rel="noopener noreferrer" aria-label="YouTube"
+                        <a id="social-youtube" href="#" target="_blank" rel="noopener noreferrer" aria-label="YouTube"
                             class="w-9 h-9 rounded-full bg-brand-800 hover:bg-brand-500 flex items-center justify-center transition-colors">
                             <i class="fab fa-youtube text-sm"></i>
                         </a>
-                        <a href="#" target="_blank" rel="noopener noreferrer" aria-label="TikTok"
+                        <a id="social-tiktok" href="#" target="_blank" rel="noopener noreferrer" aria-label="TikTok"
                             class="w-9 h-9 rounded-full bg-brand-800 hover:bg-brand-500 flex items-center justify-center transition-colors">
                             <i class="fab fa-tiktok text-sm"></i>
                         </a>
@@ -258,7 +263,7 @@
 
     <!-- Back to Top Button -->
     <button id="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" aria-label="กลับขึ้นด้านบน"
-        class="fixed bottom-6 right-6 z-50 w-12 h-12 md:w-14 md:h-14 rounded-full bg-brand-600 hover:bg-brand-700 text-white shadow-lg flex items-center justify-center transition-all duration-300 opacity-0 translate-y-4 pointer-events-none">
+        class="fixed bottom-20 right-4 sm:bottom-6 sm:right-6 z-50 w-12 h-12 md:w-14 md:h-14 rounded-full bg-brand-600 hover:bg-brand-700 text-white shadow-lg flex items-center justify-center transition-all duration-300 opacity-0 translate-y-4 pointer-events-none">
         <i class="fas fa-arrow-up text-lg md:text-xl"></i>
     </button>
 
@@ -266,6 +271,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="javascript/supabase-config.js"></script>
     <script src="javascript/projects-loader.js"></script>
+    <script src="javascript/site-settings-loader.js"></script>
     <script src="javascript/i18n.js"></script>
 
     <script>
@@ -279,6 +285,21 @@
             heading_gallery:   { th: "ผลงานและประสบการณ์", en: "Project Gallery & Details" },
             heading_related:   { th: "ผลงานอื่นๆ ที่น่าสนใจ", en: "Other Related Projects" },
         });
+
+        // ============================================
+        // แสดงลิงก์โซเชียลใน footer จากฐานข้อมูล (แก้ไขได้ที่ backend.html แท็บ "ตั้งค่าเว็บไซต์")
+        // ============================================
+        async function renderFooterSocialLinks() {
+            const settings = await loadSiteSettings();
+            if (!settings) return;
+            const fb = document.getElementById('social-facebook');
+            const yt = document.getElementById('social-youtube');
+            const tt = document.getElementById('social-tiktok');
+            if (fb && settings.socialFacebook) fb.href = settings.socialFacebook;
+            if (yt && settings.socialYoutube) yt.href = settings.socialYoutube;
+            if (tt && settings.socialTiktok) tt.href = settings.socialTiktok;
+        }
+        renderFooterSocialLinks();
 
         // ============================================
         // Photo Gallery renderer (ใช้ร่วมกันทุกผลงาน)
@@ -378,6 +399,11 @@
 
             document.getElementById('breadcrumb-title').textContent = project.title;
 
+            const viewCountEl = document.getElementById('project-view-count');
+            if (viewCountEl) {
+                viewCountEl.innerHTML = `<i class="fas fa-eye"></i> ${formatViewCount(project.views || 0)}`;
+            }
+
             const heroImg = document.getElementById('hero-image');
             heroImg.src = project.image;
             heroImg.alt = project.title;
@@ -418,6 +444,9 @@
                                  onerror="this.onerror=null; this.src='https://placehold.co/600x400/eeeeee/333333?text=${p.placeholder || 'Project'}'"
                                  alt="${p.title}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
                             <span class="absolute top-3 left-3 ${p.badgeBg || 'bg-brand-50'} ${p.badgeText || 'text-brand-600'} text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full shadow-sm ring-1 ring-white/60">${p.category}</span>
+                            <span class="absolute bottom-3 right-3 bg-black/60 text-white text-[11px] font-medium px-2 py-1 rounded-full flex items-center gap-1">
+                                <i class="fas fa-eye text-[10px]"></i> ${formatViewCount(p.views)}
+                            </span>
                         </div>
                         <div class="p-4">
                             <h4 class="text-gray-900 font-bold text-base truncate group-hover:text-brand-700 transition-colors">${p.title}</h4>
@@ -453,11 +482,25 @@
                 document.getElementById('project-detail-wrap').classList.remove('hidden');
                 document.getElementById('not-found-wrap').classList.add('hidden');
                 renderProject(project);
+                registerProjectView(project);
             } else {
                 document.getElementById('project-detail-wrap').classList.add('hidden');
                 document.getElementById('not-found-wrap').classList.remove('hidden');
             }
         })();
+
+        // บันทึกยอดเข้าชมผลงานทุกครั้งที่มีคนเปิดดูหน้านี้ (แบบเดียวกับยอดวิวใน YouTube)
+        async function registerProjectView(project) {
+            const countEl = document.getElementById('project-view-count');
+            const { error } = await sbClient.rpc('increment_project_views', { project_id: project.id });
+            if (error) {
+                console.error('บันทึกยอดเข้าชมไม่สำเร็จ:', error.message);
+                return;
+            }
+            if (countEl) {
+                countEl.innerHTML = `<i class="fas fa-eye"></i> ${formatViewCount((project.views || 0) + 1)}`;
+            }
+        }
 
         // Mobile menu toggle
         const menuBtn = document.getElementById('mobile-menu-btn');

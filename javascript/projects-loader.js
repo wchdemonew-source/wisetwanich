@@ -33,9 +33,18 @@ async function loadProjects() {
             facts: row.facts || [],
             gallery: row.gallery || [],
             tags: row.tags || [],
+            views: row.views || 0,
         }));
     } catch (err) {
         console.error('เชื่อมต่อฐานข้อมูลไม่สำเร็จ:', err);
         return [];
     }
+}
+
+// จัดรูปแบบยอดเข้าชมแบบ YouTube เช่น 1234 -> "1.2K", 1500000 -> "1.5M"
+function formatViewCount(n) {
+    n = n || 0;
+    if (n >= 1000000) return (n / 1000000).toFixed(1).replace(/\.0$/, '') + 'M';
+    if (n >= 1000) return (n / 1000).toFixed(1).replace(/\.0$/, '') + 'K';
+    return String(n);
 }

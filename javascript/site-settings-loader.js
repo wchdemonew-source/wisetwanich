@@ -29,6 +29,7 @@ async function loadSiteSettings() {
             socialYoutube: data.social_youtube || '',
             socialTiktok: data.social_tiktok || '',
             teamMembers: data.team_members || [],
+            adminPassword: data.admin_password || '',
         };
     } catch (err) {
         console.error('เชื่อมต่อฐานข้อมูลไม่สำเร็จ:', err);

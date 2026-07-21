@@ -166,7 +166,7 @@
                     <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[120%] h-16 sm:h-20 bg-brand-400 rounded-full z-0 opacity-90 blur-[1px]"></div>
                     <div class="relative z-10 w-72 h-72 sm:w-80 sm:h-80 lg:w-[420px] lg:h-[420px] rounded-full p-2 bg-brand-600 shadow-xl">
                         <div class="w-full h-full rounded-full overflow-hidden border-4 border-brand-600 relative">
-                            <img src="img/banner-w.png"
+                            <img src="img/banner W.png"
                                  alt="การดำเนินงานก่อสร้างและรื้อถอน"
                                  class="w-full h-full object-cover">
                         </div>
@@ -234,18 +234,18 @@
                         <li>เปิดให้บริการทุกวัน 24/7</li>
                     </ul>
 
-                    <!-- ช่องทางการติดตาม: แก้ href ของแต่ละไอคอนเป็นลิงก์เพจจริงของบริษัท -->
+                    <!-- ช่องทางการติดตาม: แก้ลิงก์จริงได้ที่หน้า backend.html แท็บ "ตั้งค่าเว็บไซต์" -->
                     <p data-i18n="footer_follow" class="text-white font-semibold mt-6 mb-3 text-sm">ช่องทางการติดตาม</p>
                     <div class="flex items-center gap-3">
-                        <a href="#" target="_blank" rel="noopener noreferrer" aria-label="Facebook"
+                        <a id="social-facebook" href="#" target="_blank" rel="noopener noreferrer" aria-label="Facebook"
                             class="w-9 h-9 rounded-full bg-brand-800 hover:bg-brand-500 flex items-center justify-center transition-colors">
                             <i class="fab fa-facebook-f text-sm"></i>
                         </a>
-                        <a href="#" target="_blank" rel="noopener noreferrer" aria-label="YouTube"
+                        <a id="social-youtube" href="#" target="_blank" rel="noopener noreferrer" aria-label="YouTube"
                             class="w-9 h-9 rounded-full bg-brand-800 hover:bg-brand-500 flex items-center justify-center transition-colors">
                             <i class="fab fa-youtube text-sm"></i>
                         </a>
-                        <a href="#" target="_blank" rel="noopener noreferrer" aria-label="TikTok"
+                        <a id="social-tiktok" href="#" target="_blank" rel="noopener noreferrer" aria-label="TikTok"
                             class="w-9 h-9 rounded-full bg-brand-800 hover:bg-brand-500 flex items-center justify-center transition-colors">
                             <i class="fab fa-tiktok text-sm"></i>
                         </a>
@@ -260,10 +260,13 @@
 
     <!-- Back to Top Button -->
     <button id="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" aria-label="กลับขึ้นด้านบน"
-        class="fixed bottom-6 right-6 z-50 w-12 h-12 md:w-14 md:h-14 rounded-full bg-brand-600 hover:bg-brand-700 text-white shadow-lg flex items-center justify-center transition-all duration-300 opacity-0 translate-y-4 pointer-events-none">
+        class="fixed bottom-20 right-4 sm:bottom-6 sm:right-6 z-50 w-12 h-12 md:w-14 md:h-14 rounded-full bg-brand-600 hover:bg-brand-700 text-white shadow-lg flex items-center justify-center transition-all duration-300 opacity-0 translate-y-4 pointer-events-none">
         <i class="fas fa-arrow-up text-lg md:text-xl"></i>
     </button>
 
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="javascript/supabase-config.js"></script>
+    <script src="javascript/site-settings-loader.js"></script>
     <script src="javascript/i18n.js"></script>
     <script>
         // ============================================
@@ -273,6 +276,21 @@
         initI18n({
             heading_history: { th: "ความเป็นมาของบริษัท", en: "Company History" },
         });
+
+        // ============================================
+        // แสดงลิงก์โซเชียลใน footer จากฐานข้อมูล (แก้ไขได้ที่ backend.html แท็บ "ตั้งค่าเว็บไซต์")
+        // ============================================
+        async function renderFooterSocialLinks() {
+            const settings = await loadSiteSettings();
+            if (!settings) return;
+            const fb = document.getElementById('social-facebook');
+            const yt = document.getElementById('social-youtube');
+            const tt = document.getElementById('social-tiktok');
+            if (fb && settings.socialFacebook) fb.href = settings.socialFacebook;
+            if (yt && settings.socialYoutube) yt.href = settings.socialYoutube;
+            if (tt && settings.socialTiktok) tt.href = settings.socialTiktok;
+        }
+        renderFooterSocialLinks();
 
         // Mobile menu toggle
         const menuBtn = document.getElementById('mobile-menu-btn');
