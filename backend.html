@@ -4,6 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ระบบจัดการผลงาน | วิเศษวานิช คอนสตรัคชั่น</title>
+<script>
+  // ตั้งค่าโหมดกลางวัน/กลางคืนก่อนหน้าเว็บ render เพื่อไม่ให้จอกระพริบสลับสีตอนโหลด
+  if (localStorage.getItem('backend_theme') === 'dark') {
+    document.documentElement.classList.add('dark');
+  }
+</script>
 <link rel="icon" type="image/png" href="./img/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -31,17 +37,75 @@
   }
 </script>
 <style>
-  body { background: #f7faf8; }
+  body { background: #f7faf8; transition: background-color .25s ease, color .25s ease; }
   .scrollbar-thin::-webkit-scrollbar { width: 6px; }
   .scrollbar-thin::-webkit-scrollbar-thumb { background: #bbf7d0; border-radius: 4px; }
   .fade-in { animation: fadeIn .35s ease-out forwards; }
   @keyframes fadeIn { from { opacity:0; transform: translateY(8px);} to { opacity:1; transform: translateY(0);} }
   [x-cloak] { display: none !important; }
+
+  /* ================================================================
+     โหมดกลางคืน (Dark Mode) - ครอบคลุมทุกส่วนของหน้าแอดมิน
+     สลับด้วยการเพิ่ม/เอา class "dark" ที่ <html> แล้วจำค่าไว้ใน localStorage
+     ================================================================ */
+  html.dark, html.dark body { background: #0f172a; }
+  html.dark * { transition: background-color .2s ease, border-color .2s ease, color .2s ease; }
+
+  html.dark .bg-white { background-color: #1e293b !important; }
+  html.dark .bg-gray-50 { background-color: #0f172a !important; }
+  html.dark .bg-gray-100 { background-color: #273548 !important; }
+  html.dark .bg-gray-200 { background-color: #334155 !important; }
+  html.dark .bg-brand-50 { background-color: #14291d !important; }
+  html.dark .bg-brand-100 { background-color: #16321f !important; }
+  html.dark .bg-red-50 { background-color: #2a1418 !important; }
+  html.dark .bg-yellow-50 { background-color: #2a2414 !important; }
+
+  html.dark .text-gray-900 { color: #f1f5f9 !important; }
+  html.dark .text-gray-800 { color: #e2e8f0 !important; }
+  html.dark .text-gray-700 { color: #cbd5e1 !important; }
+  html.dark .text-gray-600 { color: #94a3b8 !important; }
+  html.dark .text-gray-500 { color: #94a3b8 !important; }
+  html.dark .text-gray-400 { color: #64748b !important; }
+  html.dark .text-gray-300 { color: #475569 !important; }
+  html.dark .text-brand-900 { color: #86efac !important; }
+  html.dark .text-brand-800 { color: #86efac !important; }
+  html.dark .text-brand-700 { color: #6ee7b7 !important; }
+
+  html.dark .border-gray-100 { border-color: #273548 !important; }
+  html.dark .border-gray-200 { border-color: #334155 !important; }
+  html.dark .border-gray-300 { border-color: #475569 !important; }
+  html.dark .border-brand-100 { border-color: #1e3a2c !important; }
+  html.dark .border-dashed { border-color: #334155 !important; }
+
+  html.dark input, html.dark select, html.dark textarea {
+    background-color: #1e293b !important;
+    color: #e2e8f0 !important;
+    border-color: #475569 !important;
+  }
+  html.dark input::placeholder, html.dark textarea::placeholder { color: #64748b !important; }
+
+  html.dark .shadow-sm, html.dark .shadow-md, html.dark .shadow-xl, html.dark .shadow-2xl {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.4) !important;
+  }
+  html.dark .hover\:bg-gray-50:hover { background-color: #273548 !important; }
+  html.dark .hover\:bg-gray-100:hover { background-color: #334155 !important; }
+  html.dark .hover\:bg-brand-50:hover { background-color: #16321f !important; }
+  html.dark .hover\:bg-red-50:hover { background-color: #2a1418 !important; }
+
+  /* ปุ่มสลับโหมด */
+  .theme-toggle-btn { transition: transform .3s ease; }
+  .theme-toggle-btn:active { transform: scale(0.9); }
 </style>
 </head>
 <body class="font-sans text-gray-800 antialiased min-h-screen">
 
 <!-- ============ SETUP SCREEN (แสดงถ้ายังไม่ได้เชื่อม Supabase) ============ -->
+<!-- ปุ่มสลับโหมดกลางวัน/กลางคืน แบบลอย ใช้เฉพาะตอนยังไม่ได้เชื่อมต่อฐานข้อมูล (หน้า setup ยังไม่มี navbar) -->
+<button id="btn-theme-toggle-floating" onclick="toggleTheme()" title="สลับโหมดกลางวัน/กลางคืน"
+  class="theme-toggle-btn fixed top-4 right-4 z-[80] w-10 h-10 rounded-full bg-white shadow-md border border-gray-200 flex items-center justify-center text-gray-500 hover:text-brand-600 transition">
+  <i class="fas fa-moon theme-icon"></i>
+</button>
+
 <div id="setup-screen" class="min-h-screen flex items-center justify-center px-4">
   <div class="max-w-lg w-full bg-white rounded-2xl shadow-xl border border-brand-100 p-8">
     <div class="flex items-center gap-3 mb-2">
@@ -115,7 +179,7 @@ create policy "public can write"
         </div>
       </div>
       <div class="flex items-center gap-2">
-        <a href="/" class="flex items-center gap-1.5 text-xs font-medium text-gray-500 hover:text-brand-600 px-3 py-1.5 rounded-full hover:bg-brand-50 transition">
+        <a href="index.html" class="flex items-center gap-1.5 text-xs font-medium text-gray-500 hover:text-brand-600 px-3 py-1.5 rounded-full hover:bg-brand-50 transition">
           <i class="fas fa-arrow-left"></i> <span class="hidden sm:inline">กลับหน้าเว็บ</span>
         </a>
         <span id="conn-status" class="hidden sm:flex items-center gap-1.5 text-xs text-brand-700 bg-brand-50 px-3 py-1.5 rounded-full">
@@ -125,6 +189,9 @@ create policy "public can write"
           <i class="fas fa-gear"></i>
         </button>
         <button id="btn-disconnect" class="text-xs text-gray-400 hover:text-red-500 px-3 py-1.5 transition">ตัดการเชื่อมต่อ</button>
+        <button id="btn-theme-toggle-nav" onclick="toggleTheme()" title="สลับโหมดกลางวัน/กลางคืน" class="theme-toggle-btn w-9 h-9 flex items-center justify-center text-gray-400 hover:text-brand-600 hover:bg-brand-50 rounded-full transition">
+          <i class="fas fa-moon theme-icon"></i>
+        </button>
       </div>
     </div>
   </nav>
@@ -288,9 +355,16 @@ create policy "public can write"
         </div>
       </div>
 
-      <div>
-        <label class="block text-sm font-medium text-gray-700 mb-1">ลูกค้า</label>
-        <input id="f-client" type="text" class="w-full px-3 py-2 rounded-lg border border-gray-300 focus:border-brand-500 outline-none text-sm">
+      <div class="grid sm:grid-cols-2 gap-4">
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">ลูกค้า</label>
+          <input id="f-client" type="text" class="w-full px-3 py-2 rounded-lg border border-gray-300 focus:border-brand-500 outline-none text-sm">
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">วันที่ทำงาน / วันที่ลงผลงาน</label>
+          <input id="f-posted-date" type="date" class="w-full px-3 py-2 rounded-lg border border-gray-300 focus:border-brand-500 outline-none text-sm">
+          <p class="text-[11px] text-gray-400 mt-1">ถ้าไม่เลือก จะใช้วันที่วันนี้เป็นค่าเริ่มต้น</p>
+        </div>
       </div>
 
       <div>
@@ -345,6 +419,16 @@ create policy "public can write"
           <label class="block text-sm font-medium text-gray-700">รูปภาพหน้างาน (gallery)</label>
           <button type="button" id="btn-add-gallery" class="text-xs text-brand-600 hover:text-brand-800 font-medium"><i class="fas fa-plus mr-1"></i>เพิ่มรูป</button>
         </div>
+
+        <!-- ลากไฟล์ภาพหลายรูปมาวางพร้อมกันได้ (เพิ่มเป็นแถวให้อัตโนมัติต่อท้ายรายการเดิม) -->
+        <label id="gallery-dropzone" for="gallery-bulk-input"
+          class="flex flex-col items-center justify-center gap-1.5 border-2 border-dashed border-brand-200 hover:border-brand-400 hover:bg-brand-50 rounded-xl py-5 mb-3 cursor-pointer transition-colors text-center">
+          <i class="fas fa-cloud-arrow-up text-2xl text-brand-400"></i>
+          <p class="text-sm text-gray-600"><span class="font-medium text-brand-600">ลากรูปมาวางตรงนี้</span> หรือกดเพื่อเลือกได้หลายรูปพร้อมกัน</p>
+          <p class="text-[11px] text-gray-400">รูปจะถูกจัดเรียงเป็น "ภาพงานที่ 1, 2, 3..." ต่อท้ายรายการเดิมให้อัตโนมัติ</p>
+          <input id="gallery-bulk-input" type="file" accept="image/*" multiple class="hidden">
+        </label>
+
         <div id="gallery-list" class="space-y-2"></div>
       </div>
     </div>
@@ -368,7 +452,7 @@ create policy "public can write"
     <div class="w-12 h-12 rounded-full bg-brand-50 text-brand-600 flex items-center justify-center mx-auto mb-4 text-xl">
       <i class="fas fa-shield-halved"></i>
     </div>
-    <h3 class="font-bold text-lg text-brand-900 mb-1">ยืนยันตัวตนก่อนเข้าตั้งค่าแอดมิน</h3>
+    <h3 id="challenge-title" class="font-bold text-lg text-brand-900 mb-1">ยืนยันตัวตนก่อนเข้าตั้งค่าแอดมิน</h3>
     <p class="text-sm text-gray-500 mb-4">พิมพ์รหัสด้านล่างให้ตรงกันภายในเวลาที่กำหนด</p>
 
     <div class="bg-gray-900 text-white text-2xl font-bold tracking-[0.3em] rounded-xl py-4 mb-4 select-none" id="challenge-code-display">--------</div>
@@ -397,7 +481,7 @@ create policy "public can write"
       <h3 class="font-bold text-lg text-brand-900"><i class="fas fa-key text-brand-500 mr-2"></i>เปลี่ยนรหัสผ่านแอดมิน</h3>
       <button type="button" onclick="closeAdminSettingsModal()" class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100 text-gray-400"><i class="fas fa-times"></i></button>
     </div>
-    <p class="text-xs text-gray-400 mb-4">รหัสผ่านนี้ใช้เข้าหน้านี้ผ่านปุ่มลับที่ footer ของหน้าเว็บ (/index.html)</p>
+    <p class="text-xs text-gray-400 mb-4">รหัสผ่านนี้ใช้เข้าหน้านี้ผ่านปุ่มลับที่ footer ของหน้าเว็บ (index.html)</p>
 
     <label class="block text-sm font-medium text-gray-700 mb-1">รหัสผ่านใหม่</label>
     <input id="new-admin-password" type="text" placeholder="ตั้งรหัสผ่านใหม่" class="w-full mb-3 px-3 py-2 rounded-lg border border-gray-300 focus:border-brand-500 outline-none text-sm">
@@ -476,6 +560,7 @@ create policy "public can write"
       localStorage.setItem('sb_key', key);
       document.getElementById('setup-screen').classList.add('hidden');
       document.getElementById('app').classList.remove('hidden');
+      document.getElementById('btn-theme-toggle-floating').classList.add('hidden');
       loadProjects();
       return true;
     } catch (err) {
@@ -501,11 +586,16 @@ create policy "public can write"
     connect(url, key, false);
   });
 
-  document.getElementById('btn-disconnect').addEventListener('click', () => {
-    if (!confirm('ตัดการเชื่อมต่อฐานข้อมูล?')) return;
+  function performDisconnect() {
     localStorage.removeItem('sb_url');
     localStorage.removeItem('sb_key');
     location.reload();
+  }
+
+  document.getElementById('btn-disconnect').addEventListener('click', () => {
+    startAdminChallenge(() => {
+      if (confirm('ตัดการเชื่อมต่อฐานข้อมูล?')) performDisconnect();
+    }, 'ยืนยันตัวตนก่อนตัดการเชื่อมต่อ');
   });
 
   // ---------- Load & render projects ----------
@@ -592,10 +682,14 @@ create policy "public can write"
             : `<div class="w-full h-full flex items-center justify-center text-gray-300"><i class="fas fa-image text-3xl"></i></div>`}
           <span class="absolute top-3 left-3 text-[11px] font-medium px-2.5 py-1 rounded-full ${p.badge_bg || 'bg-brand-50'} ${p.badge_text || 'text-brand-600'}">${escapeHtml(p.category || '')}</span>
           <div class="absolute top-3 right-3 flex flex-col items-end gap-1">${tagBadgesHtml(p.tags)}</div>
+          <span class="absolute bottom-3 right-3 bg-black/60 text-white text-[11px] font-medium px-2 py-1 rounded-full flex items-center gap-1">
+            <i class="fas fa-images text-[10px]"></i> ${(p.gallery || []).length} รูป
+          </span>
         </div>
         <div class="p-4">
           <h3 class="font-bold text-brand-900 truncate">${escapeHtml(p.title || '(ไม่มีชื่อ)')}</h3>
-          <p class="text-xs text-gray-400 mb-3"><i class="fas fa-location-dot mr-1"></i>${escapeHtml(p.location || '-')}</p>
+          <p class="text-xs text-gray-400 mb-1"><i class="fas fa-location-dot mr-1"></i>${escapeHtml(p.location || '-')}</p>
+          <p class="text-xs text-gray-400 mb-3"><i class="fas fa-calendar-days mr-1"></i>${formatThaiDate(p.posted_date)}</p>
           <div class="flex gap-2">
             <button onclick="openEdit('${escapeAttr(p.id)}')" class="flex-1 text-xs font-medium bg-gray-50 hover:bg-brand-50 text-gray-600 hover:text-brand-700 py-2 rounded-lg transition"><i class="fas fa-pen mr-1"></i> แก้ไข</button>
             <button onclick="deleteProject('${escapeAttr(p.id)}')" class="text-xs font-medium bg-gray-50 hover:bg-red-50 text-gray-400 hover:text-red-500 py-2 px-3 rounded-lg transition"><i class="fas fa-trash"></i></button>
@@ -607,6 +701,16 @@ create policy "public can write"
 
   function escapeHtml(s) { return String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
   function escapeAttr(s) { return String(s ?? '').replace(/'/g, "\\'"); }
+
+  // แปลงวันที่ (YYYY-MM-DD) เป็นรูปแบบไทย เช่น "20 ธ.ค. 2568"
+  const THAI_MONTHS_SHORT = ['ม.ค.','ก.พ.','มี.ค.','เม.ย.','พ.ค.','มิ.ย.','ก.ค.','ส.ค.','ก.ย.','ต.ค.','พ.ย.','ธ.ค.'];
+  function formatThaiDate(dateStr) {
+    if (!dateStr) return 'ไม่ระบุวันที่';
+    const d = new Date(dateStr + 'T00:00:00');
+    if (isNaN(d.getTime())) return 'ไม่ระบุวันที่';
+    const buddhistYear = d.getFullYear() + 543;
+    return `${d.getDate()} ${THAI_MONTHS_SHORT[d.getMonth()]} ${buddhistYear}`;
+  }
 
   // ---------- Delete ----------
   async function deleteProject(id) {
@@ -685,10 +789,64 @@ create policy "public can write"
       const url = await uploadImage(file);
       if (url) wrap.querySelector('.gallery-src').value = url;
     });
+    return wrap;
   }
 
   document.getElementById('btn-add-fact').addEventListener('click', () => addFactRow(''));
   document.getElementById('btn-add-gallery').addEventListener('click', () => addGalleryRow('', ''));
+
+  // ---------- ลากไฟล์ภาพหลายรูปมาวางพร้อมกัน (bulk upload) ----------
+  async function addGalleryRowsFromFiles(fileList) {
+    const files = Array.from(fileList || []).filter(f => f.type.startsWith('image/'));
+    if (files.length === 0) return;
+
+    let successCount = 0;
+    for (const file of files) {
+      const wrap = addGalleryRow('', ''); // สร้างแถวพร้อมเลขลำดับอัตโนมัติทันที เรียงต่อจากรายการเดิม
+      const srcInput = wrap.querySelector('.gallery-src');
+      srcInput.disabled = true;
+      srcInput.placeholder = 'กำลังอัปโหลด...';
+      srcInput.classList.add('opacity-50');
+
+      const url = await uploadImage(file);
+
+      srcInput.disabled = false;
+      srcInput.classList.remove('opacity-50');
+      if (url) {
+        srcInput.value = url;
+        successCount++;
+      } else {
+        srcInput.placeholder = 'อัปโหลดไม่สำเร็จ ลองอัปโหลดใหม่ด้วยปุ่มด้านขวา';
+      }
+    }
+    showToast(`อัปโหลดสำเร็จ ${successCount}/${files.length} รูป`, successCount < files.length);
+  }
+
+  document.getElementById('gallery-bulk-input').addEventListener('change', (e) => {
+    addGalleryRowsFromFiles(e.target.files);
+    e.target.value = ''; // เคลียร์ค่าเพื่อให้เลือกไฟล์ชุดเดิมซ้ำได้อีกครั้งถ้าต้องการ
+  });
+
+  const galleryDropzone = document.getElementById('gallery-dropzone');
+  ['dragenter', 'dragover'].forEach(evt => {
+    galleryDropzone.addEventListener(evt, (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      galleryDropzone.classList.add('border-brand-500', 'bg-brand-50');
+    });
+  });
+  ['dragleave', 'drop'].forEach(evt => {
+    galleryDropzone.addEventListener(evt, (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      galleryDropzone.classList.remove('border-brand-500', 'bg-brand-50');
+    });
+  });
+  galleryDropzone.addEventListener('drop', (e) => {
+    if (e.dataTransfer && e.dataTransfer.files) {
+      addGalleryRowsFromFiles(e.dataTransfer.files);
+    }
+  });
 
   // ---------- Live check: รหัสงาน (id) ซ้ำหรือไม่ ----------
   document.getElementById('f-id').addEventListener('input', (e) => {
@@ -784,6 +942,7 @@ create policy "public can write"
     document.getElementById('f-title').value = '';
     document.getElementById('f-location').value = '';
     document.getElementById('f-client').value = '';
+    document.getElementById('f-posted-date').value = new Date().toISOString().slice(0, 10);
     document.getElementById('f-image').value = '';
     document.getElementById('f-image-status').textContent = '';
     document.getElementById('f-image-preview').classList.add('hidden');
@@ -823,6 +982,7 @@ create policy "public can write"
     document.getElementById('f-title').value = p.title || '';
     document.getElementById('f-location').value = p.location || '';
     document.getElementById('f-client').value = p.client || '';
+    document.getElementById('f-posted-date').value = p.posted_date || new Date().toISOString().slice(0, 10);
     document.getElementById('f-image').value = p.image || '';
     updateImagePreview();
 
@@ -882,6 +1042,7 @@ create policy "public can write"
       title: document.getElementById('f-title').value.trim(),
       location: document.getElementById('f-location').value.trim(),
       client: document.getElementById('f-client').value.trim(),
+      posted_date: document.getElementById('f-posted-date').value || new Date().toISOString().slice(0, 10),
       image: document.getElementById('f-image').value.trim(),
       badge_bg: colors.badgeBg,
       badge_text: colors.badgeText,
@@ -1037,9 +1198,10 @@ create policy "public can write"
     showToast('บันทึกการตั้งค่าเว็บไซต์แล้ว');
   });
 
-  // ---------- Admin Settings: ยืนยันตัวตนด้วยรหัสสุ่ม 8 ตัว ก่อนเข้าเปลี่ยนรหัสผ่านแอดมิน ----------
+  // ---------- Security Challenge: ยืนยันตัวตนด้วยรหัสสุ่ม 8 ตัว ก่อนทำสิ่งที่สำคัญ (เปลี่ยนรหัสผ่าน / ตัดการเชื่อมต่อ) ----------
   let challengeCode = '';
   let challengeTimerInterval = null;
+  let challengePendingAction = null; // ฟังก์ชันที่จะเรียกหลังยืนยันรหัสสำเร็จ
   const CHALLENGE_SECONDS = 30;
 
   function generateChallengeCode() {
@@ -1051,7 +1213,9 @@ create policy "public can write"
     return code;
   }
 
-  function startAdminChallenge() {
+  function startAdminChallenge(onSuccess, title) {
+    challengePendingAction = typeof onSuccess === 'function' ? onSuccess : openAdminSettingsModal;
+    document.getElementById('challenge-title').textContent = title || 'ยืนยันตัวตนก่อนเข้าตั้งค่าแอดมิน';
     challengeCode = generateChallengeCode();
     document.getElementById('challenge-code-display').textContent = challengeCode;
     document.getElementById('challenge-input').value = '';
@@ -1078,6 +1242,7 @@ create policy "public can write"
 
   function closeAdminChallenge() {
     clearInterval(challengeTimerInterval);
+    challengePendingAction = null;
     document.getElementById('challenge-modal').classList.add('hidden');
   }
   window.closeAdminChallenge = closeAdminChallenge;
@@ -1087,7 +1252,9 @@ create policy "public can write"
     if (input === challengeCode) {
       clearInterval(challengeTimerInterval);
       document.getElementById('challenge-modal').classList.add('hidden');
-      openAdminSettingsModal();
+      const action = challengePendingAction;
+      challengePendingAction = null;
+      if (action) action();
     } else {
       document.getElementById('challenge-error').classList.remove('hidden');
       document.getElementById('challenge-input').value = '';
@@ -1136,6 +1303,23 @@ create policy "public can write"
     closeAdminSettingsModal();
   }
   window.saveAdminPassword = saveAdminPassword;
+
+  // ---------- โหมดกลางวัน/กลางคืน ----------
+  function updateThemeIcon() {
+    const isDark = document.documentElement.classList.contains('dark');
+    document.querySelectorAll('.theme-icon').forEach(icon => {
+      icon.className = isDark ? 'fas fa-sun theme-icon' : 'fas fa-moon theme-icon';
+    });
+  }
+
+  function toggleTheme() {
+    const isDark = document.documentElement.classList.toggle('dark');
+    localStorage.setItem('backend_theme', isDark ? 'dark' : 'light');
+    updateThemeIcon();
+  }
+  window.toggleTheme = toggleTheme;
+
+  updateThemeIcon(); // ตั้งไอคอนให้ตรงกับโหมดที่จำไว้ตั้งแต่ตอนโหลดหน้า (ตั้ง class ไว้แล้วใน <head>)
 
   initConnection();
 </script>

@@ -194,7 +194,7 @@
                         </p>
                     </div>
 
-                    <a href="about" class="inline-flex items-center gap-1.5 mt-6 text-brand-600 hover:text-brand-800 font-semibold transition-colors group">
+                    <a href="about.html" class="inline-flex items-center gap-1.5 mt-6 text-brand-600 hover:text-brand-800 font-semibold transition-colors group">
                         <span data-i18n="read_more">อ่านเพิ่มเติม</span> <i class="fas fa-arrow-right text-sm transition-transform group-hover:translate-x-1"></i>
                     </a>
                 </div>
@@ -651,9 +651,7 @@
                 </div>
             </div>
             <div class="border-t border-brand-800 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-brand-400 gap-2">
-                <p>&copy; 2026 บริษัท วิเศษวานิช คอนสตรัคชั่น จำกัด. สงวนลิขสิทธิ์.</p>
-                <button type="button" onclick="openAdminBar()" aria-label="" tabindex="-1"
-                    class="w-2 h-2 rounded-full bg-brand-800 hover:bg-brand-600 transition-colors opacity-40 hover:opacity-100"></button>
+                <p><span onclick="openAdminBar()" class="cursor-default select-none">&copy;</span> 2026 บริษัท วิเศษวานิช คอนสตรัคชั่น จำกัด. สงวนลิขสิทธิ์.</p>
             </div>
         </div>
     </footer>
@@ -867,7 +865,7 @@
             }
 
             grid.innerHTML = filtered.map(p => `
-                <a href="project?id=${encodeURIComponent(p.id)}" class="group bg-white rounded-2xl border border-brand-100 overflow-hidden shadow-sm hover:shadow-xl hover:shadow-brand-100 hover:-translate-y-1.5 hover:border-brand-300 transition-all duration-300 block">
+                <a href="project.html?id=${encodeURIComponent(p.id)}" class="group bg-white rounded-2xl border border-brand-100 overflow-hidden shadow-sm hover:shadow-xl hover:shadow-brand-100 hover:-translate-y-1.5 hover:border-brand-300 transition-all duration-300 block">
                     <div class="relative h-36 sm:h-44 overflow-hidden bg-brand-50">
                         <img src="${p.image}"
                              onerror="this.onerror=null; this.src='https://placehold.co/600x400/eeeeee/333333?text=${p.placeholder || 'Project'}'"

@@ -34,6 +34,7 @@ async function loadProjects() {
             gallery: row.gallery || [],
             tags: row.tags || [],
             views: row.views || 0,
+            postedDate: row.posted_date || null,
         }));
     } catch (err) {
         console.error('เชื่อมต่อฐานข้อมูลไม่สำเร็จ:', err);
@@ -47,4 +48,14 @@ function formatViewCount(n) {
     if (n >= 1000000) return (n / 1000000).toFixed(1).replace(/\.0$/, '') + 'M';
     if (n >= 1000) return (n / 1000).toFixed(1).replace(/\.0$/, '') + 'K';
     return String(n);
+}
+
+// แปลงวันที่ (YYYY-MM-DD) เป็นรูปแบบไทย เช่น "20 ธันวาคม 2568"
+const THAI_MONTHS_FULL = ['มกราคม','กุมภาพันธ์','มีนาคม','เมษายน','พฤษภาคม','มิถุนายน','กรกฎาคม','สิงหาคม','กันยายน','ตุลาคม','พฤศจิกายน','ธันวาคม'];
+function formatThaiDateFull(dateStr) {
+    if (!dateStr) return '';
+    const d = new Date(dateStr + 'T00:00:00');
+    if (isNaN(d.getTime())) return '';
+    const buddhistYear = d.getFullYear() + 543;
+    return `${d.getDate()} ${THAI_MONTHS_FULL[d.getMonth()]} ${buddhistYear}`;
 }
