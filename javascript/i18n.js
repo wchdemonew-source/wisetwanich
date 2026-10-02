@@ -18,6 +18,7 @@ const NAV_I18N = {
     nav_home:          { th: "หน้าแรก", en: "Home" },
     nav_history:       { th: "ความเป็นมา", en: "History" },
     nav_about:         { th: "เกี่ยวกับเรา", en: "About Us" },
+    nav_gallery:       { th: "แกลเลอรี", en: "Gallery" },
     nav_portfolio:     { th: "ผลงาน", en: "Portfolio" },
     nav_reviews:       { th: "รีวิว", en: "Reviews" },
     nav_cta:           { th: "ประเมินราคาฟรี", en: "Free Quote" },

@@ -104,6 +104,7 @@
                 <div class="hidden lg:flex space-x-8 items-center">
                     <a href="#history" data-i18n="nav_history" class="text-gray-600 hover:text-brand-600 font-medium transition-colors">ความเป็นมา</a>
                     <a href="#about" data-i18n="nav_about" class="text-gray-600 hover:text-brand-600 font-medium transition-colors">เกี่ยวกับเรา</a>
+                    <a href="gallery.html" data-i18n="nav_gallery" class="text-gray-600 hover:text-brand-600 font-medium transition-colors">แกลเลอรี</a>
                     <a href="#portfolio" data-i18n="nav_portfolio" class="text-gray-600 hover:text-brand-600 font-medium transition-colors">ผลงาน</a>
                     <!-- ปิด "รีวิว" ไว้ก่อนชั่วคราว (เปิดใช้เมื่อพร้อมเปิด section รีวิวอีกครั้ง) -->
                     <button type="button" class="lang-toggle-btn flex items-center gap-1 text-xs font-bold text-white bg-brand-600 hover:bg-brand-700 rounded-full px-3 py-1.5 transition-colors" title="เปลี่ยนภาษา / Switch language">
@@ -131,6 +132,7 @@
             <div class="px-4 pt-2 pb-6 space-y-2">
                 <a href="#history" data-i18n="nav_history" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:text-brand-600 hover:bg-brand-50">ความเป็นมา</a>
                 <a href="#about" data-i18n="nav_about" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:text-brand-600 hover:bg-brand-50">เกี่ยวกับเรา</a>
+                <a href="gallery.html" data-i18n="nav_gallery" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:text-brand-600 hover:bg-brand-50">แกลเลอรี</a>
                 <a href="#portfolio" data-i18n="nav_portfolio" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:text-brand-600 hover:bg-brand-50">ผลงาน</a>
                 <!-- ปิด "รีวิว" ไว้ก่อนชั่วคราว (เปิดใช้เมื่อพร้อมเปิด section รีวิวอีกครั้ง) -->
                 <a href="#contact" data-i18n="nav_cta" class="block px-3 py-3 mt-4 text-center rounded-md text-base font-medium bg-brand-600 text-white hover:bg-brand-700">ประเมินราคาฟรี</a>
@@ -441,21 +443,15 @@
                 <div class="w-20 h-1 bg-brand-500 mx-auto rounded-full mb-6"></div>
             </div>
 
-            <!-- ค้นหา + กรองหมวดหมู่ผลงาน -->
-            <div class="flex flex-col sm:flex-row gap-3 mb-8">
-                <div class="relative flex-1">
-                    <i class="fas fa-search absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i>
-                    <input id="portfolio-search" type="text" placeholder="ค้นหาผลงาน เช่น ชื่อโครงการ, สถานที่, ลูกค้า..."
-                        class="w-full pl-11 pr-4 py-3 rounded-full border border-gray-200 focus:border-brand-400 focus:ring-2 focus:ring-brand-100 outline-none text-sm transition">
-                </div>
-                <select id="portfolio-category-filter"
-                    class="sm:w-56 px-4 py-3 rounded-full border border-gray-200 focus:border-brand-400 focus:ring-2 focus:ring-brand-100 outline-none text-sm bg-white transition">
-                    <option value="">ทุกหมวดหมู่</option>
-                </select>
-            </div>
-
             <!-- Gallery Grid: render อัตโนมัติจากฐานข้อมูล Supabase (เพิ่ม/แก้/ลบผลงานที่ backend.html) -->
+            <!-- แสดงแค่ตัวอย่างบางส่วนในหน้าแรก ดูทั้งหมดได้ที่ portfolio.html -->
             <div id="portfolio-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-5"></div>
+
+            <div class="text-center mt-10">
+                <a href="portfolio.html" class="inline-flex items-center gap-2 bg-white hover:bg-brand-600 text-brand-600 hover:text-white border-2 border-brand-500 px-8 py-3 rounded-full font-semibold transition-all transform hover:-translate-y-0.5 shadow-sm hover:shadow-md">
+                    <span data-i18n="see_all_portfolio">ดูผลงานทั้งหมด</span> <i class="fas fa-arrow-right text-sm"></i>
+                </a>
+            </div>
         </div>
     </section>
 
@@ -782,6 +778,7 @@
             heading_process:   { th: "ขั้นตอนการทำงาน", en: "Our Process" },
             heading_contact:   { th: "ติดต่อวิเศษวานิช", en: "Contact Wiseswanich" },
             read_more:         { th: "อ่านเพิ่มเติม", en: "Read More" },
+            see_all_portfolio: { th: "ดูผลงานทั้งหมด", en: "View All Projects" },
         });
 
         // ============================================
@@ -811,40 +808,14 @@
             }
 
             allPortfolioProjects = await loadProjects();
-            populateCategoryFilter(allPortfolioProjects);
-            applyPortfolioFilter();
-        }
 
-        function populateCategoryFilter(projects) {
-            const select = document.getElementById('portfolio-category-filter');
-            if (!select) return;
-            const current = select.value;
-            const categories = [...new Set(projects.map(p => p.category).filter(Boolean))];
-            select.innerHTML = `<option value="">ทุกหมวดหมู่</option>` +
-                categories.map(c => `<option value="${c}">${c}</option>`).join('');
-            if (categories.includes(current)) select.value = current;
-        }
-
-        function applyPortfolioFilter() {
-            const grid = document.getElementById('portfolio-grid');
-            if (!grid) return;
-
-            const searchTerm = (document.getElementById('portfolio-search')?.value || '').trim().toLowerCase();
-            const category = document.getElementById('portfolio-category-filter')?.value || '';
-
-            let filtered = allPortfolioProjects;
-            if (category) filtered = filtered.filter(p => p.category === category);
-            if (searchTerm) {
-                filtered = filtered.filter(p =>
-                    (p.title || '').toLowerCase().includes(searchTerm) ||
-                    (p.location || '').toLowerCase().includes(searchTerm) ||
-                    (p.client || '').toLowerCase().includes(searchTerm) ||
-                    (p.category || '').toLowerCase().includes(searchTerm)
-                );
+            if (allPortfolioProjects.length === 0) {
+                grid.innerHTML = `<p class="col-span-full text-center text-gray-400 py-10">ยังไม่มีผลงานในระบบ</p>`;
+                return;
             }
 
             // ผลงานที่ติดป้าย "ล่าสุด" จะถูกเลื่อนมาไว้อันดับแรกเสมอ เพื่อดึงดูดความสนใจลูกค้า
-            filtered = filtered
+            const sorted = allPortfolioProjects
                 .map((p, i) => ({ p, i }))
                 .sort((a, b) => {
                     const aLatest = (a.p.tags || []).includes('latest') ? 0 : 1;
@@ -854,17 +825,11 @@
                 })
                 .map(x => x.p);
 
-            if (allPortfolioProjects.length === 0) {
-                grid.innerHTML = `<p class="col-span-full text-center text-gray-400 py-10">ยังไม่มีผลงานในระบบ</p>`;
-                return;
-            }
+            // หน้าแรกโชว์แค่ตัวอย่าง 8 ชิ้นแรก ดูทั้งหมดได้ที่ portfolio.html
+            const PREVIEW_LIMIT = 8;
+            const preview = sorted.slice(0, PREVIEW_LIMIT);
 
-            if (filtered.length === 0) {
-                grid.innerHTML = `<p class="col-span-full text-center text-gray-400 py-10"><i class="fas fa-search mr-2"></i>ไม่พบผลงานที่ตรงกับการค้นหา</p>`;
-                return;
-            }
-
-            grid.innerHTML = filtered.map(p => `
+            grid.innerHTML = preview.map(p => `
                 <a href="project.html?id=${encodeURIComponent(p.id)}" class="group bg-white rounded-2xl border border-brand-100 overflow-hidden shadow-sm hover:shadow-xl hover:shadow-brand-100 hover:-translate-y-1.5 hover:border-brand-300 transition-all duration-300 block">
                     <div class="relative h-36 sm:h-44 overflow-hidden bg-brand-50">
                         <img src="${p.image}"
@@ -890,8 +855,6 @@
         }
 
         renderPortfolioGrid(true);
-        document.getElementById('portfolio-search')?.addEventListener('input', applyPortfolioFilter);
-        document.getElementById('portfolio-category-filter')?.addEventListener('change', applyPortfolioFilter);
 
         // อัปเดตการ์ดผลงานอัตโนมัติทันทีที่มีการเพิ่ม/แก้/ลบผลงานจากหน้า backend.html
         // โดยไม่ต้องกด F5 (ใช้ Supabase Realtime - ต้องเปิดใช้งาน Realtime ของตาราง projects ในแดชบอร์ดก่อน)

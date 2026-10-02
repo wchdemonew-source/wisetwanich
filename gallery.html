@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ความเป็นมาของบริษัท | บริษัท วิเศษวานิช คอนสตรัคชั่น จำกัด</title>
+    <title>แกลเลอรี | บริษัท วิเศษวานิช คอนสตรัคชั่น จำกัด</title>
     <link rel="icon" type="image/png" href="./img/favicon.png">
     <link rel="apple-touch-icon" href="./img/favicon.png">
-    <meta name="description" content="ความเป็นมาของบริษัท วิเศษวานิช คอนสตรัคชั่น จำกัด ผู้เชี่ยวชาญด้านงานรื้อถอนและก่อสร้าง">
+    <meta name="description" content="แกลเลอรีรวมภาพผลงานและกิจกรรมของบริษัท วิเศษวานิช คอนสตรัคชั่น จำกัด">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -58,6 +58,9 @@
         ::-webkit-scrollbar-track { background: #f0fdf4; }
         ::-webkit-scrollbar-thumb { background: #86efac; border-radius: 4px; }
         ::-webkit-scrollbar-thumb:hover { background: #16a34a; }
+        .gallery-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+        @media (min-width: 640px) { .gallery-grid { grid-template-columns: repeat(3, 1fr); } }
+        @media (min-width: 1024px) { .gallery-grid { grid-template-columns: repeat(4, 1fr); } }
     </style>
 </head>
 <body class="font-sans text-gray-800 antialiased bg-white">
@@ -78,7 +81,7 @@
                 <div class="hidden lg:flex space-x-8 items-center">
                     <a href="index.html#history" data-i18n="nav_history" class="text-gray-600 hover:text-brand-600 font-medium transition-colors">ความเป็นมา</a>
                     <a href="index.html#about" data-i18n="nav_about" class="text-gray-600 hover:text-brand-600 font-medium transition-colors">เกี่ยวกับเรา</a>
-                    <a href="gallery.html" data-i18n="nav_gallery" class="text-gray-600 hover:text-brand-600 font-medium transition-colors">แกลเลอรี</a>
+                    <a href="gallery.html" data-i18n="nav_gallery" class="text-brand-600 font-semibold transition-colors">แกลเลอรี</a>
                     <a href="index.html#portfolio" data-i18n="nav_portfolio" class="text-gray-600 hover:text-brand-600 font-medium transition-colors">ผลงาน</a>
                     <!-- ปิด "รีวิว" ไว้ก่อนชั่วคราว (เปิดใช้เมื่อพร้อมเปิด section รีวิวอีกครั้ง) -->
                     <button type="button" class="lang-toggle-btn flex items-center gap-1 text-xs font-bold text-white bg-brand-600 hover:bg-brand-700 rounded-full px-3 py-1.5 transition-colors" title="เปลี่ยนภาษา / Switch language">
@@ -106,7 +109,7 @@
             <div class="px-4 pt-2 pb-6 space-y-2">
                 <a href="index.html#history" data-i18n="nav_history" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:text-brand-600 hover:bg-brand-50">ความเป็นมา</a>
                 <a href="index.html#about" data-i18n="nav_about" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:text-brand-600 hover:bg-brand-50">เกี่ยวกับเรา</a>
-                <a href="gallery.html" data-i18n="nav_gallery" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:text-brand-600 hover:bg-brand-50">แกลเลอรี</a>
+                <a href="gallery.html" data-i18n="nav_gallery" class="block px-3 py-3 rounded-md text-base font-medium text-brand-700 bg-brand-50">แกลเลอรี</a>
                 <a href="index.html#portfolio" data-i18n="nav_portfolio" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:text-brand-600 hover:bg-brand-50">ผลงาน</a>
                 <!-- ปิด "รีวิว" ไว้ก่อนชั่วคราว (เปิดใช้เมื่อพร้อมเปิด section รีวิวอีกครั้ง) -->
                 <a href="index.html#contact" data-i18n="nav_cta" class="block px-3 py-3 mt-4 text-center rounded-md text-base font-medium bg-brand-600 text-white hover:bg-brand-700">ประเมินราคาฟรี</a>
@@ -116,92 +119,67 @@
 
     <!-- Breadcrumb -->
     <div class="pt-28 pb-4 bg-brand-50/60 border-b border-brand-100">
-        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <nav class="text-sm text-gray-500 flex items-center gap-2 flex-wrap">
                 <a href="index.html" data-i18n="nav_home" class="hover:text-brand-600 transition-colors">หน้าแรก</a>
                 <i class="fas fa-chevron-right text-xs text-gray-300"></i>
-                <span data-i18n="nav_history" class="text-gray-800 font-medium">ความเป็นมา</span>
+                <span data-i18n="nav_gallery" class="text-gray-800 font-medium">แกลเลอรี</span>
             </nav>
         </div>
     </div>
 
     <!-- Page Header -->
-    <div class="py-16 sm:py-20 relative overflow-hidden" style="background-color: #f0f4f0;">
+    <div class="py-16 sm:py-20 relative overflow-hidden bg-cover bg-center"
+         style="background-image: linear-gradient(rgba(20, 83, 45, 0.8), rgba(5, 46, 22, 0.92)), url('https://images.unsplash.com/photo-1503387762-592deb58ef4e?q=80&w=2831&auto=format&fit=crop');">
         <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10 fade-in">
-            <h3 class="text-brand-600 font-semibold tracking-wide uppercase mb-2">Our Story</h3>
-            <h2 data-i18n="heading_history" class="text-3xl md:text-5xl font-extrabold text-brand-900 mb-4">ความเป็นมาของบริษัท</h2>
+            <h3 class="text-brand-300 font-semibold tracking-wide uppercase mb-2">Our Gallery</h3>
+            <h2 data-i18n="nav_gallery" class="text-3xl md:text-5xl font-extrabold text-white mb-4">แกลเลอรี</h2>
             <div class="w-20 h-1.5 bg-brand-400 mx-auto rounded-full mb-6"></div>
-            <p class="text-gray-600 text-lg">บริษัท วิเศษวานิช คอนสตรัคชั่น จำกัด</p>
+            <p class="text-brand-100 text-lg">รวมภาพบรรยากาศการทำงาน กิจกรรม และผลงานต่างๆ ของบริษัท</p>
         </div>
     </div>
 
-    <!-- Main Content -->
-    <main class="py-16 sm:py-24 bg-white">
+    <!-- Gallery Grid -->
+    <main class="py-16 sm:py-20 bg-white">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex flex-col lg:flex-row items-center gap-12 lg:gap-20 mb-16">
-                <!-- ฝั่งซ้าย: เนื้อหาความเป็นมาแบบเต็ม -->
-                <div class="w-full lg:w-1/2 fade-in">
-                    <div class="space-y-6 text-gray-700 text-base sm:text-lg leading-relaxed">
-                        <p>
-                            ปัจจุบันธุรกิจรื้อถอน มีการแข่งขันเป็นจำนวนมาก ทั้งนี้บริษัทมีความพร้อมทั้งในด้านบุคลากรที่มีประสบการณ์ทำงานสูง
-                            ทีมวิศวกร เจ้าหน้าที่รักษาความปลอดภัย (จป.) และระบบการบริหารจัดการหน้างาน โดยยึดมั่นหลักการทำงานตามหลักวิศวกรรม
-                            และควบคุมความปลอดภัยตามมาตรฐานระบบเซฟตี้ เราจึงมั่นใจถึงศักยภาพและคุณภาพของผลงานที่จะมอบให้กับลูกค้าของเราต่อไป
-                        </p>
-                        <p>
-                            บริษัทขอเสนอตัวให้เป็นตัวเลือกอีกทางหนึ่งของท่าน และเราหวังเป็นอย่างยิ่งว่า จะมีโอกาสได้รับการพิจารณาในการเรียกใช้บริการจากทางบริษัท
-                            เพื่อสร้างสรรค์ผลงานคุณภาพที่เป็นประโยชน์สูงสุด ต่อองค์กรธุรกิจของท่านต่อไป
-                        </p>
-                        <p>
-                            ตลอดระยะเวลาการดำเนินงาน บริษัทให้ความสำคัญกับบุคลากรเป็นอันดับต้นๆ โดยผลักดันให้พนักงานทุกระดับเข้ารับการฝึกอบรมหลักสูตร
-                            ที่เกี่ยวข้องกับความปลอดภัยและการใช้เครื่องจักรกลอย่างสม่ำเสมอ พร้อมทั้งควบคุมมาตรฐานงานทุกโครงการโดยทีมวิศวกรผู้เชี่ยวชาญ
-                            เพื่อให้มั่นใจได้ว่าลูกค้าทุกท่านจะได้รับงานที่มีคุณภาพ ปลอดภัย และตรงตามกำหนดเวลา
-                        </p>
-                    </div>
 
-                    <a href="index.html#contact" class="inline-flex items-center gap-2 mt-8 bg-brand-600 hover:bg-brand-700 text-white px-7 py-3.5 rounded-full font-semibold transition-all transform hover:-translate-y-0.5 shadow-md">
-                        <i class="fas fa-clipboard-list"></i> ปรึกษาโครงการของคุณกับเรา
-                    </a>
-                </div>
-
-                <!-- ฝั่งขวา: รูปภาพวงกลม -->
-                <div class="w-full lg:w-1/2 relative flex justify-center lg:justify-end fade-in">
-                    <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[120%] h-16 sm:h-20 bg-brand-400 rounded-full z-0 opacity-90 blur-[1px]"></div>
-                    <div class="relative z-10 w-72 h-72 sm:w-80 sm:h-80 lg:w-[420px] lg:h-[420px] rounded-full p-2 bg-brand-600 shadow-xl">
-                        <div class="w-full h-full rounded-full overflow-hidden border-4 border-brand-600 relative">
-                            <img src="img/banner W.png"
-                                 alt="การดำเนินงานก่อสร้างและรื้อถอน"
-                                 class="w-full h-full object-cover">
-                        </div>
-                    </div>
-                </div>
+            <div id="gallery-loading" class="text-center py-20 text-gray-400">
+                <i class="fas fa-spinner fa-spin text-2xl mb-2"></i>
+                <p class="text-sm">กำลังโหลดรูปภาพ...</p>
             </div>
 
-            <!-- แถบเน้นค่านิยมองค์กร -->
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 pt-12 border-t border-brand-100">
-                <div class="text-center fade-in">
-                    <div class="w-14 h-14 rounded-full bg-brand-50 text-brand-600 flex items-center justify-center mx-auto mb-4 text-2xl">
-                        <i class="fas fa-shield-halved"></i>
-                    </div>
-                    <h4 class="font-bold text-gray-900 mb-2">มาตรฐานความปลอดภัย</h4>
-                    <p class="text-gray-500 text-sm leading-relaxed">ควบคุมงานตามหลักวิศวกรรมและระบบเซฟตี้ทุกขั้นตอนหน้างาน</p>
-                </div>
-                <div class="text-center fade-in">
-                    <div class="w-14 h-14 rounded-full bg-brand-50 text-brand-600 flex items-center justify-center mx-auto mb-4 text-2xl">
-                        <i class="fas fa-user-tie"></i>
-                    </div>
-                    <h4 class="font-bold text-gray-900 mb-2">ทีมงานมืออาชีพ</h4>
-                    <p class="text-gray-500 text-sm leading-relaxed">วิศวกรและเจ้าหน้าที่ จป. ที่มีประสบการณ์ทำงานสูง</p>
-                </div>
-                <div class="text-center fade-in">
-                    <div class="w-14 h-14 rounded-full bg-brand-50 text-brand-600 flex items-center justify-center mx-auto mb-4 text-2xl">
-                        <i class="fas fa-graduation-cap"></i>
-                    </div>
-                    <h4 class="font-bold text-gray-900 mb-2">พัฒนาบุคลากรต่อเนื่อง</h4>
-                    <p class="text-gray-500 text-sm leading-relaxed">ผลักดันให้พนักงานเข้ารับการฝึกอบรมหลักสูตรที่เกี่ยวข้องอย่างสม่ำเสมอ</p>
+            <div id="gallery-empty" class="hidden text-center py-20">
+                <i class="fas fa-images text-4xl text-brand-200 mb-4"></i>
+                <p class="text-gray-400">ยังไม่มีรูปภาพในแกลเลอรี</p>
+            </div>
+
+            <div id="gallery-grid" class="gallery-grid"></div>
+        </div>
+    </main>
+
+    <!-- Lightbox Modal -->
+    <div id="gallery-modal" class="fixed inset-0 z-[110] hidden">
+        <div class="absolute inset-0 bg-gray-900/90 backdrop-blur-sm transition-opacity" onclick="closeGalleryModal()"></div>
+        <div class="flex items-center justify-center min-h-screen p-4 sm:p-8 pointer-events-none">
+            <div class="relative max-w-3xl w-full pointer-events-auto">
+                <button type="button" onclick="closeGalleryModal()" aria-label="ปิด" class="absolute -top-12 right-0 w-10 h-10 bg-white/10 hover:bg-white/20 text-white rounded-full flex items-center justify-center transition-colors z-10">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+                <button type="button" id="gallery-modal-prev" onclick="modalGalleryPrev()" aria-label="ย้อนกลับ"
+                    class="absolute left-1 sm:-left-14 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-12 sm:h-12 bg-white/10 hover:bg-white/20 text-white rounded-full flex items-center justify-center transition-colors z-10">
+                    <i class="fas fa-chevron-left text-lg sm:text-xl"></i>
+                </button>
+                <button type="button" id="gallery-modal-next" onclick="modalGalleryNext()" aria-label="ถัดไป"
+                    class="absolute right-1 sm:-right-14 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-12 sm:h-12 bg-white/10 hover:bg-white/20 text-white rounded-full flex items-center justify-center transition-colors z-10">
+                    <i class="fas fa-chevron-right text-lg sm:text-xl"></i>
+                </button>
+                <div class="gallery-modal-content bg-white rounded-2xl overflow-hidden shadow-2xl fade-in">
+                    <img id="gallery-modal-image" src="" alt="" class="w-full max-h-[80vh] object-contain bg-gray-50">
+                    <p id="gallery-modal-caption" class="text-center text-gray-600 text-sm py-3 border-t border-gray-100"></p>
                 </div>
             </div>
         </div>
-    </main>
+    </div>
 
     <footer class="bg-brand-900 text-brand-100 py-12 border-t border-brand-950">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -269,15 +247,13 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="javascript/supabase-config.js"></script>
     <script src="javascript/site-settings-loader.js"></script>
+    <script src="javascript/gallery-loader.js"></script>
     <script src="javascript/i18n.js"></script>
     <script>
         // ============================================
         // ระบบสลับภาษา TH/EN (เฉพาะเมนู + หัวข้อหลักแต่ละ section)
-        // ตัวระบบหลักอยู่ใน i18n.js - ที่นี่กำหนดแค่คำแปลเฉพาะของหน้านี้
         // ============================================
-        initI18n({
-            heading_history: { th: "ความเป็นมาของบริษัท", en: "Company History" },
-        });
+        initI18n({});
 
         // ============================================
         // แสดงลิงก์โซเชียลใน footer จากฐานข้อมูล (แก้ไขได้ที่ backend.html แท็บ "ตั้งค่าเว็บไซต์")
@@ -293,6 +269,98 @@
             if (tt && settings.socialTiktok) tt.href = settings.socialTiktok;
         }
         renderFooterSocialLinks();
+
+        // ============================================
+        // โหลด/แสดงผล คลังรูปภาพจากฐานข้อมูล (เพิ่ม/แก้/ลบทำผ่าน backend.html แท็บ "แกลเลอรี")
+        // ============================================
+        let galleryPhotos = [];
+
+        async function renderGalleryPage() {
+            const grid = document.getElementById('gallery-grid');
+            const loading = document.getElementById('gallery-loading');
+            const empty = document.getElementById('gallery-empty');
+
+            galleryPhotos = await loadGalleryPhotos();
+            loading.classList.add('hidden');
+
+            if (galleryPhotos.length === 0) {
+                empty.classList.remove('hidden');
+                grid.innerHTML = '';
+                return;
+            }
+            empty.classList.add('hidden');
+
+            grid.innerHTML = galleryPhotos.map((photo, idx) => `
+                <div class="gallery-item cursor-pointer group relative overflow-hidden rounded-xl shadow-sm hover:shadow-lg transition-shadow aspect-square bg-gray-100" onclick="openGalleryModal(${idx})">
+                    <img src="${photo.src}" alt="${photo.alt || 'รูปภาพแกลเลอรี'}" loading="lazy"
+                         class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                         onerror="this.closest('.gallery-item').style.display='none'">
+                    <div class="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors flex items-end p-3">
+                        ${photo.alt ? `<p class="text-white text-xs font-medium opacity-0 group-hover:opacity-100 transition-opacity drop-shadow">${photo.alt}</p>` : ''}
+                    </div>
+                </div>
+            `).join('');
+        }
+        renderGalleryPage();
+
+        // อัปเดตแกลเลอรีอัตโนมัติทันทีที่มีการเพิ่ม/แก้/ลบรูปจากหน้า backend.html
+        sbClient
+            .channel('gallery-photos-sync')
+            .on('postgres_changes', { event: '*', schema: 'public', table: 'gallery_photos' }, () => {
+                renderGalleryPage();
+            })
+            .subscribe();
+
+        // ---------- Lightbox: เลื่อนดูรูปถัดไป/ก่อนหน้าได้โดยไม่ต้องปิดโมดัล ----------
+        let modalGalleryIndex = 0;
+
+        function renderGalleryModalImage() {
+            const photo = galleryPhotos[modalGalleryIndex];
+            const img = document.getElementById('gallery-modal-image');
+            const caption = document.getElementById('gallery-modal-caption');
+            img.src = photo.src;
+            img.alt = photo.alt || '';
+            caption.textContent = photo.alt || '';
+
+            const content = document.querySelector('#gallery-modal .gallery-modal-content');
+            content.classList.remove('fade-in');
+            void content.offsetWidth;
+            content.classList.add('fade-in');
+
+            const showNav = galleryPhotos.length > 1;
+            document.getElementById('gallery-modal-prev').classList.toggle('hidden', !showNav);
+            document.getElementById('gallery-modal-next').classList.toggle('hidden', !showNav);
+        }
+
+        function openGalleryModal(index) {
+            modalGalleryIndex = index;
+            document.getElementById('gallery-modal').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+            renderGalleryModalImage();
+        }
+
+        function modalGalleryPrev() {
+            modalGalleryIndex = (modalGalleryIndex - 1 + galleryPhotos.length) % galleryPhotos.length;
+            renderGalleryModalImage();
+        }
+
+        function modalGalleryNext() {
+            modalGalleryIndex = (modalGalleryIndex + 1) % galleryPhotos.length;
+            renderGalleryModalImage();
+        }
+
+        function closeGalleryModal() {
+            document.getElementById('gallery-modal').classList.add('hidden');
+            document.body.style.overflow = '';
+        }
+
+        document.addEventListener('keydown', function (event) {
+            if (event.key === "Escape") closeGalleryModal();
+            if (!document.getElementById('gallery-modal').classList.contains('hidden')) {
+                if (event.key === "ArrowLeft") modalGalleryPrev();
+                if (event.key === "ArrowRight") modalGalleryNext();
+            }
+        });
 
         // Mobile menu toggle
         const menuBtn = document.getElementById('mobile-menu-btn');
